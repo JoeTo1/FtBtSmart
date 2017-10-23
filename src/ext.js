@@ -598,33 +598,33 @@ var IO = {
 	ext.output = {
 		
 		// outgoing state
-		motors:		[new Motor(), new Motor(), new Motor(), new Motor()],
-		outputs:	[new Output(), new Output(), new Output(), new Output(), new Output(), new Output(), new Output(), new Output()],
-		inputs:		[new Input(), new Input(), new Input(), new Input(), new Input(), new Input(), new Input(), new Input()],
+		motors:		[new Motor(), new Motor(), ],
+		outputs:	[new Output(), new Output(), new Output(), new Output()],
+		inputs:		[new Input(), new Input(), new Input(), new Input()],
 		counters:	[new Counter(), new Counter(), new Counter(), new Counter()],
 		
 		// mark the outgoing state as "transmitted"
 		transmitted: function() {
-			for (var i = 0; i < 4; ++i) {this.motors[i].transmitted();}
-			for (var i = 0; i < 8; ++i) {this.outputs[i].transmitted();}
-			for (var i = 0; i < 8; ++i) {this.inputs[i].transmitted();}
+			for (var i = 0; i < 2; ++i) {this.motors[i].transmitted();}
+			for (var i = 0; i < 4; ++i) {this.outputs[i].transmitted();}
+			for (var i = 0; i < 4; ++i) {this.inputs[i].transmitted();}
 			for (var i = 0; i < 4; ++i) {this.counters[i].transmitted();}
 		},
 		
 		needsUpdate: function() {
 			var needsUpdate = false;
-			for (var i = 0; i < 4; ++i) {needsUpdate |= this.motors[i].mod;}
-			for (var i = 0; i < 8; ++i) {needsUpdate |= this.outputs[i].mod;}
-			for (var i = 0; i < 8; ++i) {needsUpdate |= this.inputs[i].mod;}
+			for (var i = 0; i < 2; ++i) {needsUpdate |= this.motors[i].mod;}
+			for (var i = 0; i < 4; ++i) {needsUpdate |= this.outputs[i].mod;}
+			for (var i = 0; i < 4; ++i) {needsUpdate |= this.inputs[i].mod;}
 			for (var i = 0; i < 4; ++i) {needsUpdate |= this.counters[i].mod;}
 			return needsUpdate;
 		},
 		
 		// reset to initial state
 		init: function() {
-			for (var i = 0; i < 4; ++i) {this.motors[i].init();}
-			for (var i = 0; i < 8; ++i) {this.outputs[i].init();}
-			for (var i = 0; i < 8; ++i) {this.inputs[i].init();}
+			for (var i = 0; i < 2; ++i) {this.motors[i].init();}
+			for (var i = 0; i < 4; ++i) {this.outputs[i].init();}
+			for (var i = 0; i < 4; ++i) {this.inputs[i].init();}
 			for (var i = 0; i < 4; ++i) {this.counters[i].init();}
 		},
 		
@@ -646,7 +646,7 @@ var IO = {
 		return inputName[1] - 1;
 	};
 	
-	// convert Motor name to array index: 'M4' -> 3
+	// convert Motor name to array index: 'M2' -> 1
 	ext._motorNameToIdx = function(motorName) {
 		return motorName[1] - 1;
 	};
@@ -1125,16 +1125,16 @@ var IO = {
 			openCloseSensors:	[Lang.getSensor('button'), Lang.getSensor('reed'), Lang.getSensor('lightBarrier')],
 			openClose:			[Lang.getOpenClose('opens'), Lang.getOpenClose('closes')],
 			
-			inputs:				['I1', 'I2', 'I3', 'I4', 'I5', 'I6', 'I7', 'I8'],
+			inputs:				['I1', 'I2', 'I3', 'I4'],
 			//buttonStates:		[getButtonState('pressed'), getButtonState('released')],
 			//lightBarrierStates:	[getLightBarrierState('opens'), getLightBarrierState('closes')],
-			motors:				['M1', 'M2', 'M3', 'M4'],
+			motors:				['M1', 'M2'],
 			motorDirections:	[Lang.getMotorDir('forward'), Lang.getMotorDir('backwards')],
 			
 			
 			counters:			['C1', 'C2', 'C3', 'C4'],
 			
-			outputs:			['O1', 'O2', 'O3', 'O4', 'O5', 'O6', 'O7', 'O8'],
+			outputs:			['O1', 'O2', 'O3', 'O4'],
 			outputValues:		[0, 1, 2, 3, 4, 5, 6, 7, 8],
 			
 			inputModes:			[Lang.getMode('d10v'), Lang.getMode('d5k'), Lang.getMode('a10v'), Lang.getMode('a5k'), Lang.getMode('ultrasonic')],
@@ -1165,7 +1165,7 @@ var IO = {
 	connection.connect();
  
   // Register the extension
-	ScratchExtensions.register('fischertechnik ROBO-TXT', descriptor, ext);
+	ScratchExtensions.register('fischertechnik Bt-Smart', descriptor, ext);
 
 })({});
 
