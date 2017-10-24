@@ -1,1 +1,3 @@
 # FtBtSmart
+<<<<<<< HEAD
+=======
