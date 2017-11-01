@@ -64,8 +64,11 @@ var Lang = {
 			mode_d5k:					'Widerstand digital',
 			mode_a10v:					'Spannung analog',
 			mode_d10v:					'Spannung digital',
-			mode_ultrasonic:			'Ultraschall',
-			
+			mode_d10vg: 'Digital voltage greater',
+			mode_d10vs: 'Digital voltage smaler or equal',
+			mode_a5g: 'Digital resistance greater',
+			mode_d10v: 'Digital resistance smaler or equal',
+			mode_ultrasonic: 'Ultraschall',
 			reset:						'zurücksetzen',
 
 		},
@@ -106,6 +109,10 @@ var Lang = {
 			mode_d5k: 'Digital resistance',
 			mode_a10v: 'Analogue voltage',
 			mode_d10v: 'Digital voltage',
+			mode_d10vg: 'Digital voltage greater',
+			mode_d10vs: 'Digital voltage smaler or equal',
+			mode_a5g: 'Digital resistance greater',
+			mode_d10v: 'Digital resistance smaler or equal',
 			mode_ultrasonic: 'Ultrasound',
 			reset: 'reset'
 		},
@@ -146,7 +153,11 @@ var Lang = {
 			mode_d5k: 'Résistance numérique',
 			mode_a10v: 'Tension analogique',
 			mode_d10v: 'Tension numérique',
-			mode_ultrasonic: 'Ultrason',
+			mode_d10vg: 'Digital voltage greater',
+			mode_d10vs: 'Digital voltage smaler or equal',
+			mode_a5g: 'Digital resistance greater',
+			mode_d10v: 'Digital resistance smaler or equal',
+            mode_ultrasonic: 'Ultrason',
 			reset: 'réinitialiser'
 		},
 		
@@ -185,7 +196,11 @@ var Lang = {
 			mode_d5k: 'resistencia digital',
 			mode_a10v: 'tensión analógica',
 			mode_d10v: 'tensión digital',
-			mode_ultrasonic: 'ultrasonido',
+			mode_d10vg: 'Digital voltage greater',
+			mode_d10vs: 'Digital voltage smaler or equal',
+			mode_a5g: 'Digital resistance greater',
+			mode_d10v: 'Digital resistance smaler or equal',
+            mode_ultrasonic: 'ultrasonido',
 			reset: 'restablecer'
 		},
 		
@@ -224,7 +239,11 @@ var Lang = {
 			mode_d5k: 'weerstand digitaal',
 			mode_a10v: 'spanning analoog',
 			mode_d10v: 'spanning digitaal',
-			mode_ultrasonic: 'ultrasoon',
+			mode_d10vg: 'Digital voltage greater',
+			mode_d10vs: 'Digital voltage smaler or equal',
+			mode_a5g: 'Digital resistance greater',
+			mode_d10v: 'Digital resistance smaler or equal',
+            mode_ultrasonic: 'ultrasoon',
 			reset: 'resetten'
 		},
 		
@@ -263,7 +282,11 @@ var Lang = {
 			mode_d5k: 'Resistência digital',
 			mode_a10v: 'Tensão analógica',
 			mode_d10v: 'Tensão digital',
-			mode_ultrasonic: 'Ultrassons',
+			mode_d10vg: 'Digital voltage greater',
+			mode_d10vs: 'Digital voltage smaler or equal',
+			mode_a5g: 'Digital resistance greater',
+			mode_d10v: 'Digital resistance smaler or equal',
+            mode_ultrasonic: 'Ultrassons',
 			reset: 'repor'
 		},
 		
@@ -303,7 +326,11 @@ var Lang = {
 			mode_d5k: 'התנגדות דיגיטלית',
 			mode_a10v: 'מתח אנלוגי',
 			mode_d10v: 'מתח דיגיטלי',
-			mode_ultrasonic: 'אולטרהסוניק',
+			mode_d10vg: 'Digital voltage greater',
+			mode_d10vs: 'Digital voltage smaler or equal',
+			mode_a5g: 'Digital resistance greater',
+			mode_d10v: 'Digital resistance smaler or equal',
+            mode_ultrasonic: 'אולטרהסוניק',
 			reset: 'איפוס'
 } 
 	*/
@@ -614,8 +641,13 @@ function ScratchConnection(url, ext) {
         if (inputMode === Lang.getMode('d5k')) { return 1; }
         if (inputMode === Lang.getMode('a10v')) { return 2; }
         if (inputMode === Lang.getMode('a5k')) { return 3; }
-        if (inputMode === Lang.getMode('ultrasonic')) { return 4; }
-        //console.log("err");
+        if (inputMode === Lang.getMode('d10vg')) { return 5; }
+        if (inputMode === Lang.getMode('d10vs')) { return 6; }
+        if (inputMode === Lang.getMode('d5kg')) { return 7; }
+        if (inputMode === Lang.getMode('d5ks')) { return 8; }
+
+//        if (inputMode === Lang.getMode('ultrasonic')) { return 4; }
+        console.log("err");
     };
 
 
@@ -683,7 +715,7 @@ function ScratchConnection(url, ext) {
     ext._adjustInputModeAnalog = function (inputName, sensorType) {
         //console.log("configuring " + inputName + " for analog " + sensorType);
         if (sensorType === Lang.getSensor('color')) { ext._setSensorMode(inputName, 2); }		// ANALOG_10V
-        else if (sensorType === Lang.getSensor('distance')) { ext._setSensorMode(inputName, 4); }		// ultrasonic
+//        else if (sensorType === Lang.getSensor('distance')) { ext._setSensorMode(inputName, 4); }		// ultrasonic
         else if (sensorType === Lang.getSensor('ntc')) { ext._setSensorMode(inputName, 3); }		// ANALOG_5K
         else if (sensorType === Lang.getSensor('photo')) { ext._setSensorMode(inputName, 3); }		// ANALOG_5K
         else { alert("unsupported sensor type"); }
@@ -926,6 +958,25 @@ function ScratchConnection(url, ext) {
 
     /** expert config: input -> mode */
     // set the given Input's mode: 0=DIGITAL_10V, 1=DIGITAL_5KOHM, 2=ANALOG_10V, 3=ANALOG_5KOHM, 4=ULTRASONIC
+    //
+    /// <summary> 0x00 unsigned 16Bit(0...65535) </summary>
+    /// <remarks>In this version only valid value for the power input.</remarks>
+    //sU16bit = 0x00,
+    /// <summary> InputEventArgs analogue voltage messurement(result= 0...65535 [mV])</summary>
+    //sAnalogVoltage = 0x0A,
+    /// <summary>  InputEventArgs analogue resistance messurement(result=0...65535 [OHM])</summary> 
+    //sAnalogResistance = 0x0B,
+    /// <summary>InputEventArgs analogue voltage messurement &gt; limit value (result=0 or 1)</summary> 
+   // sDigitalIsGreaterVoltage = 0x0C,
+    /// <summary>InputEventArgs analogue voltage messurement  &lt;= limit value (result=0 or 1)</summary> 
+    //sDigitalIsSmallerOrEqualVoltage = 0x0D,
+    /// <summary> InputEventArgs analogue resistance messurement  &gt; limit value (result=0 or 1)</summary> 
+   // sDigitalIsGreaterResistance = 0x0E,
+    /// <summary> InputEventArgs analogue resistance messurement &lt;= limit value (result=0 or 1)</summary> 
+    //sDigitalIsSmallerOrEqualResistance = 0x0F,
+    /// <summary> InputEventArgs mode is not yet defined</summary> 
+    //sUnknown = 0xFF
+
 
     ext.doConfigureInput = function (inputName, inputMode) {
         var idx = ext._inputModeToIdx(inputMode);
@@ -1107,7 +1158,8 @@ function ScratchConnection(url, ext) {
             outputs: ['O1', 'O2', 'O3', 'O4'],
             outputValues: [0, 1, 2, 3, 4, 5, 6, 7, 8],
 
-            inputModes: [Lang.getMode('d10v'), Lang.getMode('d5k'), Lang.getMode('a10v'), Lang.getMode('a5k'), Lang.getMode('ultrasonic')]
+//            inputModes: [ Lang.getMode('a10v'), Lang.getMode('a5k'), Lang.getMode('ultrasonic')]
+            inputModes: [Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks'), Lang.getMode('a10v'), Lang.getMode('a5k'),Lang.getMode('d10v'), Lang.getMode('d5k')]
 
         },
 
