@@ -1146,13 +1146,12 @@ function ScratchConnection(url, ext) {
 	//		['w', Lang.get('doSetMotorSpeedDirDistSync'),	'doSetMotorSpeedDirDistSync',	'M1', Lang.getMotorDir('forward'), 'M2', Lang.getMotorDir('forward'), 8, 100],
 	//		[' ', Lang.get('doStopMotorAdv'),				'doStopMotorAdv',					'M1'],
 
-            [' ', 'doConnectxx', 'doConnect'],
-			[' ', 'doDisconnectxx', 'doDisconnect'],
-
+    //        [' ', 'doConnectxx', 'doConnect'],
+	//		[' ', 'doDisconnectxx', 'doDisconnect'],
+			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
 			[' ', Lang.get('reset'), 'reset'],
-			[' ', Lang.get('doDisconnect'), 'doDisconnect'],
 			[' ', Lang.get('doConnect'), 'doConnect'],
-			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')]
+			[' ', Lang.get('doDisconnect'), 'doDisconnect']
 
         ],
 
