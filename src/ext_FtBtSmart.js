@@ -70,6 +70,8 @@ var Lang = {
 			mode_d5ks: 'Digital resistance smaller or equal',
 			mode_ultrasonic: 'Ultraschall',
 			reset:						'zurücksetzen',
+			doConnect: 'Connect BT Smart',
+			doDisConnect: 'Disconnect BT Smart',
 
 		},
 		
@@ -114,7 +116,9 @@ var Lang = {
 			mode_d5kg: 'Digital resistance greater',
 			mode_d5ks: 'Digital resistance smaller or equal',
 			mode_ultrasonic: 'Ultrasound',
-			reset: 'reset'
+			reset: 'reset',
+            doConnect:'Connect BT Smart',
+            doDisConnect: 'Disconnect BT Smart',
 		},
 		
 		/*
@@ -382,7 +386,10 @@ function ScratchConnection(url, ext) {
 		return '(' + h + ':' + m + ':' + s + ') ';
 	}
 	
-	this.connect = function() {
+	this.connect = function () {
+	    if (ws !== null) {
+	        alert('Connection is already alife'); return;
+	    }
 		ws = new WebSocket(url);
 		if (ws === null) {
 			alert('Your Browser does not support WebSockets. You need a recent Browser to use CvLFTScratchBt');
@@ -394,7 +401,11 @@ function ScratchConnection(url, ext) {
 	}
 	
 	this.close = function() {
-		ws.close();
+	    ws.close();
+	    ws.onmessage = null;//2017-11-02
+	    ws.onclose = null;//2017-11-02
+	    ws.onopen = null;//2017-11-02
+	    ws = null;//2017-11-02
 	}
 	
 	// websocket connected. this == the websocket
@@ -1088,8 +1099,16 @@ function ScratchConnection(url, ext) {
 
     };
 
+    ext.doConnect = function (){
+        alert('not implemented yet');
+        connection.connect();
+        
+    };
+    ext.doDisConnect = function () {
+        alert('not implemented yet');
+        connection.close();
 
-
+    };
 
 
     // Block and block menu descriptions
@@ -1132,8 +1151,9 @@ function ScratchConnection(url, ext) {
 
 			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
 
-
 			[' ', Lang.get('reset'), 'reset']
+			[' ', Lang.get('connect'), 'doConnect']
+			[' ', Lang.get('disConnect'), 'doDisConnect']
 
         ],
 
@@ -1159,7 +1179,7 @@ function ScratchConnection(url, ext) {
             outputValues: [0, 1, 2, 3, 4, 5, 6, 7, 8],
 
 //            inputModes: [ Lang.getMode('a10v'), Lang.getMode('a5k'), Lang.getMode('ultrasonic')]
-            inputModes: [Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks'), Lang.getMode('a10v'), Lang.getMode('a5k'),Lang.getMode('d10v'), Lang.getMode('d5k')]
+            inputModes: [,Lang.getMode('d10v'), Lang.getMode('d5k'), Lang.getMode('a10v'), Lang.getMode('a5k'),Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')]
 
         },
 
@@ -1185,7 +1205,7 @@ function ScratchConnection(url, ext) {
     // connected to a BT Smart controller
     ext.onConnectBtSmart = function () {
 
-        // ensure the internal state is reset as the TXT's state is also reset!
+        // ensure the internal state is reset as the BT Smart's state is also reset!
         ext.output.init();
 
     };
