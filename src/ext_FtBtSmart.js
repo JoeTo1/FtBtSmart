@@ -1147,10 +1147,10 @@ function ScratchConnection(url, ext) {
 
 
 			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
+			[' ', 'doConnect', 'reset'],
+			[' ', 'doDisconnect', 'doDisconnect'],
 			[' ', Lang.get('doDisconnect'), 'doDisconnect'],
 			[' ', Lang.get('doConnect'), 'doConnect'],
-			[' ', 'doDisconnect', 'doDisconnect'],
-			[' ', 'doConnect', 'reset'],
 			[' ', Lang.get('reset'), 'reset']
         ],
 
