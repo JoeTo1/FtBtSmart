@@ -115,8 +115,8 @@ var Lang = {
 			mode_d5kg: 'Digital resistance greater',
 			mode_d5ks: 'Digital resistance smaller or equal',
 			mode_ultrasonic: 'Ultrasound',
-            doConnect: 'Connect BT Smart',
             doDisconnect: 'Disconnect BT Smart',
+			doConnect: 'Connect BT Smart',
 			reset: 'reset' 
 		},
 		
@@ -1151,8 +1151,8 @@ function ScratchConnection(url, ext) {
 
 			[' ', Lang.get('reset'), 'reset'],
 			[' ', Lang.get('doDisconnect'), 'doDisconnect'],
-			[' ', Lang.get('doConnect'), 'doConnect']
-			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
+			[' ', Lang.get('doConnect'), 'doConnect'],
+			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')]
 
         ],
 
