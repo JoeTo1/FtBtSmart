@@ -115,8 +115,8 @@ var Lang = {
 			mode_d5kg: 'Digital resistance greater',
 			mode_d5ks: 'Digital resistance smaller or equal',
 			mode_ultrasonic: 'Ultrasound',
-            doDisconnect: 'Disconnect BT Smart',
-			doConnect: 'Connect BT Smart',
+            doDisconnect: 'Disconnect from BT Smart',
+			doConnect: 'Connect to BT Smart',
 			reset: 'reset' 
 		},
 		
@@ -1099,12 +1099,12 @@ function ScratchConnection(url, ext) {
     };
     /** doConnect  */
     ext.doConnect = function () {
-        // alert('not implemented yet');
+        // alert('not implemented xyet');
         connection.connect();
     };
     /** doConnect  */
     ext.doDisconnect = function () {
-        // alert('not implemented yet');
+        // alert('not implemented xyet');
         connection.close();
     };
 
