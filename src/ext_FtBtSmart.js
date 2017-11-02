@@ -116,7 +116,7 @@ var Lang = {
 			mode_d5ks: 'Digital resistance smaller or equal',
 			mode_ultrasonic: 'Ultrasound',
             doConnect: 'Connect BT Smart',
-            doDisConnect: 'Disconnect BT Smart',
+            doDisconnect: 'Disconnect BT Smart',
 			reset: 'reset' 
 		},
 		
@@ -343,7 +343,8 @@ var Lang = {
 	// get a translated version for the given constant
 	get: function(what) {
 		var codes = this.trans[this.langCode];		// requested language
-		if (!codes) { codes = this.trans['en']; }	// fallback
+		if (!codes) { codes = this.trans['en']; }	// fallback 1
+		if (!codes) { codes = 'search error'; }	// fallback 2
 		return codes[what];
 	},
 	
@@ -1145,11 +1146,11 @@ function ScratchConnection(url, ext) {
 	//		['w', Lang.get('doSetMotorSpeedDirDistSync'),	'doSetMotorSpeedDirDistSync',	'M1', Lang.getMotorDir('forward'), 'M2', Lang.getMotorDir('forward'), 8, 100],
 	//		[' ', Lang.get('doStopMotorAdv'),				'doStopMotorAdv',					'M1'],
 
-            [' ', 'doConnectx', 'reset'],
-			[' ', 'doDisconnectx', 'doDisconnect'],
+            [' ', 'doConnectxx', 'doConnect'],
+			[' ', 'doDisconnectxx', 'doDisconnect'],
 
 			[' ', Lang.get('reset'), 'reset'],
-			//[' ', Lang.get('doDisconnect'), 'doDisconnect'],
+			[' ', Lang.get('doDisconnect'), 'doDisconnect'],
 			[' ', Lang.get('doConnect'), 'doConnect']
 			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
 
