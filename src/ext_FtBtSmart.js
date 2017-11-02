@@ -115,9 +115,9 @@ var Lang = {
 			mode_d5kg: 'Digital resistance greater',
 			mode_d5ks: 'Digital resistance smaller or equal',
 			mode_ultrasonic: 'Ultrasound',
-			reset: 'reset',
-            doConnect:'Connect BT Smart',
-            doDisConnect: 'Disconnect BT Smart'
+            doConnect: 'Connect BT Smart',
+            doDisConnect: 'Disconnect BT Smart',
+			reset: 'reset' 
 		},
 		
 		/*
@@ -1175,8 +1175,7 @@ function ScratchConnection(url, ext) {
             outputValues: [0, 1, 2, 3, 4, 5, 6, 7, 8],
 
 //            inputModes: [ Lang.getMode('a10v'), Lang.getMode('a5k'), Lang.getMode('ultrasonic')]
-            inputModes: [,Lang.getMode('d10v'), Lang.getMode('d5k'), Lang.getMode('a10v'), Lang.getMode('a5k'),Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')]
-
+            inputModes: [Lang.getMode('d10v'), Lang.getMode('d5k'), Lang.getMode('a10v'), Lang.getMode('a5k'),Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')]
         },
 
         url: 'https://www.fischertechnik.de/en/products/playing/robotics/540586-robotics-bt-smart-beginner-set'
