@@ -657,7 +657,7 @@ function ScratchConnection(url, ext) {
         if (inputMode === Lang.getMode('d5kg')) { return 7; }
         if (inputMode === Lang.getMode('d5ks')) { return 8; }
 
-//        if (inputMode === Lang.getMode('ultrasonic')) { return 4; }
+        //        if (inputMode === Lang.getMode('ultrasonic')) { return 4; }
         console.log("err");
     };
 
@@ -726,7 +726,7 @@ function ScratchConnection(url, ext) {
     ext._adjustInputModeAnalog = function (inputName, sensorType) {
         //console.log("configuring " + inputName + " for analog " + sensorType);
         if (sensorType === Lang.getSensor('color')) { ext._setSensorMode(inputName, 2); }		// ANALOG_10V
-//        else if (sensorType === Lang.getSensor('distance')) { ext._setSensorMode(inputName, 4); }		// ultrasonic
+            //        else if (sensorType === Lang.getSensor('distance')) { ext._setSensorMode(inputName, 4); }		// ultrasonic
         else if (sensorType === Lang.getSensor('ntc')) { ext._setSensorMode(inputName, 3); }		// ANALOG_5K
         else if (sensorType === Lang.getSensor('photo')) { ext._setSensorMode(inputName, 3); }		// ANALOG_5K
         else { alert("unsupported sensor type"); }
@@ -978,11 +978,11 @@ function ScratchConnection(url, ext) {
     /// <summary>  InputEventArgs analogue resistance messurement(result=0...65535 [OHM])</summary> 
     //sAnalogResistance = 0x0B,
     /// <summary>InputEventArgs analogue voltage messurement &gt; limit value (result=0 or 1)</summary> 
-   // sDigitalIsGreaterVoltage = 0x0C,
+    // sDigitalIsGreaterVoltage = 0x0C,
     /// <summary>InputEventArgs analogue voltage messurement  &lt;= limit value (result=0 or 1)</summary> 
     //sDigitalIsSmallerOrEqualVoltage = 0x0D,
     /// <summary> InputEventArgs analogue resistance messurement  &gt; limit value (result=0 or 1)</summary> 
-   // sDigitalIsGreaterResistance = 0x0E,
+    // sDigitalIsGreaterResistance = 0x0E,
     /// <summary> InputEventArgs analogue resistance messurement &lt;= limit value (result=0 or 1)</summary> 
     //sDigitalIsSmallerOrEqualResistance = 0x0F,
     /// <summary> InputEventArgs mode is not yet defined</summary> 
@@ -1098,13 +1098,13 @@ function ScratchConnection(url, ext) {
         }
     };
     /** doConnect  */
-    ext.doConnect = function (){
-        alert('not implemented yet');
+    ext.doConnect = function () {
+        // alert('not implemented yet');
         connection.connect();
     };
     /** doConnect  */
     ext.doDisconnect = function () {
-        alert('not implemented yet');
+        // alert('not implemented yet');
         connection.close();
     };
 
@@ -1176,8 +1176,8 @@ function ScratchConnection(url, ext) {
             outputs: ['O1', 'O2', 'O3', 'O4'],
             outputValues: [0, 1, 2, 3, 4, 5, 6, 7, 8],
 
-//            inputModes: [ Lang.getMode('a10v'), Lang.getMode('a5k'), Lang.getMode('ultrasonic')]
-            inputModes: [Lang.getMode('d10v'), Lang.getMode('d5k'), Lang.getMode('a10v'), Lang.getMode('a5k'),Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')]
+            //            inputModes: [ Lang.getMode('a10v'), Lang.getMode('a5k'), Lang.getMode('ultrasonic')]
+            inputModes: [Lang.getMode('d10v'), Lang.getMode('d5k'), Lang.getMode('a10v'), Lang.getMode('a5k'), Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')]
         },
 
         url: 'https://www.fischertechnik.de/en/products/playing/robotics/540586-robotics-bt-smart-beginner-set'
