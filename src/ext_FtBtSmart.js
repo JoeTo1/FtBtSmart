@@ -71,8 +71,7 @@ var Lang = {
 			mode_ultrasonic: 'Ultraschall',
 			reset:						'zurücksetzen',
 			doConnect: 'Connect BT Smart',
-			doDisconnect: 'Disconnect BT Smart',
-
+			doDisconnect: 'Disconnect BT Smart'
 		},
 		
 		en: {
@@ -118,7 +117,7 @@ var Lang = {
 			mode_ultrasonic: 'Ultrasound',
 			reset: 'reset',
             doConnect:'Connect BT Smart',
-            doDisConnect: 'Disconnect BT Smart',
+            doDisConnect: 'Disconnect BT Smart'
 		},
 		
 		/*
