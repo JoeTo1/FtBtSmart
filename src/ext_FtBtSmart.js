@@ -1095,13 +1095,13 @@ function ScratchConnection(url, ext) {
         } else {
             alert('invalid operator');
         }
-
     };
-
+    /** doConnect  */
     ext.doConnect = function (){
         alert('not implemented yet');
         connection.connect();
     };
+    /** doConnect  */
     ext.doDisconnect = function () {
         alert('not implemented yet');
         connection.close();
@@ -1149,7 +1149,7 @@ function ScratchConnection(url, ext) {
 			[' ', 'doDisconnectx', 'doDisconnect'],
 
 			[' ', Lang.get('reset'), 'reset'],
-			[' ', Lang.get('doDisconnect'), 'doDisconnect'],
+			//[' ', Lang.get('doDisconnect'), 'doDisconnect'],
 			[' ', Lang.get('doConnect'), 'doConnect']
 			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
 
