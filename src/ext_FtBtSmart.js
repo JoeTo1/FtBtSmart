@@ -71,7 +71,7 @@ var Lang = {
 			mode_ultrasonic: 'Ultraschall',
 			reset:						'zurücksetzen',
 			doConnect: 'Connect BT Smart',
-			doDisConnect: 'Disconnect BT Smart',
+			doDisconnect: 'Disconnect BT Smart',
 
 		},
 		
@@ -1102,12 +1102,10 @@ function ScratchConnection(url, ext) {
     ext.doConnect = function (){
         alert('not implemented yet');
         connection.connect();
-        
     };
-    ext.doDisConnect = function () {
+    ext.doDisconnect = function () {
         alert('not implemented yet');
         connection.close();
-
     };
 
 
@@ -1151,9 +1149,9 @@ function ScratchConnection(url, ext) {
 
 			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
 
-			[' ', Lang.get('reset'), 'reset']
-			[' ', Lang.get('connect'), 'doConnect']
-			[' ', Lang.get('disConnect'), 'doDisConnect']
+			[' ', Lang.get('reset'), 'reset'],
+			[' ', Lang.get('doConnect'), 'doConnect'],
+			[' ', Lang.get('doDisconnect'), 'doDisconnect']
 
         ],
 
