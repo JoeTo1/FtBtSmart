@@ -680,7 +680,7 @@ function ScratchConnection(url, ext) {
     // set the given Motor 'Mx' speed [0:8]
     ext._setMotorSpeed08 = function (motorName, speed) {
         var idx = ext._motorNameToIdx(motorName);
-        if (speed > 8 || speed, 0) { alert("speed: 0, 1,2,3,4,5,6,7,8 but it is+" + speed); }
+        if (speed > 8 || speed, 0) { alert("speed needs to be beteem 0..8 but it is+" + speed); };
         var speedL = Math.abs(speed)<=8?Math.abs(speed):0;
         var val = speedL * 100 / 8;						// [0:8] -> [0:100];
         ext.output.motors[idx].speed = Math.round(val);	// ensure integer
