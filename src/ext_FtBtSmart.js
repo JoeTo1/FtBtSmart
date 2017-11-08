@@ -230,6 +230,8 @@ var Lang = {
 			doSetMotorSpeedDirDistSync: 'Verplaats motor %m.motors met %m.motors met behulp van %n %m.motorDirections in %n stappen',
 			doStopMotor: 'Stop motor %m.motors',
 			doConfigureInput: 'Stel ingang %m.inputs in op %m.inputModes',
+			dir_revers: 'revers',
+			dir_non: 'non',
 			dir_forward: 'vooruit',
 			dir_backwards: 'achteruit',
 			sens_color: 'kleurensensor',
@@ -680,7 +682,7 @@ function ScratchConnection(url, ext) {
     // set the given Motor 'Mx' speed [0:8]
     ext._setMotorSpeed08 = function (motorName, speed) {
         var idx = ext._motorNameToIdx(motorName);
-        if (speed > 8 || speed, 0) { alert("speed needs to be beteem 0..8 but it is+" + speed); };
+        if (speed > 8 || speed < 0) { alert("speed needs to be betweem 0..8 but it is+"); return;};
         var speedL = Math.abs(speed)<=8?Math.abs(speed):0;
         var val = speedL * 100 / 8;						// [0:8] -> [0:100];
         ext.output.motors[idx].speed = Math.round(val);	// ensure integer
@@ -1140,7 +1142,7 @@ function ScratchConnection(url, ext) {
             inputs: ['I1', 'I2', 'I3', 'I4'],
             motors: ['M1', 'M2'],
             motorDirections: [Lang.getMotorDir('forward'), Lang.getMotorDir('backwards')],
-            motorDirections2: [Lang.getMotorDir('forward'),'reverse' ,Lang.getMotorDir('backwards')],
+            motorDirections2: [Lang.getMotorDir('forward'), Lang.getMotorDir('revers'), Lang.getMotorDir('backwards')],
             counters: ['C1', 'C2', 'C3', 'C4'],
             outputs: ['O1', 'O2', 'O3', 'O4'],
             outputValues: [0, 1, 2, 3, 4, 5, 6, 7, 8],
