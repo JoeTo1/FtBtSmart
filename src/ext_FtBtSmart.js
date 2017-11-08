@@ -35,7 +35,7 @@ var Lang = {
 			
 			doSetMotorSpeed:			'Setze Motor %m.motors auf %n',
 			doSetMotorSpeedDir:			'Setze Motor %m.motors auf %n %m.motorDirections',
-			doSetMotorDir:				'Setze Motor %m.motors auf %m.motorDirections',
+			doSetMotorDir:				'Setze Motor %m.motors auf %m.motorDirections2',
 			
 			doSetMotorSpeedDirDist:		'Verfahre Motor %m.motors um %n Schritte mit %n %m.motorDirections',
 			doSetMotorSpeedDirSync:		'Verfahre Motor %m.motors %m.motorDirections und %m.motors %m.motorDirections mit %n',
@@ -45,7 +45,8 @@ var Lang = {
 			doStopMotorAdv:				'Stoppe Verfahren %m.motors',
 
 			doConfigureInput:			'Setze Eingang %m.inputs auf %m.inputModes',
-			
+			dir_revers: 'revers',
+			dir_non: 'non',
 			dir_forward:				'vorwärts',
 			dir_backwards:				'rückwärts',
 			
@@ -88,13 +89,15 @@ var Lang = {
 			doResetCounter: 'Reset counter %m.counters',
 			doSetMotorSpeed: 'Set motor %m.motors to %n',
 			doSetMotorSpeedDir: 'Set motor %m.motors to %n %m.motorDirections',
-			doSetMotorDir: 'Set motor %m.motors to %m.motorDirections',
+			doSetMotorDir: 'Set motor %m.motors to %m.motorDirections2',
 			doSetMotorSpeedDirDist: 'Move motor %m.motors by %n steps with %n %m.motorDirections',
 			doSetMotorSpeedDirSync: 'Move motor %m.motors %m.motorDirections and %m.motors %m.motorDirections with %n ',
 			doSetMotorSpeedDirDistSync: 'Move motor %m.motors %m.motorDirections and %m.motors %m.motorDirections with %n by %n steps',
 			doStopMotor: 'Stop motor %m.motors',
 			doStopMotorAdv: 'Stop move %m.motors',
 			doConfigureInput: 'Set input %m.inputs to %m.inputModes',
+			dir_revers: 'revers',
+			dir_non: 'non',
 			dir_forward: 'forward',
 			dir_backwards: 'back',
 			sens_color: 'Colour sensor',
@@ -453,6 +456,7 @@ function ScratchConnection(url, ext) {
 		} else {
 			alert('Could not connect to the BT-Smart-Application. Please ensure CvLFTScratchBt.exe is running and reload the Website');
 		}
+		this.close();//2017-11-02
 		_this.connected = false;
 	};
 	
@@ -643,6 +647,8 @@ function ScratchConnection(url, ext) {
     ext._dirNameToValue = function (dirName) {
         if (dirName === Lang.getMotorDir('forward')) { return +1; }
         if (dirName === Lang.getMotorDir('backwards')) { return -1; }
+        if (dirName === Lang.getMotorDir('revers')) { return 100; }
+        if (dirName === Lang.getMotorDir('non')) { return 0; }
     };
 
     // convert input-mode to value 'd10v' -> 0
@@ -665,7 +671,7 @@ function ScratchConnection(url, ext) {
     // set the given Output 'Ox' to the provided value [0:8];
     ext._setOutput08 = function (outputName, value) {
         var idx = ext._outputNameToIdx(outputName);
-        var val = value * 100 / 8;						// [0:8] -> [0:100];
+        var val = Math.abs(value) * 100 / 8;					// [0:8] -> [0:100];
         ext.output.outputs[idx].val = Math.round(val);	// ensure integer
         ext.output.outputs[idx].modified();
         //alert("set output " + val);
@@ -674,7 +680,9 @@ function ScratchConnection(url, ext) {
     // set the given Motor 'Mx' speed [0:8]
     ext._setMotorSpeed08 = function (motorName, speed) {
         var idx = ext._motorNameToIdx(motorName);
-        var val = speed * 100 / 8;						// [0:8] -> [0:100];
+        if (speed > 8 || speed, 0) { alert("speed: 0, 1,2,3,4,5,6,7,8 but it is+" + speed); }
+        var speedL = Math.abs(speed)<=8?Math.abs(speed):0;
+        var val = speedL * 100 / 8;						// [0:8] -> [0:100];
         ext.output.motors[idx].speed = Math.round(val);	// ensure integer
         ext.output.motors[idx].modified();
     };
@@ -967,27 +975,7 @@ function ScratchConnection(url, ext) {
         ext.updateIfNeeded();
     };
 
-    /** expert config: input -> mode */
-    // set the given Input's mode: 0=DIGITAL_10V, 1=DIGITAL_5KOHM, 2=ANALOG_10V, 3=ANALOG_5KOHM, 4=ULTRASONIC
-    //
-    /// <summary> 0x00 unsigned 16Bit(0...65535) </summary>
-    /// <remarks>In this version only valid value for the power input.</remarks>
-    //sU16bit = 0x00,
-    /// <summary> InputEventArgs analogue voltage messurement(result= 0...65535 [mV])</summary>
-    //sAnalogVoltage = 0x0A,
-    /// <summary>  InputEventArgs analogue resistance messurement(result=0...65535 [OHM])</summary> 
-    //sAnalogResistance = 0x0B,
-    /// <summary>InputEventArgs analogue voltage messurement &gt; limit value (result=0 or 1)</summary> 
-    // sDigitalIsGreaterVoltage = 0x0C,
-    /// <summary>InputEventArgs analogue voltage messurement  &lt;= limit value (result=0 or 1)</summary> 
-    //sDigitalIsSmallerOrEqualVoltage = 0x0D,
-    /// <summary> InputEventArgs analogue resistance messurement  &gt; limit value (result=0 or 1)</summary> 
-    // sDigitalIsGreaterResistance = 0x0E,
-    /// <summary> InputEventArgs analogue resistance messurement &lt;= limit value (result=0 or 1)</summary> 
-    //sDigitalIsSmallerOrEqualResistance = 0x0F,
-    /// <summary> InputEventArgs mode is not yet defined</summary> 
-    //sUnknown = 0xFF
-
+  
 
     ext.doConfigureInput = function (inputName, inputMode) {
         var idx = ext._inputModeToIdx(inputMode);
@@ -1116,7 +1104,7 @@ function ScratchConnection(url, ext) {
 
 			// events
 			['h', Lang.get('onOpenClose'), 'onOpenClose', Lang.getSensor('button'), 'I1', Lang.getOpenClose('opens')],
-			['h', Lang.get('onCounter'), 'onCounter', 'C1', '>', 0],
+//			['h', Lang.get('onCounter'), 'onCounter', 'C1', '>', 0],
 			['h', Lang.get('onInput'), 'onInput', Lang.getSensor('color'), 'I1', '>', 0],
 
 			// gets
@@ -1131,77 +1119,58 @@ function ScratchConnection(url, ext) {
 	//		['w', Lang.get('doPlaySoundWait'),				'doPlaySoundWait',				1],
 
 			[' ', Lang.get('doSetLamp'), 'doSetLamp', 'O1', 0],
-			[' ', Lang.get('doSetOutput'), 'doSetOutput', 'O1', 0],
-	//		[' ', Lang.get('doResetCounter'),				'doResetCounter',				'C1'],
+//			[' ', Lang.get('doSetOutput'), 'doSetOutput', 'O1', 0],
 
 			// simple motor
 			[' ', Lang.get('doSetMotorSpeed'), 'doSetMotorSpeed', 'M1', 8],
 			[' ', Lang.get('doSetMotorSpeedDir'), 'doSetMotorSpeedDir', 'M1', 8, Lang.getMotorDir('forward')],
 			[' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
 			[' ', Lang.get('doStopMotor'), 'doStopMotor', 'M1'],
-
-			// advanced motor
-	//		['w', Lang.get('doSetMotorSpeedDirDist'),		'doSetMotorSpeedDirDist',		'M1', 100, 8, Lang.getMotorDir('forward')],
-	//		[' ', Lang.get('doSetMotorSpeedDirSync'),		'doSetMotorSpeedDirSync',		'M1', Lang.getMotorDir('forward'), 'M2', Lang.getMotorDir('forward'), 8],
-	//		['w', Lang.get('doSetMotorSpeedDirDistSync'),	'doSetMotorSpeedDirDistSync',	'M1', Lang.getMotorDir('forward'), 'M2', Lang.getMotorDir('forward'), 8, 100],
-	//		[' ', Lang.get('doStopMotorAdv'),				'doStopMotorAdv',					'M1'],
-
-    //        [' ', 'doConnectxx', 'doConnect'],
-	//		[' ', 'doDisconnectxx', 'doDisconnect'],
 			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
-
 			[' ', Lang.get('doConnect'), 'doConnect'],
 			[' ', Lang.get('doDisconnect'), 'doDisconnect'],
 			[' ', Lang.get('reset'), 'reset']
         ],
 
         menus: {
-
             compares: ['<', '>'],
-
             inputSensors: [Lang.getSensor('color'), Lang.getSensor('distance'), Lang.getSensor('ntc'), Lang.getSensor('photo')],
-
             openCloseSensors: [Lang.getSensor('button'), Lang.getSensor('reed'), Lang.getSensor('lightBarrier')],
             openClose: [Lang.getOpenClose('opens'), Lang.getOpenClose('closes')],
-
             inputs: ['I1', 'I2', 'I3', 'I4'],
-            //buttonStates:		[getButtonState('pressed'), getButtonState('released')],
-            //lightBarrierStates:	[getLightBarrierState('opens'), getLightBarrierState('closes')],
             motors: ['M1', 'M2'],
             motorDirections: [Lang.getMotorDir('forward'), Lang.getMotorDir('backwards')],
-
-
+            motorDirections2: [Lang.getMotorDir('forward'),'reverse' ,Lang.getMotorDir('backwards')],
             counters: ['C1', 'C2', 'C3', 'C4'],
-
             outputs: ['O1', 'O2', 'O3', 'O4'],
             outputValues: [0, 1, 2, 3, 4, 5, 6, 7, 8],
 
-            //            inputModes: [ Lang.getMode('a10v'), Lang.getMode('a5k'), Lang.getMode('ultrasonic')]
-            inputModes: [Lang.getMode('d10v'), Lang.getMode('d5k'), Lang.getMode('a10v'), Lang.getMode('a5k'), Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')]
+            inputModes: [Lang.getMode('d10v'), Lang.getMode('d5k'), Lang.getMode('a10v'), Lang.getMode('a5k'),
+                         Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')]
         },
 
         url: 'https://www.fischertechnik.de/en/products/playing/robotics/540586-robotics-bt-smart-beginner-set'
 
     };
+    // 0=DIGITAL_10V (same as _Greater=4), 1=DIGITAL_5KOHM (same as _Greater=4),<br/>
+    // 2=ANALOG_10V, 3=ANALOG_5KOHM,<br/>
+    // 4=DIGITAL_10V_Greater ,5=DIGITAL_10V_SmallerOrEqual,<br/>
+    // 6=DIGITAL_5KOHM_Greater, 7=DIGITAL_5KOHM_SmallerOrEqual</param>
 
     // connected to FTScratchTXT.exe
     ext.onConnect = function () {
-
         // ensure the ROBO LT is reset
         ext.reset();
-
     };
 
     // connected to a TXT
     ext.onConnectTXT = function () {
-
         // ensure the internal state is reset as the TXT's state is also reset!
         ext.output.init();
 
     };
     // connected to a BT Smart controller
     ext.onConnectBtSmart = function () {
-
         // ensure the internal state is reset as the BT Smart's state is also reset!
         ext.output.init();
 
