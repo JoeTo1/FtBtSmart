@@ -24,7 +24,8 @@ var Lang = {
 
 			isClosed:					'%m.openCloseSensors %m.inputs geschlossen?',
 			getCounter:					'Lese Wert von Zähler %m.counters',
-			getSensor:					'Lese Wert von %m.inputSensors %m.inputs',
+			getMotorPower: 'Read power of %m.motors',
+			getSensor: 'Lese Wert von %m.inputSensors %m.inputs',
 			
 			doPlaySound:				'Sound %n abspielen',
 			doPlaySoundWait:			'Sound %n abspielen und warten',
@@ -82,6 +83,7 @@ var Lang = {
 			isClosed: 'Is %m.openCloseSensors %m.inputs closed?',
 			getCounter: 'Read value of counter %m.counters',
 			getSensor: 'Read value of %m.inputSensors %m.inputs',
+			getMotorPower: 'Read value of %m.motors',
 			doPlaySound: 'Play sound %n',
 			doPlaySoundWait: 'Play and maintain sound %n',
 			doSetLamp: 'Set lamp %m.outputs to %n',
@@ -529,7 +531,7 @@ function ScratchConnection(url, ext) {
     function Motor() {
         this.mod = false;		// motor was changed?
         this.speed = 0;
-        this.dir = 1;			// -1 (back), 0 (stop), 1 (forward)
+        this.dir = 0;			// -1 (back), 0 (stop), 1 (forward),
         //this.sync = -10;		// -10 = no change, -1 = no-sync, [0-3] = sync with M1-M4
         //this.dist = -10;		// -10 = no change, 0 = no distance limit, >0 = distance limit
         this.modified = function () { this.mod = true; };
@@ -576,7 +578,7 @@ function ScratchConnection(url, ext) {
     }
 
     Motor.prototype.toString = function motorToString() {
-        return "speed: " + this.speed + " dir: " + this.dir + " sync:" + this.syncWith + " dist:" + this.distance;
+        return "speed: " + this.speed + " dir: " + this.dir;// + " sync:" + this.syncWith + " dist:" + this.distance;
     };
 
     // describes the current state
@@ -682,7 +684,7 @@ function ScratchConnection(url, ext) {
     // set the given Motor 'Mx' speed [0:8]
     ext._setMotorSpeed08 = function (motorName, speed) {
         var idx = ext._motorNameToIdx(motorName);
-        if (speed > 8 || speed < 0) { alert("speed needs to be betweem 0..8 but it is+"); return;};
+        if (speed > 8 || speed < 0) { alert("speed needs to be betweem 0..8 but it is+"); };
         var speedL = Math.abs(speed)<=8?Math.abs(speed):0;
         var val = speedL * 100 / 8;						// [0:8] -> [0:100];
         ext.output.motors[idx].speed = Math.round(val);	// ensure integer
@@ -692,9 +694,15 @@ function ScratchConnection(url, ext) {
     // set the given Motor 'Mx' direction
     ext._setMotorDir = function (motorName, dirName) {
         var idx = ext._motorNameToIdx(motorName);
-        var dir = ext._dirNameToValue(dirName);
-        ext.output.motors[idx].dir = dir;
-        ext.output.motors[idx].modified();
+        var dirv = ext._dirNameToValue(dirName);
+        switch(dirv)
+        {
+            case -1: 
+            case 0: 
+            case 1: ext.output.motors[idx].dir = dirv; break;
+            case 100: ext.output.motors[idx].dir = -1 * ext.output.motors[idx].dir; break;
+        }
+         ext.output.motors[idx].modified();
     };
 
     // set the given Motor 'Mx' number of steps
@@ -1013,7 +1021,16 @@ function ScratchConnection(url, ext) {
         return ext.input.curValues.inputs[idx];
 
     };
+    /** get the current power for the given motor connected  */
+    ext.getMotorPower = function (motorName) {
 
+        // ensure correct (analog) working mode
+//        ext._adjustInputModeAnalog(inputName, sensorType);
+        ext.updateIfNeeded();
+        // get value
+        var idx = ext._motorNameToIdx(motorName);
+        return ext.output.motors[idx].speed;
+    };
     /** button/lightBarrier/reed is closed */
     ext.isClosed = function (sensorType, inputName) {
 
@@ -1112,6 +1129,7 @@ function ScratchConnection(url, ext) {
 			// gets
 	//		['r', Lang.get('getCounter'),					'getCounter',					'C1'],
 			['r', Lang.get('getSensor'), 'getSensor', Lang.getSensor('color'), 'I1'],
+			['r', Lang.get('getMotorPower'), 'getMotorPower',  'M1'],
 
 			['b', Lang.get('isClosed'), 'isClosed', Lang.getSensor('button'), 'I1'],
 
