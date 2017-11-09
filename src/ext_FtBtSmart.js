@@ -87,8 +87,8 @@ var Lang = {
 			getSensor: 'Read value of %m.inputSensors %m.inputs',
 
 			getMotorDir: 'Read direction of %m.motors',
-			getMotorSpeed: 'Read speed (-8--0--8) of %m.motors',
-			getMotorPower: 'Read power (0--8) of %m.motors',
+			getMotorSpeed: 'Read speed (-8 .. 0 .. 8) of %m.motors',
+			getMotorPower: 'Read power (0 to 8) of %m.motors',
 
 			doPlaySound: 'Play sound %n',
 			doPlaySoundWait: 'Play and maintain sound %n',
