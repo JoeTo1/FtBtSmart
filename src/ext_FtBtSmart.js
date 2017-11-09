@@ -24,8 +24,10 @@ var Lang = {
 
 			isClosed:					'%m.openCloseSensors %m.inputs geschlossen?',
 			getCounter:					'Lese Wert von Zähler %m.counters',
-			getMotorPower: 'Read power of %m.motors',
 			getSensor: 'Lese Wert von %m.inputSensors %m.inputs',
+			getMotorPower: 'Read power (0--8) of %m.motors',
+			getMotorSpeed: 'Read speed (-8--0--8) of %m.motors',
+			getMotorDir: 'Read direction of %m.motors',
 			
 			doPlaySound:				'Sound %n abspielen',
 			doPlaySoundWait:			'Sound %n abspielen und warten',
@@ -83,7 +85,11 @@ var Lang = {
 			isClosed: 'Is %m.openCloseSensors %m.inputs closed?',
 			getCounter: 'Read value of counter %m.counters',
 			getSensor: 'Read value of %m.inputSensors %m.inputs',
-			getMotorPower: 'Read value of %m.motors',
+
+			getMotorPower: 'Read power (0--8) of %m.motors',
+			getMotorSpeed: 'Read speed (-8--0--8) of %m.motors',
+			getMotorDir: 'Read direction of %m.motors',
+
 			doPlaySound: 'Play sound %n',
 			doPlaySoundWait: 'Play and maintain sound %n',
 			doSetLamp: 'Set lamp %m.outputs to %n',
@@ -1029,7 +1035,7 @@ function ScratchConnection(url, ext) {
         ext.updateIfNeeded();
         // get value
         var idx = ext._motorNameToIdx(motorName);
-        return ext.output.motors[idx].speed/100*8;
+        return ext.output.motors[idx].speed;///100*8;
     };
     /** get the current power for the given motor connected  */
     ext.getMotorSpeed = function (motorName) {
@@ -1151,7 +1157,7 @@ function ScratchConnection(url, ext) {
 			['r', Lang.get('getSensor'), 'getSensor', Lang.getSensor('color'), 'I1'],
 			['r', Lang.get('getMotorPower'), 'getMotorPower',  'M1'],
 			['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
-			['r', Lang.get('getMotorDir'), 'getMotorPower', 'M1'],
+			['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
 
 			['b', Lang.get('isClosed'), 'isClosed', Lang.getSensor('button'), 'I1'],
 
