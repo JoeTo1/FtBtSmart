@@ -1029,8 +1029,28 @@ function ScratchConnection(url, ext) {
         ext.updateIfNeeded();
         // get value
         var idx = ext._motorNameToIdx(motorName);
-        return ext.output.motors[idx].speed;
+        return ext.output.motors[idx].speed/100*8;
     };
+    /** get the current power for the given motor connected  */
+    ext.getMotorSpeed = function (motorName) {
+        // ensure correct (analog) working mode
+        //        ext._adjustInputModeAnalog(inputName, sensorType);
+        ext.updateIfNeeded();
+        // get value
+        var idx = ext._motorNameToIdx(motorName);
+        return ext.output.motors[idx].speed / 100 * 8 * ext.output.motors[idx].dir;
+    };
+    /** get the current power for the given motor connected  */
+    ext.getMotorDir = function (motorName) {
+
+        // ensure correct (analog) working mode
+        //        ext._adjustInputModeAnalog(inputName, sensorType);
+        ext.updateIfNeeded();
+        // get value
+        var idx = ext._motorNameToIdx(motorName);
+        return ext.output.motors[idx].dir;
+    };
+
     /** button/lightBarrier/reed is closed */
     ext.isClosed = function (sensorType, inputName) {
 
@@ -1130,6 +1150,8 @@ function ScratchConnection(url, ext) {
 	//		['r', Lang.get('getCounter'),					'getCounter',					'C1'],
 			['r', Lang.get('getSensor'), 'getSensor', Lang.getSensor('color'), 'I1'],
 			['r', Lang.get('getMotorPower'), 'getMotorPower',  'M1'],
+			['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
+			['r', Lang.get('getMotorDir'), 'getMotorPower', 'M1'],
 
 			['b', Lang.get('isClosed'), 'isClosed', Lang.getSensor('button'), 'I1'],
 
