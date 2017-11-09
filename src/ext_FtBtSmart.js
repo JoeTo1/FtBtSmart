@@ -36,13 +36,13 @@ var Lang = {
 			doSetOutput:				'Setze Ausgang %m.outputs auf %n',
 			doResetCounter:				'Setze Zähler %m.counters zurück',
 			
-			doSetMotorSpeed:			'Setze Motor %m.motors auf %n',
-			doSetMotorSpeedDir:			'Setze Motor %m.motors auf %n %m.motorDirections',
+			doSetMotorPower:			'Setze Motor %m.motors auf %n',
+			doSetMotorPowerDir:			'Setze Motor %m.motors auf %n %m.motorDirections',
 			doSetMotorDir:				'Setze Motor %m.motors auf %m.motorDirections2',
 			
-			doSetMotorSpeedDirDist:		'Verfahre Motor %m.motors um %n Schritte mit %n %m.motorDirections',
-			doSetMotorSpeedDirSync:		'Verfahre Motor %m.motors %m.motorDirections und %m.motors %m.motorDirections mit %n',
-			doSetMotorSpeedDirDistSync:	'Verfahre Motor %m.motors %m.motorDirections und %m.motors %m.motorDirections mit %n für %n Schritte',
+			doSetMotorPowerDirDist:		'Verfahre Motor %m.motors um %n Schritte mit %n %m.motorDirections',
+			doSetMotorPowerDirSync:		'Verfahre Motor %m.motors %m.motorDirections und %m.motors %m.motorDirections mit %n',
+			doSetMotorPowerDirDistSync:	'Verfahre Motor %m.motors %m.motorDirections und %m.motors %m.motorDirections mit %n für %n Schritte',
 			
 			doStopMotor:				'Stoppe Motor %m.motors',
 			doStopMotorAdv:				'Stoppe Verfahren %m.motors',
@@ -88,19 +88,20 @@ var Lang = {
 
 			getMotorDir: 'Read direction of %m.motors',
 			getMotorSpeed: 'Read speed (-8 .. 0 .. 8) of %m.motors',
-			getMotorPower: 'Read power (0 to 8) of %m.motors',
+			getMotorPower: 'Read power (0 .. 8) of %m.motors',
 
 			doPlaySound: 'Play sound %n',
 			doPlaySoundWait: 'Play and maintain sound %n',
 			doSetLamp: 'Set lamp %m.outputs to %n',
 			doSetOutput: 'Set output %m.outputs to %n',
 			doResetCounter: 'Reset counter %m.counters',
-			doSetMotorSpeed: 'Set motor %m.motors to %n',
-			doSetMotorSpeedDir: 'Set motor %m.motors to %n %m.motorDirections',
+			doSetMotorPower: 'Set motor %m.motors to power %n (0 .. 8)',
+			doSetMotorPowerDir: 'Set motor %m.motors to power %n (0 .. 8) and direction %m.motorDirections',
+			doSetMotorSpeed: 'Set motor %m.motors to speed %n (-8 .. 0 .. 8) and direction %m.motorDirections',
 			doSetMotorDir: 'Set motor %m.motors to %m.motorDirections2',
-			doSetMotorSpeedDirDist: 'Move motor %m.motors by %n steps with %n %m.motorDirections',
-			doSetMotorSpeedDirSync: 'Move motor %m.motors %m.motorDirections and %m.motors %m.motorDirections with %n ',
-			doSetMotorSpeedDirDistSync: 'Move motor %m.motors %m.motorDirections and %m.motors %m.motorDirections with %n by %n steps',
+			doSetMotorPowerDirDist: 'Move motor %m.motors by %n steps with %n %m.motorDirections',
+			doSetMotorPowerDirSync: 'Move motor %m.motors %m.motorDirections and %m.motors %m.motorDirections with %n ',
+			doSetMotorPowerDirDistSync: 'Move motor %m.motors %m.motorDirections and %m.motors %m.motorDirections with %n by %n steps',
 			doStopMotor: 'Stop motor %m.motors',
 			doStopMotorAdv: 'Stop move %m.motors',
 			doConfigureInput: 'Set input %m.inputs to %m.inputModes',
@@ -144,12 +145,12 @@ var Lang = {
 			doSetLamp: 'Si lumière %m.outputs mise sur %n',
 			doSetOutput: 'Si sortie %m.outputs mise sur %n',
 			doResetCounter: 'Si compteur %m.counters réinitialisé',
-			doSetMotorSpeed: 'Si moteur %m.motors mis sur %n',
-			doSetMotorSpeedDir: 'Si moteur %m.motors mis sur %n %m.motorDirections',
+			doSetMotorPower: 'Si moteur %m.motors mis sur %n',
+			doSetMotorPowerDir: 'Si moteur %m.motors mis sur %n %m.motorDirections',
 			doSetMotorDir: 'Si moteur %m.motors mis sur %m.motorDirections',
-			doSetMotorSpeedDirDist: 'Si moteur %m.motors ajusté aux étapes %n avec %n %m.motorDirections',
-			doSetMotorSpeedDirSync: 'Si moteur %m.motors ajusté avec %m.motors avec %n %m.motorDirections',
-			doSetMotorSpeedDirDistSync: 'Si moteur %m.motors ajusté avec %m.motors aux étapes %n avec %n %m.motorDirections',
+			doSetMotorPowerDirDist: 'Si moteur %m.motors ajusté aux étapes %n avec %n %m.motorDirections',
+			doSetMotorPowerDirSync: 'Si moteur %m.motors ajusté avec %m.motors avec %n %m.motorDirections',
+			doSetMotorPowerDirDistSync: 'Si moteur %m.motors ajusté avec %m.motors aux étapes %n avec %n %m.motorDirections',
 			doStopMotor: 'Si moteur %m.motors stoppé',
 			doConfigureInput: 'Si entrée %m.inputs mise sur %m.inputModes',
 			dir_forward: 'vers l‘avant',
@@ -187,12 +188,12 @@ var Lang = {
 			doSetLamp: 'Fijar la lámpara %m.outputs a %n',
 			doSetOutput: 'Fijar la salida %m.outputs a %n',
 			doResetCounter: 'Reiniciar el contador %m.counters',
-			doSetMotorSpeed: 'Fijar el motor %m.motors a %n',
-			doSetMotorSpeedDir: 'Fijar el motor %m.motors a %n %m.motorDirections',
+			doSetMotorPower: 'Fijar el motor %m.motors a %n',
+			doSetMotorPowerDir: 'Fijar el motor %m.motors a %n %m.motorDirections',
 			doSetMotorDir: 'Fijar el motor %m.motors a %m.motorDirections',
-			doSetMotorSpeedDirDist: 'Arrancar el motor %m.motors %n pasos con %n %m.motorDirections',
-			doSetMotorSpeedDirSync: 'Arrancar el motor %m.motors con %m.motors con %n %m.motorDirections',
-			doSetMotorSpeedDirDistSync: 'Arrancar el motor %m.motors con %m.motors %n pasos con %n %m.motorDirections',
+			doSetMotorPowerDirDist: 'Arrancar el motor %m.motors %n pasos con %n %m.motorDirections',
+			doSetMotorPowerDirSync: 'Arrancar el motor %m.motors con %m.motors con %n %m.motorDirections',
+			doSetMotorPowerDirDistSync: 'Arrancar el motor %m.motors con %m.motors %n pasos con %n %m.motorDirections',
 			doStopMotor: 'Detener el motor %m.motors',
 			doConfigureInput: 'Fijar la entrada %m.inputs a %m.inputModes',
 			dir_forward: 'adelante',
@@ -230,12 +231,12 @@ var Lang = {
 			doSetLamp: 'Stel lamp %m.outputs in op %n',
 			doSetOutput: 'Stel uitgang %m.outputs in op %n',
 			doResetCounter: 'Reset teller %m.counters',
-			doSetMotorSpeed: 'Stel motor %m.motors in op %n',
-			doSetMotorSpeedDir: 'Stel motor %m.motors in op %n %m.motorDirections',
+			doSetMotorPower: 'Stel motor %m.motors in op %n',
+			doSetMotorPowerDir: 'Stel motor %m.motors in op %n %m.motorDirections',
 			doSetMotorDir: 'Stel motor %m.motors in op %m.motorDirections',
-			doSetMotorSpeedDirDist: 'Verplaats motor %m.motors met behulp van %n %m.motorDirections in %n stappen',
-			doSetMotorSpeedDirSync: 'Verplaats motor %m.motors met %m.motors met behulp van %n %m.motorDirections',
-			doSetMotorSpeedDirDistSync: 'Verplaats motor %m.motors met %m.motors met behulp van %n %m.motorDirections in %n stappen',
+			doSetMotorPowerDirDist: 'Verplaats motor %m.motors met behulp van %n %m.motorDirections in %n stappen',
+			doSetMotorPowerDirSync: 'Verplaats motor %m.motors met %m.motors met behulp van %n %m.motorDirections',
+			doSetMotorPowerDirDistSync: 'Verplaats motor %m.motors met %m.motors met behulp van %n %m.motorDirections in %n stappen',
 			doStopMotor: 'Stop motor %m.motors',
 			doConfigureInput: 'Stel ingang %m.inputs in op %m.inputModes',
 			dir_revers: 'revers',
@@ -275,12 +276,12 @@ var Lang = {
 			doSetLamp: 'A definir lâmpada %m.outputs para %n',
 			doSetOutput: 'A definir saída %m.outputs para %n',
 			doResetCounter: 'A repor contador %m.counters',
-			doSetMotorSpeed: 'A definir motor %m.motors para %n',
-			doSetMotorSpeedDir: 'A definir motor %m.motors para %n %m.motorDirections',
+			doSetMotorPower: 'A definir motor %m.motors para %n',
+			doSetMotorPowerDir: 'A definir motor %m.motors para %n %m.motorDirections',
 			doSetMotorDir: 'A definir motor %m.motors para %m.motorDirections',
-			doSetMotorSpeedDirDist: 'A deslocar motor %m.motors em incrementos de %n com %n %m.motorDirections',
-			doSetMotorSpeedDirSync: 'A deslocar motor %m.motors com %m.motors com %n %m.motorDirections',
-			doSetMotorSpeedDirDistSync: 'A deslocar motor %m.motors com %m.motors em incrementos de %n com %n %m.motorDirections',
+			doSetMotorPowerDirDist: 'A deslocar motor %m.motors em incrementos de %n com %n %m.motorDirections',
+			doSetMotorPowerDirSync: 'A deslocar motor %m.motors com %m.motors com %n %m.motorDirections',
+			doSetMotorPowerDirDistSync: 'A deslocar motor %m.motors com %m.motors em incrementos de %n com %n %m.motorDirections',
 			doStopMotor: 'A parar motor %m.motors',
 			doConfigureInput: 'A definir entrada %m.inputs para %m.inputModes',
 			dir_forward: 'para a frente',
@@ -318,12 +319,12 @@ var Lang = {
 			doSetLamp: 'קבע עוצמת נורה %m.outputs ל %n',
 			doSetOutput: 'הגדר פלט %m.outputs לעוצמה %n',
 			doResetCounter: 'אפס מונה %m.counters',
-			doSetMotorSpeed: 'קבע מהירות מנוע %m.motors ל %n',
-			doSetMotorSpeedDir: 'קבע מהירות מנוע %m.motors ל %n %m.motorDirections',
+			doSetMotorPower: 'קבע מהירות מנוע %m.motors ל %n',
+			doSetMotorPowerDir: 'קבע מהירות מנוע %m.motors ל %n %m.motorDirections',
 			doSetMotorDir: 'קבע כיוון מנוע %m.motors ל %m.motorDirections',
-			doSetMotorSpeedDirDist: 'הזז מנוע %m.motors למרחק %n צעדים במהירות %n %m.motorDirections',
-			doSetMotorSpeedDirSync: 'הזז מנועים %m.motors וגם  %m.motors במהירות %n %m.motorDirections',
-			doSetMotorSpeedDirDistSync: 'הזז מנועים %m.motors וגם %m.motors למרחק %n צעדים במהירות %n %m.motorDirections',
+			doSetMotorPowerDirDist: 'הזז מנוע %m.motors למרחק %n צעדים במהירות %n %m.motorDirections',
+			doSetMotorPowerDirSync: 'הזז מנועים %m.motors וגם  %m.motors במהירות %n %m.motorDirections',
+			doSetMotorPowerDirDistSync: 'הזז מנועים %m.motors וגם %m.motors למרחק %n צעדים במהירות %n %m.motorDirections',
 			doStopMotor: 'עצור מנוע %m.motors',
 			doConfigureInput: 'הגדר סוג קלט %m.inputs ל %m.inputModes',
 			dir_forward: 'קדימה',
@@ -688,7 +689,7 @@ function ScratchConnection(url, ext) {
     };
 
     // set the given Motor 'Mx' speed [0:8]
-    ext._setMotorSpeed08 = function (motorName, speed) {
+    ext._SetMotorPower08 = function (motorName, speed) {
         var idx = ext._motorNameToIdx(motorName);
         if (speed > 8 || speed < 0) { alert("speed needs to be betweem 0..8 but it is+"); };
         var speedL = Math.abs(speed)<=8?Math.abs(speed):0;
@@ -855,8 +856,8 @@ function ScratchConnection(url, ext) {
 
 
     /** adjust the given motor's speed */
-    ext.doSetMotorSpeed = function (motorName, value) {
-        ext._setMotorSpeed08(motorName, value);
+    ext.doSetMotorPower = function (motorName, value) {
+        ext._SetMotorPower08(motorName, value);
         ext.updateIfNeeded();
     };
 
@@ -868,20 +869,20 @@ function ScratchConnection(url, ext) {
 
 
     /** adjust the given motor's speed and direction */
-    ext.doSetMotorSpeedDir = function (motorName, value, dirName) {
+    ext.doSetMotorPowerDir = function (motorName, value, dirName) {
         ext._setMotorDir(motorName, dirName);
-        ext._setMotorSpeed08(motorName, value);
+        ext._SetMotorPower08(motorName, value);
         ext.updateIfNeeded();
     };
 
     /** let the given motor move "steps" steps into the given direction with the provided speed */
-    ext.doSetMotorSpeedDirDist = function (motorName, steps, value, dirName, callback) {
-        throw "Not applicable exception: doSetMotorSpeedDirDist";
+    ext.doSetMotorPowerDirDist = function (motorName, steps, value, dirName, callback) {
+        throw "Not applicable exception: doSetMotorPowerDirDist";
 
         ext._setMotorSyncNone(motorName);				// remove sync
         ext._setMotorDist(motorName, steps);
         ext._setMotorDir(motorName, dirName);
-        ext._setMotorSpeed08(motorName, value);
+        ext._SetMotorPower08(motorName, value);
         ext.updateIfNeeded();
 
         // register a function that will be checked for every input check.
@@ -908,8 +909,8 @@ function ScratchConnection(url, ext) {
 
     /** synchronize the two given motors */
 
-    ext.doSetMotorSpeedDirSync = function (motor1Name, dir1Name, motor2Name, dir2Name, speed) {
-        throw "Not applicable exception: doSetMotorSpeedDirSync";
+    ext.doSetMotorPowerDirSync = function (motor1Name, dir1Name, motor2Name, dir2Name, speed) {
+        throw "Not applicable exception: doSetMotorPowerDirSync";
         if (motor1Name === motor2Name) { return; }
 
         ext._setMotorDist(motor1Name, 0);				// remove distance limits
@@ -917,8 +918,8 @@ function ScratchConnection(url, ext) {
         ext._setMotorSync(motor1Name, motor2Name);		// sync both motors (same speed)
         ext._setMotorDir(motor1Name, dir1Name);
         ext._setMotorDir(motor2Name, dir2Name);
-        ext._setMotorSpeed08(motor1Name, speed);
-        ext._setMotorSpeed08(motor2Name, speed);
+        ext._SetMotorPower08(motor1Name, speed);
+        ext._SetMotorPower08(motor2Name, speed);
         ext.updateIfNeeded();
 
     };
@@ -928,8 +929,8 @@ function ScratchConnection(url, ext) {
  * @param {dir1Name} num2 T.
  * @returns { motor2Name} 
  */
-    ext.doSetMotorSpeedDirDistSync = function (motor1Name, dir1Name, motor2Name, dir2Name, speed, steps, callback) {
-        throw "Not applicable exception: doSetMotorSpeedDirDistSync";
+    ext.doSetMotorPowerDirDistSync = function (motor1Name, dir1Name, motor2Name, dir2Name, speed, steps, callback) {
+        throw "Not applicable exception: doSetMotorPowerDirDistSync";
         if (motor1Name === motor2Name) { callback(); return; }
 
         ext._setMotorSync(motor1Name, motor2Name);
@@ -937,8 +938,8 @@ function ScratchConnection(url, ext) {
         ext._setMotorDist(motor2Name, steps);
         ext._setMotorDir(motor1Name, dir1Name);
         ext._setMotorDir(motor2Name, dir2Name);
-        ext._setMotorSpeed08(motor1Name, speed);
-        ext._setMotorSpeed08(motor2Name, speed);
+        ext._SetMotorPower08(motor1Name, speed);
+        ext._SetMotorPower08(motor2Name, speed);
         ext.updateIfNeeded();
 
         // register a function that will be checked for every input check.
@@ -966,7 +967,7 @@ function ScratchConnection(url, ext) {
 
     /** stop the given motor */
     ext.doStopMotor = function (motorName) {
-        ext._setMotorSpeed08(motorName, 0);		// set speed to 0
+        ext._SetMotorPower08(motorName, 0);		// set speed to 0
         //ext._setMotorDist(motorName, 0);		// remove distance limits
         //ext._setMotorSyncNone(motorName);		// remove sync constraints
         ext.updateIfNeeded();
@@ -976,7 +977,7 @@ function ScratchConnection(url, ext) {
     ext.doStopMotorAdv = function (motorName) {
         throw "Not applicable exception: doStopMotorAdv";
 
-        ext._setMotorSpeed08(motorName, 0);		// set speed to 0
+        ext._SetMotorPower08(motorName, 0);		// set speed to 0
         ext._setMotorDist(motorName, 0);		// remove distance limits
         ext._setMotorSyncNone(motorName);		// remove sync constraints
         ext.updateIfNeeded();
@@ -1009,7 +1010,7 @@ function ScratchConnection(url, ext) {
 
     /** get the given counter's current value */
     ext.getCounter = function (counterName) {
-        throw "Not applicable exception: doSetMotorSpeedDirDistSync";
+        throw "Not applicable exception: doSetMotorPowerDirDistSync";
 
         var idx = ext._counterNameToIdx(counterName);
         return ext.input.curValues.counters[idx];
@@ -1035,12 +1036,11 @@ function ScratchConnection(url, ext) {
         ext.updateIfNeeded();
         // get value
         var idx = ext._motorNameToIdx(motorName);
-        return ext.output.motors[idx].speed;///100*8;
+        return ext.output.motors[idx].speed*100*8;
     };
     /** get the current power for the given motor connected  */
     ext.getMotorSpeed = function (motorName) {
-        // ensure correct (analog) working mode
-        //        ext._adjustInputModeAnalog(inputName, sensorType);
+ 
         ext.updateIfNeeded();
         // get value
         var idx = ext._motorNameToIdx(motorName);
@@ -1048,9 +1048,6 @@ function ScratchConnection(url, ext) {
     };
     /** get the current power for the given motor connected  */
     ext.getMotorDir = function (motorName) {
-
-        // ensure correct (analog) working mode
-        //        ext._adjustInputModeAnalog(inputName, sensorType);
         ext.updateIfNeeded();
         // get value
         var idx = ext._motorNameToIdx(motorName);
@@ -1117,7 +1114,7 @@ function ScratchConnection(url, ext) {
 
     /** counter 'Cx' >,<,= value */
     ext.onCounter = function (counterName, operator, value) {
-        throw "Not applicable exception: doSetMotorSpeedDirDistSync";
+        throw "Not applicable exception: doSetMotorPowerDirDistSync";
 
         var idx = ext._counterNameToIdx(counterName);
         if (operator === '>') {
@@ -1170,8 +1167,8 @@ function ScratchConnection(url, ext) {
 //			[' ', Lang.get('doSetOutput'), 'doSetOutput', 'O1', 0],
 
 			// simple motor
-			[' ', Lang.get('doSetMotorSpeed'), 'doSetMotorSpeed', 'M1', 8],
-			[' ', Lang.get('doSetMotorSpeedDir'), 'doSetMotorSpeedDir', 'M1', 8, Lang.getMotorDir('forward')],
+			[' ', Lang.get('doSetMotorPower'), 'doSetMotorPower', 'M1', 8],
+			[' ', Lang.get('doSetMotorPowerDir'), 'doSetMotorPowerDir', 'M1', 8, Lang.getMotorDir('forward')],
 			[' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
 			[' ', Lang.get('doStopMotor'), 'doStopMotor', 'M1'],
 			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
