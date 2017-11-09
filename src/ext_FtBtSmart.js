@@ -86,9 +86,9 @@ var Lang = {
 			getCounter: 'Read value of counter %m.counters',
 			getSensor: 'Read value of %m.inputSensors %m.inputs',
 
-			getMotorPower: 'Read power (0--8) of %m.motors',
-			getMotorSpeed: 'Read speed (-8--0--8) of %m.motors',
 			getMotorDir: 'Read direction of %m.motors',
+			getMotorSpeed: 'Read speed (-8--0--8) of %m.motors',
+			getMotorPower: 'Read power (0--8) of %m.motors',
 
 			doPlaySound: 'Play sound %n',
 			doPlaySoundWait: 'Play and maintain sound %n',
@@ -1155,9 +1155,9 @@ function ScratchConnection(url, ext) {
 			// gets
 	//		['r', Lang.get('getCounter'),					'getCounter',					'C1'],
 			['r', Lang.get('getSensor'), 'getSensor', Lang.getSensor('color'), 'I1'],
-			['r', Lang.get('getMotorPower'), 'getMotorPower',  'M1'],
-			['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
 			['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
+			['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
+			['r', Lang.get('getMotorPower'), 'getMotorPower',  'M1'],
 
 			['b', Lang.get('isClosed'), 'isClosed', Lang.getSensor('button'), 'I1'],
 
