@@ -583,7 +583,7 @@ function ScratchConnection(url, ext) {
             //console.log(this.mode + ":" + newMode + ":" + changed + " - " + this.mod);
         };
         //2017-11-10 cvl add limt for BT Smart
-        this.limit = -1;//start with undifined
+        this.limit = 0;//start with undifined
         this.setLimit = function (newLimit) {
             var changed = this.limit !== newLimit;
             this.limit = newLimit;
@@ -592,7 +592,7 @@ function ScratchConnection(url, ext) {
         };
 
         this.transmitted = function () { this.mod = false;  };
-        this.init = function () { this.mode = -1; this.limit = -1;};
+        this.init = function () { this.mode = -1; this.limit = 0;};
     }
 
     // describes one counter-configuration
