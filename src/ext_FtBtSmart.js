@@ -47,7 +47,10 @@ var Lang = {
 			doStopMotor:				'Stoppe Motor %m.motors',
 			doStopMotorAdv:				'Stoppe Verfahren %m.motors',
 
-			doConfigureInput:			'Setze Eingang %m.inputs auf %m.inputModes',
+			doConfigureInput: 'Setze Eingang %m.inputs auf %m.inputModes',
+			doConfigureInputA: 'Set input analogue %m.inputs to %m.inputModesA',
+			doConfigureInputD: 'Set input digital %m.inputs to %m.inputModesD with limit %n',
+
 			dir_revers: 'revers',
 			dir_non: 'non',
 			dir_forward:				'vorwärts',
@@ -105,6 +108,8 @@ var Lang = {
 			doStopMotor: 'Stop motor %m.motors',
 			doStopMotorAdv: 'Stop move %m.motors',
 			doConfigureInput: 'Set input %m.inputs to %m.inputModes',
+			doConfigureInputA : 'Set input analogue %m.inputs to %m.inputModesA',
+			doConfigureInputD: 'Set input digital %m.inputs to %m.inputModesD with limit %n',
 			dir_revers: 'revers',
 			dir_non: 'non',
 			dir_forward: 'forward',
@@ -577,8 +582,17 @@ function ScratchConnection(url, ext) {
             if (changed) { this.mod = true; }
             //console.log(this.mode + ":" + newMode + ":" + changed + " - " + this.mod);
         };
-        this.transmitted = function () { this.mod = false; };
-        this.init = function () { this.mode = -1; };
+        //2017-11-10 cvl add limt for BT Smart
+        this.limit = -1;//start with undifined
+        this.setLimit = function (newLimit) {
+            var changed = this.limit !== newLimit;
+            this.limit = newLimit;
+            if (changed) { this.mod = true; }
+            //console.log(this.mode + ":" + newMode + ":" + changed + " - " + this.mod);
+        };
+
+        this.transmitted = function () { this.mod = false;  };
+        this.init = function () { this.mode = -1; this.limit = -1;};
     }
 
     // describes one counter-configuration
@@ -748,12 +762,19 @@ function ScratchConnection(url, ext) {
         ext.output.motors[idx].modified();
     };
 
-    // set the given Input's mode: 0=DIGITAL_10V, 1=DIGITAL_5KOHM, 2=ANALOG_10V, 3=ANALOG_5KOHM, 4=ULTRASONIC
-    ext._setSensorMode = function (inputName, mode) {
+    // set the given Input's mode:  
+    // 0=DIGITAL_10V (same as _Greater=4), 1=DIGITAL_5KOHM (same as _Greater=4),<br/>
+    // 2=ANALOG_10V, 3=ANALOG_5KOHM,<br/>
+    // 5=DIGITAL_10V_Greater ,6=DIGITAL_10V_SmallerOrEqual,<br/>
+    // 7=DIGITAL_5KOHM_Greater, 8=DIGITAL_5KOHM_SmallerOrEqual</param>
+    ext._setSensorMode = function (inputName, mode, limit) {
+        limit = (typeof limit !== 'undefined') ? limit : 1500;
         var idx = ext._inputNameToIdx(inputName);
-        ext.output.inputs[idx].setMode(mode);
+        ext.output.inputs[idx].setMode(mode); ext.output.inputs[idx].setLimit(limit);
         //console.log("set input " + inputName + " to " + mode);
     };
+
+
 
     // set the given input's mode according to the given type
     ext._adjustInputModeAnalog = function (inputName, sensorType) {
@@ -1007,7 +1028,11 @@ function ScratchConnection(url, ext) {
         ext._setSensorMode(inputName, idx);
         ext.updateIfNeeded();
     };
-
+    ext.doConfigureInput = function (inputName, inputMode,inputLimit) {
+        var idx = ext._inputModeToIdx(inputMode);
+        ext._setSensorMode(inputName, idx,inputLimit);
+        ext.updateIfNeeded();
+    };
 
 
 
@@ -1093,6 +1118,8 @@ function ScratchConnection(url, ext) {
             return !(ext.input.oldValues.inputs[idx] < value) && (ext.input.curValues.inputs[idx] < value);
         } else if (operator === '=') {
             return !(ext.input.oldValues.inputs[idx] === value) && (ext.input.curValues.inputs[idx] === value);
+        } else if (operator === '<=') {
+            return !(ext.input.oldValues.inputs[idx] <= value) && (ext.input.curValues.inputs[idx] <= value);
         }
 
     };
@@ -1180,13 +1207,15 @@ function ScratchConnection(url, ext) {
 			[' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
 			[' ', Lang.get('doStopMotor'), 'doStopMotor', 'M1'],
 			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
+			[' ', Lang.get('doConfigureInputA'), 'doConfigureInput', 'I1', Lang.getMode('a10v')],
+			[' ', Lang.get('doConfigureInputD'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
 			[' ', Lang.get('doConnect'), 'doConnect'],
 			[' ', Lang.get('doDisconnect'), 'doDisconnect'],
 			[' ', Lang.get('reset'), 'reset']
         ],
 
         menus: {
-            compares: ['<', '>'],
+            compares: [ '>','<','<='],
             inputSensors: [Lang.getSensor('color'), Lang.getSensor('distance'), Lang.getSensor('ntc'), Lang.getSensor('photo')],
             openCloseSensors: [Lang.getSensor('button'), Lang.getSensor('reed'), Lang.getSensor('lightBarrier')],
             openClose: [Lang.getOpenClose('opens'), Lang.getOpenClose('closes')],
@@ -1199,16 +1228,19 @@ function ScratchConnection(url, ext) {
             outputValues: [0, 1, 2, 3, 4, 5, 6, 7, 8],
 
             inputModes: [Lang.getMode('d10v'), Lang.getMode('d5k'), Lang.getMode('a10v'), Lang.getMode('a5k'),
-                         Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')]
-        },
+                         Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')],
+            inputModesA: [ Lang.getMode('a10v'), Lang.getMode('a5k')],
+            inputModesD: [Lang.getMode('d10v'), Lang.getMode('d5k'),
+                      Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')]
+},
 
         url: 'https://www.fischertechnik.de/en/products/playing/robotics/540586-robotics-bt-smart-beginner-set'
 
     };
     // 0=DIGITAL_10V (same as _Greater=4), 1=DIGITAL_5KOHM (same as _Greater=4),<br/>
     // 2=ANALOG_10V, 3=ANALOG_5KOHM,<br/>
-    // 4=DIGITAL_10V_Greater ,5=DIGITAL_10V_SmallerOrEqual,<br/>
-    // 6=DIGITAL_5KOHM_Greater, 7=DIGITAL_5KOHM_SmallerOrEqual</param>
+    // 5=DIGITAL_10V_Greater ,6=DIGITAL_10V_SmallerOrEqual,<br/>
+    // 7=DIGITAL_5KOHM_Greater, 8=DIGITAL_5KOHM_SmallerOrEqual</param>
 
     // connected to FTScratchTXT.exe
     ext.onConnect = function () {
