@@ -435,7 +435,15 @@ function ScratchConnection(url, ext) {
 		var messageData = message.data.substring(4);
 		var data = (messageData) ? (JSON.parse(messageData)) : null;
 				
-		if (messageType === "SENS") {
+		if (messageType === "SEVT") {
+		    //{"inputId":0,"inputValueNew":1}
+		    ext.input.oldValues = ext.input.curValues;
+		    var index = data.inputId;
+		    var value = data.inputValueNew;
+		    ext.input.curValues.inputs[index] = value;
+		    ext.onNewInputs();
+
+		} else if (messageType === "SENS") {
 			ext.input.oldValues = ext.input.curValues;
 			ext.input.curValues = data;
 			ext.onNewInputs();
@@ -665,13 +673,13 @@ function ScratchConnection(url, ext) {
     // convert input-mode to value 'd10v' -> 0
     ext._inputModeToIdx = function (inputMode) {
         //console.log(inputMode);
-        if (inputMode === Lang.getMode('d10v')) { return 0; }
-        if (inputMode === Lang.getMode('d5k')) { return 1; }
-        if (inputMode === Lang.getMode('a10v')) { return 2; }
-        if (inputMode === Lang.getMode('a5k')) { return 3; }
-        if (inputMode === Lang.getMode('d10vg')) { return 5; }
-        if (inputMode === Lang.getMode('d10vs')) { return 6; }
-        if (inputMode === Lang.getMode('d5kg')) { return 7; }
+        if (inputMode === Lang.getMode('d10v')) { return 0; } else
+            if (inputMode === Lang.getMode('d5k')) { return 1; } else
+                if (inputMode === Lang.getMode('a10v')) { return 2; } else
+                    if (inputMode === Lang.getMode('a5k')) { return 3; } else
+                        if (inputMode === Lang.getMode('d10vg')) { return 5; } else
+                            if (inputMode === Lang.getMode('d10vs')) { return 6; } else
+                                if (inputMode === Lang.getMode('d5kg')) { return 7; } else
         if (inputMode === Lang.getMode('d5ks')) { return 8; }
 
         //        if (inputMode === Lang.getMode('ultrasonic')) { return 4; }
@@ -806,7 +814,7 @@ function ScratchConnection(url, ext) {
             var res = func();
             if (res) {
                 //console.log("remove");
-                ext.waitForMotor.splice(idx, 1);
+                ext.waitForMotor.splice(idx, 1);// remove 1 item at 2-index position 
             }
         }
     };
@@ -958,9 +966,9 @@ function ScratchConnection(url, ext) {
         };
 
         window.setTimeout(
-			function () { ext.waitForMotor.push(check); },
+			function () { ext.waitForMotor.push(check); },//the push() method adds a new element to an array (at the end):
 			200
-		);
+		);//calls a function or evaluates an expression after a specified number of milliseconds
 
     };
 
@@ -1036,7 +1044,7 @@ function ScratchConnection(url, ext) {
         ext.updateIfNeeded();
         // get value
         var idx = ext._motorNameToIdx(motorName);
-        return ext.output.motors[idx].speed*100*8;
+        return ext.output.motors[idx].speed/100*8;
     };
     /** get the current power for the given motor connected  */
     ext.getMotorSpeed = function (motorName) {
