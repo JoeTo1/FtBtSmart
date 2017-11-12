@@ -1226,7 +1226,7 @@ function ScratchConnection(url, ext) {
 			// events
 			['h', Lang.get('onOpenClose'), 'onOpenClose', Lang.getSensor('button'), 'I1', Lang.getOpenClose('opens')],
 //			['h', Lang.get('onCounter'), 'onCounter', 'C1', '>', 0],
-			['h', Lang.get('onInput'), 'onInput', Lang.getSensor('color'), 'I1', '>', 0],
+			['h', Lang.get('onInputX'), 'onInput', Lang.getSensor('color'), 'I1', '>', 0],
 			['h', Lang.get('onRisingEdge'), 'onRisingEdge', 'I1'],
 			['h', Lang.get('onFallingEdge'), 'onFallingEdge', 'I1'],
 
