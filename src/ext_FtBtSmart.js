@@ -87,8 +87,8 @@ var Lang = {
 			onOpenClose: 'If %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'If counter %m.counters %m.compares %n',
 			onInput: 'If xx value of %m.inputSensors %m.inputs %m.compares %n',
-			onRisingEdge:'If value of %m.inputs',
-		    onFallingEdge:'If value of %m.inputs',
+			onRisingEdge:'If value of %m.inputs rising (binary mode, 0 to 1) ',
+			onFallingEdge: 'If value of %m.inputs falling (binary mode 1 to 0)',
 			isClosed: 'Is %m.openCloseSensors %m.inputs closed?',
 			getCounter: 'Read value of counter %m.counters',
 			getSensor: 'Read value of %m.inputSensors %m.inputs',
@@ -1144,25 +1144,19 @@ function ScratchConnection(url, ext) {
 
         ext._adjustInputModeDigital(inputName);
         ext.updateIfNeeded();
-    //    if (!(sensor in inputModesD) ){alert('Can only be used with binary sensor modes'); throw exception}
-        // check both directions
         var idx = ext._inputNameToIdx(inputName);
         var modeIdx = ext.output.inputs[idx].mode;
         var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesD;
         if (! dig.includes(mode)) { alert('Can only be used with binary sensor modes'); return false; }
 
-            return ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;	// TODO light barrier?//ext.input.oldValues.inputs bestaan niet
-       //  else {            alert('invalid open/close mode'); return false;  }
+            return ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;	
     };
     /** On Faling Edge of an Input in the binary mode */
     ext.onFallingEdge = function (sensorType) {
 
-        ext._adjustInputModeDigital(inputName, sensorType);
+        ext._adjustInputModeDigital(inputName);
         ext.updateIfNeeded();
-
-        // check both directions
-        var idx = ext._inputNameToIdx(inputName);
         var idx = ext._inputNameToIdx(inputName);
         var modeIdx = ext.output.inputs[idx].mode;
         var mode = descriptor.menus.inputModes[modeIdx];
