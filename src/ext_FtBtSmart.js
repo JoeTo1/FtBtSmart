@@ -449,7 +449,7 @@ function ScratchConnection(url, ext) {
 		    var value = data.inputValueNew;
 		    ext.input.oldValues.inputs[index] = ext.input.curValues.inputs[index];
 		    ext.input.curValues.inputs[index] = value;
-		    console.log("SEVT index= "+index+" old :" + ext.input.oldValues.inputs[idx] + "  new : " + ext.input.curValues.inputs[idx]);
+		  //  console.log("SEVT index= " + index + " old :" + ext.input.oldValues.inputs[index] + "  new : " + ext.input.curValues.inputs[index]);
 
 		    ext.onNewInputs();
 
