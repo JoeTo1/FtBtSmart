@@ -85,6 +85,8 @@ var Lang = {
 			onOpenClose: 'If %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'If counter %m.counters %m.compares %n',
 			onInput: 'If value of %m.inputSensors %m.inputs %m.compares %n',
+			onRisingEdge:'If value of %m.inputSensors ',
+		    onFallingEdge:'If value of %m.inputSensors',
 			isClosed: 'Is %m.openCloseSensors %m.inputs closed?',
 			getCounter: 'Read value of counter %m.counters',
 			getSensor: 'Read value of %m.inputSensors %m.inputs',
@@ -386,9 +388,7 @@ var Lang = {
 };
 
 function ScratchConnection(url, ext) {
-		
 	var ws = null;
-	
 	// for access within methods
 	var _this = this;
 	var connected = false;
@@ -411,7 +411,8 @@ function ScratchConnection(url, ext) {
 	    }
 		ws = new WebSocket(url);
 		if (ws === null) {
-			alert('Your Browser does not support WebSockets. You need a recent Browser to use CvLFTScratchBt');
+		    alert('Your Browser does not support WebSockets. You need a recent Browser to use CvLFTScratchBt');
+		    _this.connected = false;
 			return;
 		}
 		ws.onmessage = handleMessage;
@@ -442,9 +443,9 @@ function ScratchConnection(url, ext) {
 				
 		if (messageType === "SEVT") {
 		    //{"inputId":0,"inputValueNew":1}
-		    ext.input.oldValues = ext.input.curValues;
 		    var index = data.inputId;
 		    var value = data.inputValueNew;
+		    ext.input.oldValues.inputs[index] = ext.input.curValues.inputs[index];
 		    ext.input.curValues.inputs[index] = value;
 		    ext.onNewInputs();
 
@@ -520,6 +521,8 @@ function ScratchConnection(url, ext) {
     // Cleanup function when the extension is unloaded
     ext._shutdown = function () {
         connection.close();
+        //stop motors
+        //reset inputs
     };
 
     // react to ScratchX stop button/event
@@ -543,6 +546,7 @@ function ScratchConnection(url, ext) {
     ext.reset = function () {
         connection.reset();
         ext.output.init();
+        ext.input.init();
     };
 
 
@@ -559,7 +563,7 @@ function ScratchConnection(url, ext) {
             this.mod = false;//this.sync = -10; this.dist = -10;
         };
         this.init = function () {
-            this.speed = 0; this.dir = 1; //this.sync = -10; this.dist = -10;
+            this.speed = 0; this.dir = 0; this.modified(); //this.sync = -10; this.dist = -10;
         };
     }
 
@@ -592,7 +596,7 @@ function ScratchConnection(url, ext) {
         };
 
         this.transmitted = function () { this.mod = false;  };
-        this.init = function () { this.mode = -1; this.limit = 0;};
+        this.init = function () { this.setMode(0); this.setLimit( 1500);};
     }
 
     // describes one counter-configuration
@@ -653,7 +657,15 @@ function ScratchConnection(url, ext) {
     // received state
     ext.input = {
         curValues: {},
-        oldValues: {}
+        oldValues: {},
+        init: function () {
+            this.curValues.inputs = [0, 0, 0, 0];
+            this.oldValues.inputs = [0, 0, 0, 0];
+        },
+        reset:function(index)
+        {
+            this.curValues[ind] = 0; this.oldValues = 0;
+        }
     };
 
     // convert Output name to array index: '04' -> 3
@@ -686,7 +698,7 @@ function ScratchConnection(url, ext) {
 
     // convert input-mode to value 'd10v' -> 0
     ext._inputModeToIdx = function (inputMode) {
-        //console.log(inputMode);
+ 
         if (inputMode === Lang.getMode('d10v')) { return 0; } else
             if (inputMode === Lang.getMode('d5k')) { return 1; } else
                 if (inputMode === Lang.getMode('a10v')) { return 2; } else
@@ -694,7 +706,7 @@ function ScratchConnection(url, ext) {
                         if (inputMode === Lang.getMode('d10vg')) { return 5; } else
                             if (inputMode === Lang.getMode('d10vs')) { return 6; } else
                                 if (inputMode === Lang.getMode('d5kg')) { return 7; } else
-        if (inputMode === Lang.getMode('d5ks')) { return 8; }
+                                   if (inputMode === Lang.getMode('d5ks')) { return 8; }
 
         //        if (inputMode === Lang.getMode('ultrasonic')) { return 4; }
         console.log("err");
@@ -763,7 +775,8 @@ function ScratchConnection(url, ext) {
     };
 
     // set the given Input's mode:  
-    // 0=DIGITAL_10V (same as _Greater=4), 1=DIGITAL_5KOHM (same as _Greater=4),<br/>
+    // 0=DIGITAL_10V (same as _Greater=5),
+    //1=DIGITAL_5KOHM (same as _Greater=7),<br/>
     // 2=ANALOG_10V, 3=ANALOG_5KOHM,<br/>
     // 5=DIGITAL_10V_Greater ,6=DIGITAL_10V_SmallerOrEqual,<br/>
     // 7=DIGITAL_5KOHM_Greater, 8=DIGITAL_5KOHM_SmallerOrEqual</param>
@@ -779,20 +792,20 @@ function ScratchConnection(url, ext) {
     // set the given input's mode according to the given type
     ext._adjustInputModeAnalog = function (inputName, sensorType) {
         //console.log("configuring " + inputName + " for analog " + sensorType);
-        if (sensorType === Lang.getSensor('color')) { ext._setSensorMode(inputName, 2); }		// ANALOG_10V
-            //        else if (sensorType === Lang.getSensor('distance')) { ext._setSensorMode(inputName, 4); }		// ultrasonic
-        else if (sensorType === Lang.getSensor('ntc')) { ext._setSensorMode(inputName, 3); }		// ANALOG_5K
-        else if (sensorType === Lang.getSensor('photo')) { ext._setSensorMode(inputName, 3); }		// ANALOG_5K
-        else { alert("unsupported sensor type"); }
+        //if (sensorType === Lang.getSensor('color')) { ext._setSensorMode(inputName, 2); }		// ANALOG_10V
+        //    //        else if (sensorType === Lang.getSensor('distance')) { ext._setSensorMode(inputName, 4); }		// ultrasonic
+        //else if (sensorType === Lang.getSensor('ntc')) { ext._setSensorMode(inputName, 3); }		// ANALOG_5K
+        //else if (sensorType === Lang.getSensor('photo')) { ext._setSensorMode(inputName, 3); }		// ANALOG_5K
+        //else { alert("unsupported sensor type"); }
     };
 
     // set the given input's mode according to the given type
     ext._adjustInputModeDigital = function (inputName, sensorType) {
         //console.log("configuring " + inputName + " for digital " + sensorType);
-        if (sensorType === Lang.getSensor('button')) { ext._setSensorMode(inputName, 1); }		// DIGITAL_5KOHM
-        else if (sensorType === Lang.getSensor('reed')) { ext._setSensorMode(inputName, 1); }		// DIGITAL_5KOHM
-        else if (sensorType === Lang.getSensor('lightBarrier')) { ext._setSensorMode(inputName, 1); }		// DIGITAL_5KOHM
-        else { alert("unsupported sensor type"); }
+        //if (sensorType === Lang.getSensor('button')) { ext._setSensorMode(inputName, 1); }		// DIGITAL_5KOHM
+        //else if (sensorType === Lang.getSensor('reed')) { ext._setSensorMode(inputName, 1); }		// DIGITAL_5KOHM
+        //else if (sensorType === Lang.getSensor('lightBarrier')) { ext._setSensorMode(inputName, 1); }		// DIGITAL_5KOHM
+        //else { alert("unsupported sensor type"); }
     };
 
 
@@ -1024,13 +1037,13 @@ function ScratchConnection(url, ext) {
   
 
     ext.doConfigureInput = function (inputName, inputMode) {
-        var idx = ext._inputModeToIdx(inputMode);
-        ext._setSensorMode(inputName, idx);
-        ext.updateIfNeeded();
+        ext.doConfigureInput(inputName, inputMode, 1500);
     };
+    //* moet een wait worden op bevestiging van aanpassing  /
     ext.doConfigureInput = function (inputName, inputMode,inputLimit) {
         var idx = ext._inputModeToIdx(inputMode);
-        ext._setSensorMode(inputName, idx,inputLimit);
+        ext._setSensorMode(inputName, idx, inputLimit);
+        //reset deze input
         ext.updateIfNeeded();
     };
 
@@ -1124,6 +1137,38 @@ function ScratchConnection(url, ext) {
 
     };
 
+    /** On Rising Edge of an Input in the binary mode */
+    ext.onRisingEdge = function (inputName) {
+
+        ext._adjustInputModeDigital(inputName);
+        ext.updateIfNeeded();
+    //    if (!(sensor in inputModesD) ){alert('Can only be used with binary sensor modes'); throw exception}
+        // check both directions
+        var idx = ext._inputNameToIdx(inputName);
+        var modeIdx = ext.output.inputs[idx].mode;
+        var mode = descriptor.menus.inputModes[modeIdx];
+        var dig = descriptor.menus.inputModesD;
+        if (! dig.includes(mode)) { alert('Can only be used with binary sensor modes'); return false; }
+
+            return ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;	// TODO light barrier?//ext.input.oldValues.inputs bestaan niet
+       //  else {            alert('invalid open/close mode'); return false;  }
+    };
+    /** On Faling Edge of an Input in the binary mode */
+    ext.onFallingEdge = function (sensorType) {
+
+        ext._adjustInputModeDigital(inputName, sensorType);
+        ext.updateIfNeeded();
+
+        // check both directions
+        var idx = ext._inputNameToIdx(inputName);
+        var idx = ext._inputNameToIdx(inputName);
+        var modeIdx = ext.output.inputs[idx].mode;
+        var mode = descriptor.menus.inputModes[modeIdx];
+        var dig = descriptor.menus.inputModesD;
+        if (!dig.includes(mode)) { alert('Can only be used with binary sensor modes'); return false; }
+
+        return ext.input.oldValues.inputs[idx] === 1 && ext.input.curValues.inputs[idx] === 0;
+    };
     /** button/light-barrier/reed opens/closes */
     ext.onOpenClose = function (sensorType, inputName, direction) {
 
@@ -1145,7 +1190,6 @@ function ScratchConnection(url, ext) {
             alert('invalid open/close mode');
         }
     };
-
 
     /** counter 'Cx' >,<,= value */
     ext.onCounter = function (counterName, operator, value) {
@@ -1183,6 +1227,8 @@ function ScratchConnection(url, ext) {
 			['h', Lang.get('onOpenClose'), 'onOpenClose', Lang.getSensor('button'), 'I1', Lang.getOpenClose('opens')],
 //			['h', Lang.get('onCounter'), 'onCounter', 'C1', '>', 0],
 			['h', Lang.get('onInput'), 'onInput', Lang.getSensor('color'), 'I1', '>', 0],
+			['h', Lang.get('onRisingEdge'), 'onRisingEdge', 'I1'],
+			['h', Lang.get('onFallingEdge'), 'onFallingEdge', 'I1'],
 
 			// gets
 	//		['r', Lang.get('getCounter'),					'getCounter',					'C1'],
@@ -1226,7 +1272,7 @@ function ScratchConnection(url, ext) {
             counters: ['C1', 'C2', 'C3', 'C4'],
             outputs: ['O1', 'O2', 'O3', 'O4'],
             outputValues: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-
+            edges:['rising','falling'],
             inputModes: [Lang.getMode('d10v'), Lang.getMode('d5k'), Lang.getMode('a10v'), Lang.getMode('a5k'),
                          Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')],
             inputModesA: [ Lang.getMode('a10v'), Lang.getMode('a5k')],
