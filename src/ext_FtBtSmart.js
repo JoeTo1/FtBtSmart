@@ -1155,7 +1155,7 @@ function ScratchConnection(url, ext) {
             return ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;	
     };
     /** On Faling Edge of an Input in the binary mode */
-    ext.onFallingEdge = function (sensorType) {
+    ext.onFallingEdge = function (inputName) {
 
         ext._adjustInputModeDigital(inputName);
         ext.updateIfNeeded();
