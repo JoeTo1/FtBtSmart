@@ -21,6 +21,8 @@ var Lang = {
 			onOpenClose:				'Wenn %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter:					'Wenn Zähler %m.counters %m.compares %n',
 			onInput:					'Wenn Wert von %m.inputSensors %m.inputs %m.compares %n',
+			onRisingEdge: 'If value of %m.inputSensors',
+			onFallingEdge: 'If value of %m.inputSensors',
 
 			isClosed:					'%m.openCloseSensors %m.inputs geschlossen?',
 			getCounter:					'Lese Wert von Zähler %m.counters',
@@ -84,8 +86,8 @@ var Lang = {
 		en: {
 			onOpenClose: 'If %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'If counter %m.counters %m.compares %n',
-			onInput: 'If value of %m.inputSensors %m.inputs %m.compares %n',
-			onRisingEdge:'If value of %m.inputSensors ',
+			onInput: 'If xx value of %m.inputSensors %m.inputs %m.compares %n',
+			onRisingEdge:'If value of %m.inputSensors',
 		    onFallingEdge:'If value of %m.inputSensors',
 			isClosed: 'Is %m.openCloseSensors %m.inputs closed?',
 			getCounter: 'Read value of counter %m.counters',
@@ -1226,7 +1228,7 @@ function ScratchConnection(url, ext) {
 			// events
 			['h', Lang.get('onOpenClose'), 'onOpenClose', Lang.getSensor('button'), 'I1', Lang.getOpenClose('opens')],
 //			['h', Lang.get('onCounter'), 'onCounter', 'C1', '>', 0],
-			['h', Lang.get('onInputX'), 'onInput', Lang.getSensor('color'), 'I1', '>', 0],
+			['h', Lang.get('onInput'), 'onInput', Lang.getSensor('color'), 'I1', '>', 0],
 			['h', Lang.get('onRisingEdge'), 'onRisingEdge', 'I1'],
 			['h', Lang.get('onFallingEdge'), 'onFallingEdge', 'I1'],
 
