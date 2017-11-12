@@ -1,11 +1,11 @@
 
 function getButtonState(state) {
-	return Lang.get(state);
-}
+    return Lang.get(state);
+};
 
 function getLightBarrierState(state) {
-	return Lang.get(state);
-}
+    return Lang.get(state);
+};
 
 
 var Lang = {
@@ -702,17 +702,19 @@ function ScratchConnection(url, ext) {
 
     // convert input-mode to value 'd10v' -> 0
     ext._inputModeToIdx = function (inputMode) {
- 
-        if (inputMode === Lang.getMode('d10v')) { return 0; } else
-            if (inputMode === Lang.getMode('d5k')) { return 1; } else
-                if (inputMode === Lang.getMode('a10v')) { return 2; } else
-                    if (inputMode === Lang.getMode('a5k')) { return 3; } else
-                        if (inputMode === Lang.getMode('d10vg')) { return 5; } else
-                            if (inputMode === Lang.getMode('d10vs')) { return 6; } else
-                                if (inputMode === Lang.getMode('d5kg')) { return 7; } else
-                                   if (inputMode === Lang.getMode('d5ks')) { return 8; }
 
-        //        if (inputMode === Lang.getMode('ultrasonic')) { return 4; }
+        var dig = descriptor.menus.inputModes;
+        return (dig.indexOf(inputMode));
+        //if (inputMode === Lang.getMode('d10v')) { return 0; } else
+        //    if (inputMode === Lang.getMode('d5k')) { return 1; } else
+        //        if (inputMode === Lang.getMode('a10v')) { return 2; } else
+        //            if (inputMode === Lang.getMode('a5k')) { return 3; } else
+        //                if (inputMode === Lang.getMode('d10vg')) { return 5; } else
+        //                    if (inputMode === Lang.getMode('d10vs')) { return 6; } else
+        //                        if (inputMode === Lang.getMode('d5kg')) { return 7; } else
+        //                           if (inputMode === Lang.getMode('d5ks')) { return 8; }
+
+        ////        if (inputMode === Lang.getMode('ultrasonic')) { return 4; }
         console.log("err");
     };
 
@@ -1143,29 +1145,24 @@ function ScratchConnection(url, ext) {
 
     /** On Rising Edge of an Input in the binary mode */
     ext.onRisingEdge = function (inputName) {
-
-        ext._adjustInputModeDigital(inputName);
-        ext.updateIfNeeded();
+  //      ext.updateIfNeeded();
         var idx = ext._inputNameToIdx(inputName);
         var modeIdx = ext.output.inputs[idx].mode;
         var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesD;
-        if (! dig.includes(mode)) { alert('Can only be used with binary sensor modes'); return false; }
-        console.log("Riss index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + "  new : " + ext.input.curValues.inputs[idx]);
+        if (!dig.includes(mode)) { console.log('onRisingEdge: Works only in binary sensor modes'); return false; }
+       // console.log("Riss index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + "  new : " + ext.input.curValues.inputs[idx]);
             return ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;	
     };
     /** On Faling Edge of an Input in the binary mode */
     ext.onFallingEdge = function (inputName) {
-
-        ext._adjustInputModeDigital(inputName);
-        ext.updateIfNeeded();
+//        ext.updateIfNeeded();
         var idx = ext._inputNameToIdx(inputName);
         var modeIdx = ext.output.inputs[idx].mode;
         var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesD;
-        if (!dig.includes(mode)) { alert('Can only be used with binary sensor modes'); return false; }
-        console.log("Fall index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + "  new : " + ext.input.curValues.inputs[idx]);
-
+        if (!dig.includes(mode)) { console.log('onFallingEdge: Works only in binary sensor modes'); return false; }
+        //console.log("Fall index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + "  new : " + ext.input.curValues.inputs[idx]);
         return ext.input.oldValues.inputs[idx] === 1 && ext.input.curValues.inputs[idx] === 0;
     };
     /** button/light-barrier/reed opens/closes */
@@ -1276,7 +1273,7 @@ function ScratchConnection(url, ext) {
                          Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')],
             inputModesA: [ Lang.getMode('a10v'), Lang.getMode('a5k')],
             inputModesD: [Lang.getMode('d10v'), Lang.getMode('d5k'),
-                      Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')]
+                          Lang.getMode('d10vg'), Lang.getMode('d10vs'), Lang.getMode('d5kg'), Lang.getMode('d5ks')]
 },
 
         url: 'https://www.fischertechnik.de/en/products/playing/robotics/540586-robotics-bt-smart-beginner-set'
