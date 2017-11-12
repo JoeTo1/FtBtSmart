@@ -704,18 +704,10 @@ function ScratchConnection(url, ext) {
     ext._inputModeToIdx = function (inputMode) {
 
         var dig = descriptor.menus.inputModes;
-        return (dig.indexOf(inputMode));
-        //if (inputMode === Lang.getMode('d10v')) { return 0; } else
-        //    if (inputMode === Lang.getMode('d5k')) { return 1; } else
-        //        if (inputMode === Lang.getMode('a10v')) { return 2; } else
-        //            if (inputMode === Lang.getMode('a5k')) { return 3; } else
-        //                if (inputMode === Lang.getMode('d10vg')) { return 5; } else
-        //                    if (inputMode === Lang.getMode('d10vs')) { return 6; } else
-        //                        if (inputMode === Lang.getMode('d5kg')) { return 7; } else
-        //                           if (inputMode === Lang.getMode('d5ks')) { return 8; }
 
-        ////        if (inputMode === Lang.getMode('ultrasonic')) { return 4; }
-        console.log("err");
+       var modeIdx=(descriptor.menus.inputModes.indexOf(inputMode));
+       if (modeIdx >= 0) return modeIdx;
+       console.log("ext._inputModeToIdx: error, out of range");
     };
 
 
@@ -1145,7 +1137,6 @@ function ScratchConnection(url, ext) {
 
     /** On Rising Edge of an Input in the binary mode */
     ext.onRisingEdge = function (inputName) {
-  //      ext.updateIfNeeded();
         var idx = ext._inputNameToIdx(inputName);
         var modeIdx = ext.output.inputs[idx].mode;
         var mode = descriptor.menus.inputModes[modeIdx];
@@ -1156,7 +1147,6 @@ function ScratchConnection(url, ext) {
     };
     /** On Faling Edge of an Input in the binary mode */
     ext.onFallingEdge = function (inputName) {
-//        ext.updateIfNeeded();
         var idx = ext._inputNameToIdx(inputName);
         var modeIdx = ext.output.inputs[idx].mode;
         var mode = descriptor.menus.inputModes[modeIdx];
