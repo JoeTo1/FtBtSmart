@@ -86,7 +86,7 @@ var Lang = {
 		en: {
 			onOpenClose: 'If %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'If counter %m.counters %m.compares %n',
-			onInput: 'If xx value of %m.inputSensors %m.inputs %m.compares %n',
+			onInput: 'If  value of %m.inputSensors %m.inputs %m.compares %n',
 			onRisingEdge:'If value of %m.inputs rising (binary mode, 0 to 1) ',
 			onFallingEdge: 'If value of %m.inputs falling (binary mode 1 to 0)',
 			isClosed: 'Is %m.openCloseSensors %m.inputs closed?',
@@ -449,6 +449,8 @@ function ScratchConnection(url, ext) {
 		    var value = data.inputValueNew;
 		    ext.input.oldValues.inputs[index] = ext.input.curValues.inputs[index];
 		    ext.input.curValues.inputs[index] = value;
+		    console.log("SEVT index= "+index+" old :" + ext.input.oldValues.inputs[idx] + "  new : " + ext.input.curValues.inputs[idx]);
+
 		    ext.onNewInputs();
 
 		} else if (messageType === "SENS") {
@@ -1149,7 +1151,7 @@ function ScratchConnection(url, ext) {
         var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesD;
         if (! dig.includes(mode)) { alert('Can only be used with binary sensor modes'); return false; }
-
+        console.log("Riss index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + "  new : " + ext.input.curValues.inputs[idx]);
             return ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;	
     };
     /** On Faling Edge of an Input in the binary mode */
@@ -1162,6 +1164,7 @@ function ScratchConnection(url, ext) {
         var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesD;
         if (!dig.includes(mode)) { alert('Can only be used with binary sensor modes'); return false; }
+        console.log("Fall index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + "  new : " + ext.input.curValues.inputs[idx]);
 
         return ext.input.oldValues.inputs[idx] === 1 && ext.input.curValues.inputs[idx] === 0;
     };
