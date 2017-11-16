@@ -1,24 +1,24 @@
 
 function getButtonState(state) {
     return Lang.get(state);
-};
+}
 
 function getLightBarrierState(state) {
     return Lang.get(state);
-};
+}
 
 
 var Lang = {
-	
+
 	// browser's language code
 	langCode: (navigator.language || navigator.userLanguage).substr(0,2),
-	
+
 	trans: {
-		
+
 		// german translation
 		de: {
-			
-			onOpenClose:				'Wenn %m.openCloseSensors %m.inputs %m.openClose',
+
+			onOpenClose:				'Wennxx %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter:					'Wenn Zähler %m.counters %m.compares %n',
 			onInput:					'Wenn Wert von %m.inputSensors %m.inputs %m.compares %n',
 			onRisingEdge: 'If value of %m.inputs',
@@ -30,22 +30,22 @@ var Lang = {
 			getMotorPower: 'Read power (0--8) of %m.motors',
 			getMotorSpeed: 'Read speed (-8--0--8) of %m.motors',
 			getMotorDir: 'Read direction of %m.motors',
-			
+
 			doPlaySound:				'Sound %n abspielen',
 			doPlaySoundWait:			'Sound %n abspielen und warten',
-			
+
 			doSetLamp:					'Setze Lampe %m.outputs auf %n',
 			doSetOutput:				'Setze Ausgang %m.outputs auf %n',
 			doResetCounter:				'Setze Zähler %m.counters zurück',
-			
+
 			doSetMotorPower:			'Setze Motor %m.motors auf %n',
 			doSetMotorPowerDir:			'Setze Motor %m.motors auf %n %m.motorDirections',
 			doSetMotorDir:				'Setze Motor %m.motors auf %m.motorDirections2',
-			
+
 			doSetMotorPowerDirDist:		'Verfahre Motor %m.motors um %n Schritte mit %n %m.motorDirections',
 			doSetMotorPowerDirSync:		'Verfahre Motor %m.motors %m.motorDirections und %m.motors %m.motorDirections mit %n',
 			doSetMotorPowerDirDistSync:	'Verfahre Motor %m.motors %m.motorDirections und %m.motors %m.motorDirections mit %n für %n Schritte',
-			
+
 			doStopMotor:				'Stoppe Motor %m.motors',
 			doStopMotorAdv:				'Stoppe Verfahren %m.motors',
 
@@ -57,7 +57,7 @@ var Lang = {
 			dir_non: 'non',
 			dir_forward:				'vorwärts',
 			dir_backwards:				'rückwärts',
-			
+
 			sens_color:					'Farbsensor',
 			sens_distance:				'Abstandssensor',
 			sens_ntc:					'NTC-Widerstand',
@@ -65,10 +65,10 @@ var Lang = {
 			sens_lightBarrier:			'Lichtschranke',
 			sens_button:				'Schalter',
 			sens_reed:					'Reed-Kontakt',
-			
+
 			openclose_opens:			'öffnet',
 			openclose_closes:			'schließt',
-			
+
 			mode_a5k:					'Widerstand analog',
 			mode_d5k:					'Widerstand digital',
 			mode_a10v:					'Spannung analog',
@@ -82,16 +82,17 @@ var Lang = {
 			doConnect: 'Connect BT Smart',
 			doDisconnect: 'Disconnect BT Smart'
 		},
-		
+
 		en: {
 			onOpenClose: 'If %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'If counter %m.counters %m.compares %n',
 			onInput: 'If xxx value of %m.inputSensors %m.inputs %m.compares %n',
-			onRisingEdge:'If value of %m.inputs rising (binary mode, 0 to 1) ',
-			onFallingEdge: 'If value of %m.inputs falling (binary mode 1 to 0)',
+			onRisingEdge:'If value of %m.inputs rising (only binary mode: 0 to 1) ',
+			onFallingEdge: 'If value of %m.inputs falling (only binary mode: 1 to 0)',
 			isClosed: 'Is %m.openCloseSensors %m.inputs closed?',
 			getCounter: 'Read value of counter %m.counters',
 			getSensor: 'Read value of %m.inputSensors %m.inputs',
+			getSensorA: 'Read value of %m.inputs (only analogue mode))',
 
 			getMotorDir: 'Read direction of %m.motors',
 			getMotorSpeed: 'Read speed (-8 .. 0 .. 8) of %m.motors',
@@ -138,9 +139,9 @@ var Lang = {
 			mode_ultrasonic: 'Ultrasound',
             doDisconnect: 'Disconnect from BT Smart',
 			doConnect: 'Connect to BT Smart',
-			reset: 'reset' 
-		},
-		
+			reset: 'reset'
+		}
+
 		/*
 		fr: {
 			onOpenClose: 'Si %m.openCloseSensors %m.inputs %m.openClose',
@@ -184,7 +185,7 @@ var Lang = {
             mode_ultrasonic: 'Ultrason',
 			reset: 'réinitialiser'
 		},
-		
+
 		es: {
 			onOpenClose: 'Cuando %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'Cuando el contador %m.counters %m.compares %n',
@@ -227,7 +228,7 @@ var Lang = {
             mode_ultrasonic: 'ultrasonido',
 			reset: 'restablecer'
 		},
-		
+
 		nl: {
 			onOpenClose: 'Wanneer %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'Wanneer teller %m.counters %m.compares %n',
@@ -272,7 +273,7 @@ var Lang = {
             mode_ultrasonic: 'ultrasoon',
 			reset: 'resetten'
 		},
-		
+
 		pt: {
 			onOpenClose: 'Quando %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'Quando o contador %m.counters %m.compares %n',
@@ -315,7 +316,7 @@ var Lang = {
             mode_ultrasonic: 'Ultrassons',
 			reset: 'repor'
 		},
-		
+
 		he: {
 			onOpenClose: 'אם %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'אם ערכו של מונה %m.counters %m.compares %n',
@@ -358,11 +359,11 @@ var Lang = {
 			mode_d10v: 'Digital resistance smaller or equal',
             mode_ultrasonic: 'אולטרהסוניק',
 			reset: 'איפוס'
-} 
+}
 	*/
-				
-	},	
-	
+
+	},
+
 	// get a translated version for the given constant
 	get: function(what) {
 		var codes = this.trans[this.langCode];		// requested language
@@ -370,23 +371,23 @@ var Lang = {
 		if (!codes) { codes = 'search error'; }	// fallback 2
 		return codes[what];
 	},
-	
+
 	getSensor: function(name) {
 		return this.get('sens_' + name);
 	},
-	
+
 	getMotorDir: function(dir) {
 		return this.get('dir_' + dir);
 	},
-	
+
 	getOpenClose: function(dir) {
 		return this.get('openclose_' + dir);
 	},
-	
+
 	getMode: function(mode) {
 		return this.get('mode_' + mode);
 	}
-	
+
 };
 
 function ScratchConnection(url, ext) {
@@ -395,54 +396,55 @@ function ScratchConnection(url, ext) {
 	var _this = this;
 	var connected = false;
 	var curDev = null;
-	
+	var inputEvent = new Event("Input");
+
 	this.status = {status: 1, msg: 'Connecting'};
-	
+
 	// get the current time as string
-	var getTimeString = function() {
-		var d = new Date();
-		var h = d.getHours();	h = (h<10) ? ('0'+h) : (h);
-		var m = d.getMinutes();	m = (m<10) ? ('0'+m) : (m);
-		var s = d.getSeconds();	s = (s<10) ? ('0'+s) : (s);
-		return '(' + h + ':' + m + ':' + s + ') ';
-	}
-	
+	var getTimeString = function () {
+	    var d = new Date();
+	    var h = d.getHours(); h = (h < 10) ? ('0' + h) : h;
+	    var m = d.getMinutes(); m = (m < 10) ? ('0' + m) : m;
+	    var s = d.getSeconds(); s = (s < 10) ? ('0' + s) : s;
+	    return '(' + h + ':' + m + ':' + s + ') ';
+	};
+
 	this.connect = function () {
 	    if (ws !== null) {
 	        alert('Connection is already alife'); return;
 	    }
-		ws = new WebSocket(url);
-		if (ws === null) {
-		    alert('Your Browser does not support WebSockets. You need a recent Browser to use CvLFTScratchBt');
-		    _this.connected = false;
-			return;
-		}
-		ws.onmessage = handleMessage;
-		ws.onclose = handleClose;
-		ws.onopen = handleOpen;
-	}
-	
-	this.close = function() {
+	    ws = new WebSocket(url);
+	    if (ws === null) {
+	        alert('Your Browser does not support WebSockets. You need a recent Browser to use CvLFTScratchBt');
+	        _this.connected = false;
+	        return;
+	    }
+	    ws.onmessage = handleMessage;
+	    ws.onclose = handleClose;
+	    ws.onopen = handleOpen;
+	};
+
+	this.close = function () {
 	    ws.close();
 	    ws.onmessage = null;//2017-11-02
 	    ws.onclose = null;//2017-11-02
 	    ws.onopen = null;//2017-11-02
 	    ws = null;//2017-11-02
-	}
-	
+	};
+
 	// websocket connected. this == the websocket
-	var handleOpen = function() {
-		_this.connected = true;
-		ext.onConnect();
-	}
-	
+	var handleOpen = function () {
+	    _this.connected = true;
+	    ext.onConnect();
+	};
+
 	// new websocket message. this == the websocket
 	var handleMessage = function(message) {
-		
+
 		var messageType = message.data.substring(0, 4);
 		var messageData = message.data.substring(4);
-		var data = (messageData) ? (JSON.parse(messageData)) : null;
-				
+		var data = messageData ? JSON.parse(messageData) : null;
+
 		if (messageType === "SEVT") {
 		    //{"inputId":0,"inputValueNew":1}
 		    var index = data.inputId;
@@ -453,6 +455,11 @@ function ScratchConnection(url, ext) {
 
 		    ext.onNewInputs();
 
+		} else if (messageType === "ACTI") {
+		    ext.input.oldValues = ext.input.curValues;
+		    ext.input.curValues = data;
+		    console.log("ACTI index= " + index + " old :" + ext.input.oldValues.inputs[index] + "  new : " + ext.input.curValues.inputs[index]);
+		    ext.onNewInputs();
 		} else if (messageType === "SENS") {
 			ext.input.oldValues = ext.input.curValues;
 			ext.input.curValues = data;
@@ -472,9 +479,9 @@ function ScratchConnection(url, ext) {
 			} else {
 				_this.status = {status: 1, msg: getTimeString() + ' connected to application but not to BT-Smart' };
 			}
-			
+
 		}
-		
+
 	};
 
 	// websocket closed. this == the websocket
@@ -488,31 +495,31 @@ function ScratchConnection(url, ext) {
 		this.close();//2017-11-02
 		_this.connected = false;
 	};
-	
+
 	this.playSound = function(sndIdx) {
 		this.send("PLAY", {idx: sndIdx});
 	};
-	
-	
-	this.ping = function() {
-		ws.send("PING");
-	}
-	
-	this.reset = function() {
-		ws.send("RSET");
-	}
-	
+
+
+	this.ping = function () {
+	    ws.send("PING");
+	};
+
+	this.reset = function () {
+	    ws.send("RSET");
+	};
+
 	/** send CMD+json*/
-	this.send = function(cmd, obj) {
-		ws.send(cmd + JSON.stringify(obj));
-	}
-	
-};
+	this.send = function (cmd, obj) {
+	    ws.send(cmd + JSON.stringify(obj));
+	};
+
+}
 
 
 //IIFE Immediately Invoked Function Expression pattern
 // function is treated as en expression and run immediately
-// 
+//
 
 (function (ext) {
 
@@ -529,6 +536,32 @@ function ScratchConnection(url, ext) {
         //reset inputs
     };
 
+    ext._deviceConnected = function (dev) {
+        //potentialDevices.push(dev);
+        //if (!device) {
+        //    tryNextDevice();
+        //}
+        console.log("ext._deviceConnected:");
+
+    };
+    ext._deviceRemoved = function (dev) {
+        //if (device != dev) return;
+        //if (poller) poller = clearInterval(poller);
+        //device = null;
+        $.ajax({
+            url: 'http://api.openweathermap.org/data/2.5/weather',
+            data: { q: location, units: 'imperial', appid: 'APPID' },
+            dataType: 'jsonp',
+            success: function (weatherData) {
+                //Received the weather data. Cache and return the data.
+                cachedTemps[location] = { data: weatherData, time: Date.now() };
+                callback(weatherData);
+            }
+        });
+
+        console.log("ext._deviceRemoved:");
+
+    };
     // react to ScratchX stop button/event
     ext._stop = function () {
         ext.reset();
@@ -607,11 +640,11 @@ function ScratchConnection(url, ext) {
     function Counter() {
         throw "Not applicable exception: Counter";
 
-        this.mod = false;
-        this.rst = false;
-        this.doReset = function () { this.rst = true; this.mod = true; };
-        this.transmitted = function () { this.mod = false; };
-        this.init = function () { this.rst = false; };
+        //this.mod = false;
+        //this.rst = false;
+        //this.doReset = function () { this.rst = true; this.mod = true; };
+        //this.transmitted = function () { this.mod = false; };
+        //this.init = function () { this.rst = false; };
     }
 
     Motor.prototype.toString = function motorToString() {
@@ -705,7 +738,7 @@ function ScratchConnection(url, ext) {
 
         var dig = descriptor.menus.inputModes;
 
-       var modeIdx=(descriptor.menus.inputModes.indexOf(inputMode));
+       var modeIdx=descriptor.menus.inputModes.indexOf(inputMode);
        if (modeIdx >= 0) return modeIdx;
        console.log("ext._inputModeToIdx: error, out of range");
     };
@@ -723,7 +756,7 @@ function ScratchConnection(url, ext) {
     // set the given Motor 'Mx' speed [0:8]
     ext._SetMotorPower08 = function (motorName, speed) {
         var idx = ext._motorNameToIdx(motorName);
-        if (speed > 8 || speed < 0) { alert("speed needs to be betweem 0..8 but it is+"); };
+        if (speed > 8 || speed < 0) { alert("speed needs to be betweem 0..8 but it is+"); }
         var speedL = Math.abs(speed)<=8?Math.abs(speed):0;
         var val = speedL * 100 / 8;						// [0:8] -> [0:100];
         ext.output.motors[idx].speed = Math.round(val);	// ensure integer
@@ -736,8 +769,8 @@ function ScratchConnection(url, ext) {
         var dirv = ext._dirNameToValue(dirName);
         switch(dirv)
         {
-            case -1: 
-            case 0: 
+            case -1:
+            case 0:
             case 1: ext.output.motors[idx].dir = dirv; break;
             case 100: ext.output.motors[idx].dir = -1 * ext.output.motors[idx].dir; break;
         }
@@ -748,31 +781,30 @@ function ScratchConnection(url, ext) {
     ext._setMotorDist = function (motorName, steps) {
         throw "Not applicable exception: _setMotorDist";
 
-        var idx = ext._motorNameToIdx(motorName);
-        ext.output.motors[idx].dist = steps;
-        ext.output.motors[idx].modified();
+        //var idx = ext._motorNameToIdx(motorName);
+        //ext.output.motors[idx].dist = steps;
+        //ext.output.motors[idx].modified();
     };
 
     // let motor2 run in sync with motor1
     ext._setMotorSync = function (motor1Name, motor2Name) {
         throw "Not applicable exception: _setMotorSync";
 
-        var idx1 = ext._motorNameToIdx(motor1Name);
-        var idx2 = ext._motorNameToIdx(motor2Name);
-        ext.output.motors[idx1].sync = idx2;
-        ext.output.motors[idx1].modified();
+    //    var idx1 = ext._motorNameToIdx(motor1Name);
+    //    var idx2 = ext._motorNameToIdx(motor2Name);
+    //    ext.output.motors[idx1].sync = idx2;
+    //    ext.output.motors[idx1].modified();
     };
 
     // let the given motor run unsynced
     ext._setMotorSyncNone = function (motorName) {
         throw "Not applicable exception: onSoundDone";
-
-        var idx = ext._motorNameToIdx(motorName);
-        ext.output.motors[idx].sync = -1;
-        ext.output.motors[idx].modified();
+        //var idx = ext._motorNameToIdx(motorName);
+        //ext.output.motors[idx].sync = -1;
+        //ext.output.motors[idx].modified();
     };
 
-    // set the given Input's mode:  
+    // set the given Input's mode:
     // 0=DIGITAL_10V (same as _Greater=5),
     //1=DIGITAL_5KOHM (same as _Greater=7),<br/>
     // 2=ANALOG_10V, 3=ANALOG_5KOHM,<br/>
@@ -814,15 +846,18 @@ function ScratchConnection(url, ext) {
             ext.output.transmitted();
         }
     };
+    ext.updateInputA = function (inputName) {
+        //Todo
+        connection.send("ACTI", ext.output);
 
+    };
     /** txt finished playing a sound */
     ext.onSoundDone = function () {
         throw "Not applicable exception: onSoundDone";
-
-        if (ext.soundCallback) {
-            ext.soundCallback();
-            ext.soundCallback = null;
-        }
+       //if (ext.soundCallback) {
+        //    ext.soundCallback();
+        //    ext.soundCallback = null;
+        //}
     };
 
 
@@ -846,7 +881,7 @@ function ScratchConnection(url, ext) {
             var res = func();
             if (res) {
                 //console.log("remove");
-                ext.waitForMotor.splice(idx, 1);// remove 1 item at 2-index position 
+                ext.waitForMotor.splice(idx, 1);// remove 1 item at 2-index position
             }
         }
     };
@@ -863,7 +898,7 @@ function ScratchConnection(url, ext) {
     ext.doPlaySound = function (sndIdx) {
         throw "Not applicable exception: doPlaySound";
 
-        connection.playSound(sndIdx);
+      //  connection.playSound(sndIdx);
     };
 
     /** play the given sound and call the callback as soon as it finished */
@@ -871,14 +906,14 @@ function ScratchConnection(url, ext) {
         throw "Not applicable exception: doPlaySoundWait";
 
         // prevent blocking 2 sound-blocks at the same time
-        if (ext.soundCallback) {
-            callback();
-            return;
-        }
+        //if (ext.soundCallback) {
+        //    callback();
+        //    return;
+       // }
 
         // remember the callback (see onSoundDone())
-        ext.soundCallback = callback;
-        connection.playSound(sndIdx);
+        //ext.soundCallback = callback;
+       // connection.playSound(sndIdx);
 
     };
 
@@ -915,92 +950,97 @@ function ScratchConnection(url, ext) {
         ext.updateIfNeeded();
     };
 
-    /** let the given motor move "steps" steps into the given direction with the provided speed */
+    //** let the given motor move "steps" steps into the given direction with the provided speed */
     ext.doSetMotorPowerDirDist = function (motorName, steps, value, dirName, callback) {
-        throw "Not applicable exception: doSetMotorPowerDirDist";
+       throw "Not applicable exception: doSetMotorPowerDirDist";
 
-        ext._setMotorSyncNone(motorName);				// remove sync
-        ext._setMotorDist(motorName, steps);
-        ext._setMotorDir(motorName, dirName);
-        ext._SetMotorPower08(motorName, value);
-        ext.updateIfNeeded();
+    //    ext._setMotorSyncNone(motorName);				// remove sync
+    //    ext._setMotorDist(motorName, steps);
+    //    ext._setMotorDir(motorName, dirName);
+    //    ext._SetMotorPower08(motorName, value);
+    //    ext.updateIfNeeded();
 
-        // register a function that will be checked for every input check.
-        // if the counters reached a certain level, call the blocking callback
-        var motorIdx = ext._motorNameToIdx(motorName);
-        var check = function () {
-            //console.log("check motor " + motorIdx + " >= " + steps);
-            var c1 = ext.input.oldValues.counters[motorIdx];
-            var c2 = ext.input.curValues.counters[motorIdx];
-            if (c2 >= steps) {
-                //if (c1 < c2) {
-                callback(); return true;
-                //}
-            }
-            return false;
-        };
+    //    // register a function that will be checked for every input check.
+    //    // if the counters reached a certain level, call the blocking callback
+    //    var motorIdx = ext._motorNameToIdx(motorName);
+    //    var check = function () {
+    //        //console.log("check motor " + motorIdx + " >= " + steps);
+    //        var c1 = ext.input.oldValues.counters[motorIdx];
+    //        var c2 = ext.input.curValues.counters[motorIdx];
+    //        if (c2 >= steps) {
+    //            //if (c1 < c2) {
+    //            callback(); return true;
+    //            //}
+    //        }
+    //        return false;
+    //    };
 
-        window.setTimeout(
-			function () { ext.waitForMotor.push(check); },
-			200
-		);
+    //    window.setTimeout(
+	//		function () { ext.waitForMotor.push(check); },
+	//		200
+	//	);
 
-    };
+//
+};
 
     /** synchronize the two given motors */
 
     ext.doSetMotorPowerDirSync = function (motor1Name, dir1Name, motor2Name, dir2Name, speed) {
         throw "Not applicable exception: doSetMotorPowerDirSync";
-        if (motor1Name === motor2Name) { return; }
+        //if (motor1Name === motor2Name) { return; }
 
-        ext._setMotorDist(motor1Name, 0);				// remove distance limits
-        ext._setMotorDist(motor2Name, 0);				// remove distance limits
-        ext._setMotorSync(motor1Name, motor2Name);		// sync both motors (same speed)
-        ext._setMotorDir(motor1Name, dir1Name);
-        ext._setMotorDir(motor2Name, dir2Name);
-        ext._SetMotorPower08(motor1Name, speed);
-        ext._SetMotorPower08(motor2Name, speed);
-        ext.updateIfNeeded();
+        //ext._setMotorDist(motor1Name, 0);				// remove distance limits
+        //ext._setMotorDist(motor2Name, 0);				// remove distance limits
+        //ext._setMotorSync(motor1Name, motor2Name);		// sync both motors (same speed)
+        //ext._setMotorDir(motor1Name, dir1Name);
+        //ext._setMotorDir(motor2Name, dir2Name);
+        //ext._SetMotorPower08(motor1Name, speed);
+        //ext._SetMotorPower08(motor2Name, speed);
+        //ext.updateIfNeeded();
 
     };
 
-    /** synchronize the two given motors with distance 
- * @param {motor1Name} .
- * @param {dir1Name} num2 T.
- * @returns { motor2Name} 
+    /** synchronize the two given motors with distance
+ * @param {motor1Name}
+ * @param {dir1Name}
+ * @param {motor2Name}
+ * @param {dir2Name}
+ * @param {speed}
+ * @param {steps}
+ * @param {callback}
  */
     ext.doSetMotorPowerDirDistSync = function (motor1Name, dir1Name, motor2Name, dir2Name, speed, steps, callback) {
         throw "Not applicable exception: doSetMotorPowerDirDistSync";
-        if (motor1Name === motor2Name) { callback(); return; }
+        //if (motor1Name === motor2Name) { callback(); return; }
 
-        ext._setMotorSync(motor1Name, motor2Name);
-        ext._setMotorDist(motor1Name, steps);
-        ext._setMotorDist(motor2Name, steps);
-        ext._setMotorDir(motor1Name, dir1Name);
-        ext._setMotorDir(motor2Name, dir2Name);
-        ext._SetMotorPower08(motor1Name, speed);
-        ext._SetMotorPower08(motor2Name, speed);
-        ext.updateIfNeeded();
+        //ext._setMotorSync(motor1Name, motor2Name);
+        //ext._setMotorDist(motor1Name, steps);
+        //ext._setMotorDist(motor2Name, steps);
+        //ext._setMotorDir(motor1Name, dir1Name);
+        //ext._setMotorDir(motor2Name, dir2Name);
+        //ext._SetMotorPower08(motor1Name, speed);
+        //ext._SetMotorPower08(motor2Name, speed);
+        //ext.updateIfNeeded();
 
-        // register a function that will be checked for every input check.
-        // if the counters reached a certain level, call the blocking callback
-        var motorIdx = ext._motorNameToIdx(motor1Name);
-        var check = function () {
-            //console.log("check motor " + motorIdx + " >= " + steps);
-            var c1 = ext.input.oldValues.counters[motorIdx];
-            var c2 = ext.input.curValues.counters[motorIdx];
-            if (c2 >= steps) {
-                //if (c1 < c2) {
-                callback(); return true;
-                //}
-            }
-            return false;
-        };
+        //// register a function that will be checked for every input check.
+        //// if the counters reached a certain level, call the blocking callback
+        //var motorIdx = ext._motorNameToIdx(motor1Name);
+        //var check = function () {
+        //    //console.log("check motor " + motorIdx + " >= " + steps);
+        //    var c1 = ext.input.oldValues.counters[motorIdx];
+        //    var c2 = ext.input.curValues.counters[motorIdx];
+        //    if (c2 >= steps) {
+        //        //if (c1 < c2) {
+        //        callback(); return true;
+        //        //}
+        //    }
+        //    return false;
+        //};
 
-        window.setTimeout(
-			function () { ext.waitForMotor.push(check); },//the push() method adds a new element to an array (at the end):
-			200
-		);//calls a function or evaluates an expression after a specified number of milliseconds
+      //  window.setTimeout(
+		//	function () { ext.waitForMotor.push(check); },//the push() method adds a new element to an array (at the end):
+	//		200
+	//	);//calls a function or evaluates an expression after a specified number of milliseconds
 
     };
 
@@ -1017,22 +1057,22 @@ function ScratchConnection(url, ext) {
     ext.doStopMotorAdv = function (motorName) {
         throw "Not applicable exception: doStopMotorAdv";
 
-        ext._SetMotorPower08(motorName, 0);		// set speed to 0
-        ext._setMotorDist(motorName, 0);		// remove distance limits
-        ext._setMotorSyncNone(motorName);		// remove sync constraints
-        ext.updateIfNeeded();
+        //ext._SetMotorPower08(motorName, 0);		// set speed to 0
+        //ext._setMotorDist(motorName, 0);		// remove distance limits
+        //ext._setMotorSyncNone(motorName);		// remove sync constraints
+        //ext.updateIfNeeded();
     };
 
     /** reset the given counter to zero */
     ext.doResetCounter = function (counterName) {
         throw "Not applicable exception: doResetCounter";
 
-        var idx = ext._counterNameToIdx(counterName);
-        ext.output.counters[idx].doReset();
-        ext.updateIfNeeded();
+        //var idx = ext._counterNameToIdx(counterName);
+        //ext.output.counters[idx].doReset();
+        //ext.updateIfNeeded();
     };
 
-  
+
 
     ext.doConfigureInput = function (inputName, inputMode) {
         ext.doConfigureInput(inputName, inputMode, 1500);
@@ -1056,11 +1096,13 @@ function ScratchConnection(url, ext) {
     ext.getCounter = function (counterName) {
         throw "Not applicable exception: doSetMotorPowerDirDistSync";
 
-        var idx = ext._counterNameToIdx(counterName);
-        return ext.input.curValues.counters[idx];
+        //var idx = ext._counterNameToIdx(counterName);
+        //return ext.input.curValues.counters[idx];
     };
 
-    /** get the current value for the given sensor-type connected to the provided input */
+    /** get the current value for the given sensor-type connected to the provided input
+     *
+     */
     ext.getSensor = function (sensorType, inputName) {
 
         // ensure correct (analog) working mode
@@ -1071,7 +1113,21 @@ function ScratchConnection(url, ext) {
         var idx = ext._inputNameToIdx(inputName);
         return ext.input.curValues.inputs[idx];
 
+
     };
+
+    /** get the current value for the given sensor-type connected to the provided input */
+    ext.getSensorA = function ( inputName, callback) {
+        //Todo send message for get new value
+        var idx = ext._inputNameToIdx(inputName);
+        ext.updateInput(inputName);
+        callback();
+        return ext.input.curValues.inputs[idx];
+
+    };
+
+
+
     /** get the current power for the given motor connected  */
     ext.getMotorPower = function (motorName) {
 
@@ -1084,7 +1140,7 @@ function ScratchConnection(url, ext) {
     };
     /** get the current power for the given motor connected  */
     ext.getMotorSpeed = function (motorName) {
- 
+
         ext.updateIfNeeded();
         // get value
         var idx = ext._motorNameToIdx(motorName);
@@ -1143,7 +1199,7 @@ function ScratchConnection(url, ext) {
         var dig = descriptor.menus.inputModesD;
         if (!dig.includes(mode)) { console.log('onRisingEdge: Works only in binary sensor modes'); return false; }
        // console.log("Riss index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + "  new : " + ext.input.curValues.inputs[idx]);
-            return ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;	
+            return ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;
     };
     /** On Faling Edge of an Input in the binary mode */
     ext.onFallingEdge = function (inputName) {
@@ -1181,16 +1237,16 @@ function ScratchConnection(url, ext) {
     ext.onCounter = function (counterName, operator, value) {
         throw "Not applicable exception: doSetMotorPowerDirDistSync";
 
-        var idx = ext._counterNameToIdx(counterName);
-        if (operator === '>') {
-            return !(ext.input.oldValues.counters[idx] > value) && (ext.input.curValues.counters[idx] > value);
-        } else if (operator === '<') {
-            return !(ext.input.oldValues.counters[idx] < value) && (ext.input.curValues.counters[idx] < value);
-        } else if (operator === '=') {
-            return !(ext.input.oldValues.counters[idx] === value) && (ext.input.curValues.counters[idx] === value);
-        } else {
-            alert('invalid operator');
-        }
+        //var idx = ext._counterNameToIdx(counterName);
+        //if (operator === '>') {
+        //    return !(ext.input.oldValues.counters[idx] > value) && (ext.input.curValues.counters[idx] > value);
+        //} else if (operator === '<') {
+        //    return !(ext.input.oldValues.counters[idx] < value) && (ext.input.curValues.counters[idx] < value);
+        //} else if (operator === '=') {
+        //    return !(ext.input.oldValues.counters[idx] === value) && (ext.input.curValues.counters[idx] === value);
+        //} else {
+        //    alert('invalid operator');
+        //}
     };
     /** doConnect  */
     ext.doConnect = function () {
@@ -1218,19 +1274,20 @@ function ScratchConnection(url, ext) {
 
 			// gets
 	//		['r', Lang.get('getCounter'),					'getCounter',					'C1'],
-			['r', Lang.get('getSensor'), 'getSensor', Lang.getSensor('color'), 'I1'],
+	//		['r', Lang.get('getSensor'), 'getSensor', Lang.getSensor('color'), 'I1'],
 			['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
 			['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
 			['r', Lang.get('getMotorPower'), 'getMotorPower',  'M1'],
+			['R', Lang.get('getSensorA'), 'getSensorA', 'I1'],
 
-			['b', Lang.get('isClosed'), 'isClosed', Lang.getSensor('button'), 'I1'],
+	//		['b', Lang.get('isClosed'), 'isClosed', Lang.getSensor('button'), 'I1'],
 
 
 			// sets
 	//		[' ', Lang.get('doPlaySound'),					'doPlaySound',					1],
 	//		['w', Lang.get('doPlaySoundWait'),				'doPlaySoundWait',				1],
 
-			[' ', Lang.get('doSetLamp'), 'doSetLamp', 'O1', 0],
+//			[' ', Lang.get('doSetLamp'), 'doSetLamp', 'O1', 0],
 //			[' ', Lang.get('doSetOutput'), 'doSetOutput', 'O1', 0],
 
 			// simple motor
@@ -1238,11 +1295,14 @@ function ScratchConnection(url, ext) {
 			[' ', Lang.get('doSetMotorPowerDir'), 'doSetMotorPowerDir', 'M1', 8, Lang.getMotorDir('forward')],
 			[' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
 			[' ', Lang.get('doStopMotor'), 'doStopMotor', 'M1'],
+			[' ', Lang.get('doStopMotorAll'), 'doStopMotorAll', 'M1'],
+
 			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
 			[' ', Lang.get('doConfigureInputA'), 'doConfigureInput', 'I1', Lang.getMode('a10v')],
 			[' ', Lang.get('doConfigureInputD'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
 			[' ', Lang.get('doConnect'), 'doConnect'],
 			[' ', Lang.get('doDisconnect'), 'doDisconnect'],
+
 			[' ', Lang.get('reset'), 'reset']
         ],
 
@@ -1300,4 +1360,3 @@ function ScratchConnection(url, ext) {
     ScratchExtensions.register('fischertechnik Bt-Smart', descriptor, ext);
 
 })({});
-
