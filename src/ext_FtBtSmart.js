@@ -9,16 +9,16 @@ function getLightBarrierState(state) {
 
 
 var Lang = {
-
+	
 	// browser's language code
 	langCode: (navigator.language || navigator.userLanguage).substr(0,2),
-
+	
 	trans: {
-
+		
 		// german translation
 		de: {
-
-			onOpenClose:				'Wennxx %m.openCloseSensors %m.inputs %m.openClose',
+			
+			onOpenClose:				'Wenn %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter:					'Wenn Zähler %m.counters %m.compares %n',
 			onInput:					'Wenn Wert von %m.inputSensors %m.inputs %m.compares %n',
 			onRisingEdge: 'If value of %m.inputs',
@@ -30,22 +30,22 @@ var Lang = {
 			getMotorPower: 'Read power (0--8) of %m.motors',
 			getMotorSpeed: 'Read speed (-8--0--8) of %m.motors',
 			getMotorDir: 'Read direction of %m.motors',
-
+			
 			doPlaySound:				'Sound %n abspielen',
 			doPlaySoundWait:			'Sound %n abspielen und warten',
-
+			
 			doSetLamp:					'Setze Lampe %m.outputs auf %n',
 			doSetOutput:				'Setze Ausgang %m.outputs auf %n',
 			doResetCounter:				'Setze Zähler %m.counters zurück',
-
+			
 			doSetMotorPower:			'Setze Motor %m.motors auf %n',
 			doSetMotorPowerDir:			'Setze Motor %m.motors auf %n %m.motorDirections',
 			doSetMotorDir:				'Setze Motor %m.motors auf %m.motorDirections2',
-
+			
 			doSetMotorPowerDirDist:		'Verfahre Motor %m.motors um %n Schritte mit %n %m.motorDirections',
 			doSetMotorPowerDirSync:		'Verfahre Motor %m.motors %m.motorDirections und %m.motors %m.motorDirections mit %n',
 			doSetMotorPowerDirDistSync:	'Verfahre Motor %m.motors %m.motorDirections und %m.motors %m.motorDirections mit %n für %n Schritte',
-
+			
 			doStopMotor:				'Stoppe Motor %m.motors',
 			doStopMotorAdv:				'Stoppe Verfahren %m.motors',
 
@@ -57,7 +57,7 @@ var Lang = {
 			dir_non: 'non',
 			dir_forward:				'vorwärts',
 			dir_backwards:				'rückwärts',
-
+			
 			sens_color:					'Farbsensor',
 			sens_distance:				'Abstandssensor',
 			sens_ntc:					'NTC-Widerstand',
@@ -65,10 +65,10 @@ var Lang = {
 			sens_lightBarrier:			'Lichtschranke',
 			sens_button:				'Schalter',
 			sens_reed:					'Reed-Kontakt',
-
+			
 			openclose_opens:			'öffnet',
 			openclose_closes:			'schließt',
-
+			
 			mode_a5k:					'Widerstand analog',
 			mode_d5k:					'Widerstand digital',
 			mode_a10v:					'Spannung analog',
@@ -82,7 +82,7 @@ var Lang = {
 			doConnect: 'Connect BT Smart',
 			doDisconnect: 'Disconnect BT Smart'
 		},
-
+		
 		en: {
 			onOpenClose: 'If %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'If counter %m.counters %m.compares %n',
@@ -139,9 +139,9 @@ var Lang = {
 			mode_ultrasonic: 'Ultrasound',
             doDisconnect: 'Disconnect from BT Smart',
 			doConnect: 'Connect to BT Smart',
-			reset: 'reset'
+			reset: 'reset' 
 		}
-
+		
 		/*
 		fr: {
 			onOpenClose: 'Si %m.openCloseSensors %m.inputs %m.openClose',
@@ -185,7 +185,7 @@ var Lang = {
             mode_ultrasonic: 'Ultrason',
 			reset: 'réinitialiser'
 		},
-
+		
 		es: {
 			onOpenClose: 'Cuando %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'Cuando el contador %m.counters %m.compares %n',
@@ -228,7 +228,7 @@ var Lang = {
             mode_ultrasonic: 'ultrasonido',
 			reset: 'restablecer'
 		},
-
+		
 		nl: {
 			onOpenClose: 'Wanneer %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'Wanneer teller %m.counters %m.compares %n',
@@ -273,7 +273,7 @@ var Lang = {
             mode_ultrasonic: 'ultrasoon',
 			reset: 'resetten'
 		},
-
+		
 		pt: {
 			onOpenClose: 'Quando %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'Quando o contador %m.counters %m.compares %n',
@@ -316,7 +316,7 @@ var Lang = {
             mode_ultrasonic: 'Ultrassons',
 			reset: 'repor'
 		},
-
+		
 		he: {
 			onOpenClose: 'אם %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'אם ערכו של מונה %m.counters %m.compares %n',
@@ -359,11 +359,11 @@ var Lang = {
 			mode_d10v: 'Digital resistance smaller or equal',
             mode_ultrasonic: 'אולטרהסוניק',
 			reset: 'איפוס'
-}
+} 
 	*/
-
-	},
-
+				
+	},	
+	
 	// get a translated version for the given constant
 	get: function(what) {
 		var codes = this.trans[this.langCode];		// requested language
@@ -371,23 +371,23 @@ var Lang = {
 		if (!codes) { codes = 'search error'; }	// fallback 2
 		return codes[what];
 	},
-
+	
 	getSensor: function(name) {
 		return this.get('sens_' + name);
 	},
-
+	
 	getMotorDir: function(dir) {
 		return this.get('dir_' + dir);
 	},
-
+	
 	getOpenClose: function(dir) {
 		return this.get('openclose_' + dir);
 	},
-
+	
 	getMode: function(mode) {
 		return this.get('mode_' + mode);
 	}
-
+	
 };
 
 function ScratchConnection(url, ext) {
@@ -399,7 +399,7 @@ function ScratchConnection(url, ext) {
 	var inputEvent = new Event("Input");
 
 	this.status = {status: 1, msg: 'Connecting'};
-
+	
 	// get the current time as string
 	var getTimeString = function () {
 	    var d = new Date();
@@ -408,7 +408,7 @@ function ScratchConnection(url, ext) {
 	    var s = d.getSeconds(); s = (s < 10) ? ('0' + s) : s;
 	    return '(' + h + ':' + m + ':' + s + ') ';
 	};
-
+	
 	this.connect = function () {
 	    if (ws !== null) {
 	        alert('Connection is already alife'); return;
@@ -423,7 +423,7 @@ function ScratchConnection(url, ext) {
 	    ws.onclose = handleClose;
 	    ws.onopen = handleOpen;
 	};
-
+	
 	this.close = function () {
 	    ws.close();
 	    ws.onmessage = null;//2017-11-02
@@ -431,20 +431,20 @@ function ScratchConnection(url, ext) {
 	    ws.onopen = null;//2017-11-02
 	    ws = null;//2017-11-02
 	};
-
+	
 	// websocket connected. this == the websocket
 	var handleOpen = function () {
 	    _this.connected = true;
 	    ext.onConnect();
 	};
-
+	
 	// new websocket message. this == the websocket
 	var handleMessage = function(message) {
-
+		
 		var messageType = message.data.substring(0, 4);
 		var messageData = message.data.substring(4);
 		var data = messageData ? JSON.parse(messageData) : null;
-
+				
 		if (messageType === "SEVT") {
 		    //{"inputId":0,"inputValueNew":1}
 		    var index = data.inputId;
@@ -479,9 +479,9 @@ function ScratchConnection(url, ext) {
 			} else {
 				_this.status = {status: 1, msg: getTimeString() + ' connected to application but not to BT-Smart' };
 			}
-
+			
 		}
-
+		
 	};
 
 	// websocket closed. this == the websocket
@@ -495,31 +495,31 @@ function ScratchConnection(url, ext) {
 		this.close();//2017-11-02
 		_this.connected = false;
 	};
-
+	
 	this.playSound = function(sndIdx) {
 		this.send("PLAY", {idx: sndIdx});
 	};
-
-
+	
+	
 	this.ping = function () {
 	    ws.send("PING");
 	};
-
+	
 	this.reset = function () {
 	    ws.send("RSET");
 	};
-
+	
 	/** send CMD+json*/
 	this.send = function (cmd, obj) {
 	    ws.send(cmd + JSON.stringify(obj));
 	};
-
+	
 }
 
 
 //IIFE Immediately Invoked Function Expression pattern
 // function is treated as en expression and run immediately
-//
+// 
 
 (function (ext) {
 
@@ -769,8 +769,8 @@ function ScratchConnection(url, ext) {
         var dirv = ext._dirNameToValue(dirName);
         switch(dirv)
         {
-            case -1:
-            case 0:
+            case -1: 
+            case 0: 
             case 1: ext.output.motors[idx].dir = dirv; break;
             case 100: ext.output.motors[idx].dir = -1 * ext.output.motors[idx].dir; break;
         }
@@ -804,7 +804,7 @@ function ScratchConnection(url, ext) {
         //ext.output.motors[idx].modified();
     };
 
-    // set the given Input's mode:
+    // set the given Input's mode:  
     // 0=DIGITAL_10V (same as _Greater=5),
     //1=DIGITAL_5KOHM (same as _Greater=7),<br/>
     // 2=ANALOG_10V, 3=ANALOG_5KOHM,<br/>
@@ -849,7 +849,7 @@ function ScratchConnection(url, ext) {
     ext.updateInputA = function (inputName) {
         //Todo
         connection.send("ACTI", ext.output);
-
+        
     };
     /** txt finished playing a sound */
     ext.onSoundDone = function () {
@@ -881,7 +881,7 @@ function ScratchConnection(url, ext) {
             var res = func();
             if (res) {
                 //console.log("remove");
-                ext.waitForMotor.splice(idx, 1);// remove 1 item at 2-index position
+                ext.waitForMotor.splice(idx, 1);// remove 1 item at 2-index position 
             }
         }
     };
@@ -1000,10 +1000,10 @@ function ScratchConnection(url, ext) {
 
     };
 
-    /** synchronize the two given motors with distance
+    /** synchronize the two given motors with distance 
  * @param {motor1Name}
  * @param {dir1Name}
- * @param {motor2Name}
+ * @param {motor2Name} 
  * @param {dir2Name}
  * @param {speed}
  * @param {steps}
@@ -1072,7 +1072,7 @@ function ScratchConnection(url, ext) {
         //ext.updateIfNeeded();
     };
 
-
+  
 
     ext.doConfigureInput = function (inputName, inputMode) {
         ext.doConfigureInput(inputName, inputMode, 1500);
@@ -1100,8 +1100,8 @@ function ScratchConnection(url, ext) {
         //return ext.input.curValues.counters[idx];
     };
 
-    /** get the current value for the given sensor-type connected to the provided input
-     *
+    /** get the current value for the given sensor-type connected to the provided input 
+     * 
      */
     ext.getSensor = function (sensorType, inputName) {
 
@@ -1112,7 +1112,7 @@ function ScratchConnection(url, ext) {
         // get value
         var idx = ext._inputNameToIdx(inputName);
         return ext.input.curValues.inputs[idx];
-
+   
 
     };
 
@@ -1140,7 +1140,7 @@ function ScratchConnection(url, ext) {
     };
     /** get the current power for the given motor connected  */
     ext.getMotorSpeed = function (motorName) {
-
+ 
         ext.updateIfNeeded();
         // get value
         var idx = ext._motorNameToIdx(motorName);
@@ -1199,7 +1199,7 @@ function ScratchConnection(url, ext) {
         var dig = descriptor.menus.inputModesD;
         if (!dig.includes(mode)) { console.log('onRisingEdge: Works only in binary sensor modes'); return false; }
        // console.log("Riss index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + "  new : " + ext.input.curValues.inputs[idx]);
-            return ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;
+            return ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;	
     };
     /** On Faling Edge of an Input in the binary mode */
     ext.onFallingEdge = function (inputName) {
@@ -1295,7 +1295,7 @@ function ScratchConnection(url, ext) {
 			[' ', Lang.get('doSetMotorPowerDir'), 'doSetMotorPowerDir', 'M1', 8, Lang.getMotorDir('forward')],
 			[' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
 			[' ', Lang.get('doStopMotor'), 'doStopMotor', 'M1'],
-			[' ', Lang.get('doStopMotorAll'), 'doStopMotorAll', 'M1'],
+//			[' ', Lang.get('doStopMotorAll'), 'doStopMotorAll', 'M1'],
 
 			[' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
 			[' ', Lang.get('doConfigureInputA'), 'doConfigureInput', 'I1', Lang.getMode('a10v')],
@@ -1360,3 +1360,4 @@ function ScratchConnection(url, ext) {
     ScratchExtensions.register('fischertechnik Bt-Smart', descriptor, ext);
 
 })({});
+
