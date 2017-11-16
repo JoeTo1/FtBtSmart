@@ -1106,7 +1106,7 @@ function ScratchConnection(url, ext) {
     ext.getSensor = function (sensorType, inputName) {
 
         // ensure correct (analog) working mode
-        ext._adjustInputModeAnalog(inputName, sensorType);
+       // ext._adjustInputModeAnalog(inputName, sensorType);
         ext.updateIfNeeded();
 
         // get value
@@ -1117,11 +1117,12 @@ function ScratchConnection(url, ext) {
     };
 
     /** get the current value for the given sensor-type connected to the provided input */
-    ext.getSensorA = function ( inputName, callback) {
+    ext.getSensorA = function ( inputName) {
         //Todo send message for get new value
         var idx = ext._inputNameToIdx(inputName);
-        ext.updateInput(inputName);
-       
+//        ext.updateInput(inputName);
+//        ext.updateIfNeeded();
+
         return ext.input.curValues.inputs[idx];
 
     };
@@ -1278,7 +1279,7 @@ function ScratchConnection(url, ext) {
 			['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
 			['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
 			['r', Lang.get('getMotorPower'), 'getMotorPower',  'M1'],
-	//		['r', Lang.get('getSensorA'), 'getSensorA', 'I1'],
+			['r', Lang.get('getSensorA'), 'getSensorA', 'I1'],
 
 	//		['b', Lang.get('isClosed'), 'isClosed', Lang.getSensor('button'), 'I1'],
 
