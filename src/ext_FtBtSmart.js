@@ -86,7 +86,7 @@ var Lang = {
 		en: {
 			onOpenClose: 'If %m.openCloseSensors %m.inputs %m.openClose',
 			onCounter: 'If counter %m.counters %m.compares %n',
-			onInput: 'If xxx value of %m.inputSensors %m.inputs %m.compares %n',
+			onInput: 'If x value of %m.inputSensors %m.inputs %m.compares %n',
 			onRisingEdge:'If value of %m.inputs rising (only binary mode: 0 to 1) ',
 			onFallingEdge: 'If value of %m.inputs falling (only binary mode: 1 to 0)',
 			isClosed: 'Is %m.openCloseSensors %m.inputs closed?',
