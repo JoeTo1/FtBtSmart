@@ -1121,7 +1121,7 @@ function ScratchConnection(url, ext) {
         //Todo send message for get new value
         var idx = ext._inputNameToIdx(inputName);
         ext.updateInput(inputName);
-        callback();
+       
         return ext.input.curValues.inputs[idx];
 
     };
@@ -1274,11 +1274,11 @@ function ScratchConnection(url, ext) {
 
 			// gets
 	//		['r', Lang.get('getCounter'),					'getCounter',					'C1'],
-	//		['r', Lang.get('getSensor'), 'getSensor', Lang.getSensor('color'), 'I1'],
+			['r', Lang.get('getSensor'), 'getSensor', Lang.getSensor('color'), 'I1'],
 			['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
 			['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
 			['r', Lang.get('getMotorPower'), 'getMotorPower',  'M1'],
-			['R', Lang.get('getSensorA'), 'getSensorA', 'I1'],
+	//		['r', Lang.get('getSensorA'), 'getSensorA', 'I1'],
 
 	//		['b', Lang.get('isClosed'), 'isClosed', Lang.getSensor('button'), 'I1'],
 
