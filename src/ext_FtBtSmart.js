@@ -409,7 +409,7 @@ function ScratchConnection(url, ext) {
 	    return '(' + h + ':' + m + ':' + s + ') ';
 	};
 
-    /** Create a websocket connection with the CvLFTScratchB server */
+    /** Create a websocket connection with the CvLFTScratchB server, return true if ok */
 	this.connect = function () {
 	    if (ws !== null) {
 	        alert('Connection with server is already alife'); return true;
