@@ -458,10 +458,10 @@ function ScratchConnection(url, ext) {
 		    ext.onNewInputs();
 
 		} else if (messageType === "ACTI") {
-		    ext.input.oldValues = ext.input.curValues;
-		    ext.input.curValues = data;
+		    //ext.input.oldValues = ext.input.curValues;
+		    //ext.input.curValues = data;
 		    console.log("ACTI index= " + index + " old :" + ext.input.oldValues.inputs[index] + "  new : " + ext.input.curValues.inputs[index]);
-		    ext.onNewInputs();
+		   // ext.onNewInputs();
 		} else if (messageType === "SENS") {
 			ext.input.oldValues = ext.input.curValues;//The old vaue can be overwriten with not new values.
 			ext.input.curValues = data;
@@ -625,7 +625,7 @@ function ScratchConnection(url, ext) {
         };
 
         this.transmitted = function () { this.mod = false;  };
-        this.init = function () { this.setMode(0); this.setLimit( 1500);};
+        this.init = function () { this.setMode(0); this.setLimit( 0);};
     }
 
     // describes one counter-configuration
@@ -693,7 +693,7 @@ function ScratchConnection(url, ext) {
         },
         reset:function(index)
         {
-            this.curValues[ind] = 0; this.oldValues = 0;
+            this.curValues.inputs[index] = 0; this.oldValues.inputs[index] = 0;
         }
     };
 
