@@ -931,7 +931,7 @@ function ScratchConnection(url, ext) {
         ext._setSensorMode(inputName, idx, inputLimit);
         //reset deze input
         ext.updateIfNeeded();
-        window.setTimeout(function () { }, 20);
+        window.setTimeout(function () { var t = 'jjj'; }, 30);
     };
 
 
