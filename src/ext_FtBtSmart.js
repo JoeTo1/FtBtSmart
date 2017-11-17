@@ -610,7 +610,7 @@ function ScratchConnection(url, ext) {
         this.mod = false;		// input was changed?
         this.mode = -1;			// start with "unknown"
         this.setMode = function (newMode) {
-            var changed = this.mode !== newMode;
+            var changed = true;//this.mode !== newMode;
             this.mode = newMode;
             if (changed) { this.mod = true; }
             //console.log(this.mode + ":" + newMode + ":" + changed + " - " + this.mod);
@@ -618,7 +618,7 @@ function ScratchConnection(url, ext) {
         //2017-11-10 cvl add limt for BT Smart
         this.limit = 0;//start with undifined
         this.setLimit = function (newLimit) {
-            var changed = this.limit !== newLimit;
+            var changed =true ;//this.limit !== newLimit;
             this.limit = newLimit;
             if (changed) { this.mod = true; }
             //console.log(this.mode + ":" + newMode + ":" + changed + " - " + this.mod);
