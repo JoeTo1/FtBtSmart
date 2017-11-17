@@ -836,6 +836,7 @@ function ScratchConnection(url, ext) {
         if (ext.output.needsUpdate()) {
             connection.send("ACTU", ext.output);
             ext.output.transmitted();
+
         }
     };
     ext.updateInputA = function (inputName) {
@@ -930,6 +931,7 @@ function ScratchConnection(url, ext) {
         ext._setSensorMode(inputName, idx, inputLimit);
         //reset deze input
         ext.updateIfNeeded();
+        window.setTimeout(function () { }, 20);
     };
 
 
