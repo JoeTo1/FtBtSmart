@@ -1030,8 +1030,9 @@ function ScratchConnection(url, ext) {
         var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesD;
         if (!dig.includes(mode)) { console.log('onRisingEdge: Works only in binary sensor modes'); return false; }
-       // console.log("Riss index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + "  new : " + ext.input.curValues.inputs[idx]);
-            return ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;	
+        var test = ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;
+        console.log("Riss index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + ",  new : " + ext.input.curValues.inputs[idx]+", test :"+test);
+            return test;	
     };
     /** On Faling Edge of an Input in the binary mode */
     ext.onFallingEdge = function (inputName) {
@@ -1040,8 +1041,9 @@ function ScratchConnection(url, ext) {
         var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesD;
         if (!dig.includes(mode)) { console.log('onFallingEdge: Works only in binary sensor modes'); return false; }
-        //console.log("Fall index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + "  new : " + ext.input.curValues.inputs[idx]);
-        return ext.input.oldValues.inputs[idx] === 1 && ext.input.curValues.inputs[idx] === 0;
+        var test = ext.input.oldValues.inputs[idx] === 1 && ext.input.curValues.inputs[idx] === 0;
+        console.log("Fall index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + ",  new : " + ext.input.curValues.inputs[idx] + ", test :" + test);
+        return test;
     };
     /** button/light-barrier/reed opens/closes */
     ext.onOpenClose = function (sensorType, inputName, direction) {
