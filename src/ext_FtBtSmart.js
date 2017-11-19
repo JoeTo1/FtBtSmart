@@ -451,9 +451,10 @@ function ScratchConnection(url, ext) {
 		    //{"inputId":0,"inputValueNew":1}
 		    var index = data.inputId;
 		    var value = data.inputValueNew;
-		    ext.input.oldValues.inputs[index] = ext.input.curValues.inputs[index];
-		    ext.input.curValues.inputs[index] = value;
-		  //  console.log("SEVT index= " + index + " old :" + ext.input.oldValues.inputs[index] + "  new : " + ext.input.curValues.inputs[index]);
+		    ext.input.setValue(index,value);
+            //   oldValues.inputs[index] = ext.input.curValues.inputs[index];
+		   // ext.input.curValues.inputs[index] = value;
+		    if (index === 0 || index === 1) { console.log("SEVT index= " + index + " old :" + ext.input.oldValues.inputs[index] + "  new : " + ext.input.curValues.inputs[index]); }
 
 		    ext.onNewInputs();
 
@@ -575,7 +576,7 @@ function ScratchConnection(url, ext) {
     ext.reset = function () {
         connection.reset();
         ext.output.init();
-        ext.input.init();
+        ext.input.initInputs();
     };
 
 
@@ -687,11 +688,18 @@ function ScratchConnection(url, ext) {
     ext.input = {
         curValues: {},
         oldValues: {},
-        init: function () {
+        initInputs: function () {
             this.curValues.inputs = [0, 0, 0, 0];
             this.oldValues.inputs = [0, 0, 0, 0];
         },
-        reset:function(index)
+        setValue:function(index,value)
+        {
+            this.oldValues.inputs[index] = this.curValues.inputs[index];
+            this.curValues.inputs[index]=value;
+        },
+        isRising: function (index) { ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1; },
+        isFalling: function (index) { ext.input.oldValues.inputs[idx] === 1 && ext.input.curValues.inputs[idx] === 0; },
+        initInput: function (index)
         {
             this.curValues.inputs[index] = 0; this.oldValues.inputs[index] = 0;
         }
@@ -1030,9 +1038,10 @@ function ScratchConnection(url, ext) {
         var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesD;
         if (!dig.includes(mode)) { console.log('onRisingEdge: Works only in binary sensor modes'); return false; }
-        var test = ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;
-        console.log("Riss index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + ",  new : " + ext.input.curValues.inputs[idx]+", test :"+test);
-            return test;	
+        var test = ext.input.isRising(idx);
+        if(test) {
+            console.log("Risling index= " + idx) ;
+        }           return test;	
     };
     /** On Faling Edge of an Input in the binary mode */
     ext.onFallingEdge = function (inputName) {
@@ -1041,8 +1050,10 @@ function ScratchConnection(url, ext) {
         var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesD;
         if (!dig.includes(mode)) { console.log('onFallingEdge: Works only in binary sensor modes'); return false; }
-        var test = ext.input.oldValues.inputs[idx] === 1 && ext.input.curValues.inputs[idx] === 0;
-        console.log("Fall index= " + idx + "old :" + ext.input.oldValues.inputs[idx] + ",  new : " + ext.input.curValues.inputs[idx] + ", test :" + test);
+        var test = ext.input.isFalling(idx);
+        if(test) {
+            console.log("Falling index= " + idx) ;
+        }
         return test;
     };
     /** button/light-barrier/reed opens/closes */
@@ -1059,9 +1070,9 @@ function ScratchConnection(url, ext) {
         // check both directions
         var idx = ext._inputNameToIdx(inputName);
         if (direction === Lang.getOpenClose('opens')) {
-            return ext.input.oldValues.inputs[idx] === 1 && ext.input.curValues.inputs[idx] === 0;	// TODO light barrier?//ext.input.oldValues.inputs bestaan niet
+            return ext.input.isFalling(idx);	// TODO light barrier?//ext.input.oldValues.inputs bestaan niet
         } else if (direction === Lang.getOpenClose('closes')) {
-            return ext.input.oldValues.inputs[idx] === 0 && ext.input.curValues.inputs[idx] === 1;	// TODO light barrier?//ext.input.oldValues.inputs bestaan niet
+            return ext.input.isRising(idx);	// TODO light barrier?//ext.input.oldValues.inputs bestaan niet
         } else {
             alert('invalid open/close mode');
         }
