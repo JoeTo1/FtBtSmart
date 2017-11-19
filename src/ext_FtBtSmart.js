@@ -697,8 +697,8 @@ function ScratchConnection(url, ext) {
             this.oldValues.inputs[index] = this.curValues.inputs[index];
             this.curValues.inputs[index]=value;
         },
-        isRising: function (index) { ext.input.oldValues.inputs[index] === 0 && ext.input.curValues.inputs[index] === 1; },
-        isFalling: function (index) { ext.input.oldValues.inputs[index] === 1 && ext.input.curValues.inputs[index] === 0; },
+        isRising: function (index) { return ext.input.oldValues.inputs[index] === 0 && ext.input.curValues.inputs[index] === 1; },
+        isFalling: function (index) { return  ext.input.oldValues.inputs[index] === 1 && ext.input.curValues.inputs[index] === 0; },
         initInput: function (index)
         {
             this.curValues.inputs[index] = 0; this.oldValues.inputs[index] = 0;
