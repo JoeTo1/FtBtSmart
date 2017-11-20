@@ -1091,7 +1091,7 @@ function ScratchConnection(url, ext) {
     ext.onMotorDirectionChange = function (motorName) {
         var idx = ext._motorNameToIdx(motorName);
         var dir = ext.output.currentValues.motors[idx].dir;
-        var test = ext.output.isNewDir(inx);
+        var test = ext.output.isNewDir(idx);
         //   if(test) {
         //       console.log("Falling index= " + idx) ;
         //    }
