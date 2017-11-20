@@ -712,7 +712,7 @@ function ScratchConnection(url, ext) {
 
          isNewDir: function (idx)
         {
-            return this.oldValues.motors[idx].dir =  this.currentValues.motors[idx].dir;
+            return this.oldValues.motors[idx].dir ===  this.currentValues.motors[idx].dir;
         }
     };
     // received state
