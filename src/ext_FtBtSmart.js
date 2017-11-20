@@ -1106,7 +1106,7 @@ function ScratchConnection(url, ext) {
     };
     /** temp to test  */
     ext.test01 = function () {
-        ext.input.setValue(0, ext.input.oldValues.counters[0]);
+        ext.input.setValue(0, ext.input.oldValues.inputs[0]);
     };
 
     // Block and block menu descriptions
