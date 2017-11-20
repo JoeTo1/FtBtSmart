@@ -1061,7 +1061,7 @@ function ScratchConnection(url, ext) {
         return test;
     };
     /** On Motor direction change */
-    ext.onMotorChangeDirection = function (motorName) {
+    ext.onMotorDirectionChange = function (motorName) {
         var idx = ext._motorNameToIdx(motorName);
         var dir = ext.output.motors[idx].dir;
         var test = true;
