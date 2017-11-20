@@ -1039,9 +1039,10 @@ function ScratchConnection(url, ext) {
         var dig = descriptor.menus.inputModesD;
         if (!dig.includes(mode)) { console.log('onRisingEdge: Works only in binary sensor modes'); return false; }
         var test = ext.input.isRising(idx);
-        if(test) {
-            console.log("Risling index= " + idx) ;
-        }           return test;	
+     //   if(test) {
+     //       console.log("Risling index= " + idx) ;
+     //   }
+        return test;
     };
     /** On Faling Edge of an Input in the binary mode */
     ext.onFallingEdge = function (inputName) {
@@ -1051,9 +1052,9 @@ function ScratchConnection(url, ext) {
         var dig = descriptor.menus.inputModesD;
         if (!dig.includes(mode)) { console.log('onFallingEdge: Works only in binary sensor modes'); return false; }
         var test = ext.input.isFalling(idx);
-        if(test) {
-            console.log("Falling index= " + idx) ;
-        }
+     //   if(test) {
+     //       console.log("Falling index= " + idx) ;
+    //    }
         return test;
     };
     /** button/light-barrier/reed opens/closes */
@@ -1103,7 +1104,10 @@ function ScratchConnection(url, ext) {
         // alert('not implemented xyet');
         connection.close();
     };
-
+    /** temp to test  */
+    ext.test01 = function () {
+        ext.input.setValue(0, ext.input.oldValues.counters[0]);
+    };
 
     // Block and block menu descriptions
     var descriptor = {
@@ -1140,7 +1144,7 @@ function ScratchConnection(url, ext) {
 			[' ', Lang.get('doConfigureInputD'), 'doConfigureInputLimit', 'I1', Lang.getMode('d10v'),1500],
 			[' ', Lang.get('doConnect'), 'doConnect'],
 			[' ', Lang.get('doDisconnect'), 'doDisconnect'],
-
+			[' ', 'test01', 'test01'],
 			[' ', Lang.get('reset'), 'reset']
         ],
 
