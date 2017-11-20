@@ -89,6 +89,9 @@ var Lang = {
 			onInput: 'If x value of %m.inputSensors %m.inputs %m.compares %n',
 			onRisingEdge:'If value of %m.inputs rising (only binary mode: 0 to 1) ',
 			onFallingEdge: 'If value of %m.inputs falling (only binary mode: 1 to 0)',
+			onMotorChangeDirection: 'If direction of %m.motors has been changed',
+			onInputLimitChange: 'If limit of %m.inputs has been changed',
+
 			isClosed: 'Is %m.openCloseSensors %m.inputs closed?',
 			getCounter: 'Read value of counter %m.counters',
 			getSensor: 'Read value of %m.inputSensors %m.inputs',
@@ -464,7 +467,7 @@ function ScratchConnection(url, ext) {
 		    console.log("ACTI index= " + index + " old :" + ext.input.oldValues.inputs[index] + "  new : " + ext.input.curValues.inputs[index]);
 		   // ext.onNewInputs();
 		} else if (messageType === "SENS") {
-			ext.input.oldValues = ext.input.curValues;//The old vaue can be overwriten with not new values.
+			ext.input.oldValues = ext.input.curValues;//
 			ext.input.curValues = data;
 			ext.onNewInputs();
 		} else if (messageType === "SDON") {
@@ -1057,6 +1060,28 @@ function ScratchConnection(url, ext) {
     //    }
         return test;
     };
+    /** On Motor direction change */
+    ext.onMotorChangeDirection = function (motorName) {
+        var idx = ext._motorNameToIdx(motorName);
+        var dir = ext.output.motors[idx].dir;
+        var test = true;
+        //   if(test) {
+        //       console.log("Falling index= " + idx) ;
+        //    }
+        return test;
+    };
+    /** On Input limit change */
+    ext.onInputLimitChange = function (inputName) {
+        var idx = ext._inputNameToIdx(inputName);
+        var limit = ext.output.inputs[idx].limit;
+        var test = true;
+        //   if(test) {
+        //       console.log("Falling index= " + idx) ;
+        //    }
+        return test;
+    };
+
+
     /** button/light-barrier/reed opens/closes */
     ext.onOpenClose = function (sensorType, inputName, direction) {
 
@@ -1119,6 +1144,8 @@ function ScratchConnection(url, ext) {
 			['h', Lang.get('onInput'), 'onInput', Lang.getSensor('color'), 'I1', '>', 0],
 			['h', Lang.get('onRisingEdge'), 'onRisingEdge', 'I1'],
 			['h', Lang.get('onFallingEdge'), 'onFallingEdge', 'I1'],
+			['h', Lang.get('onMotorChangeDirection'), 'onMotorDirectionChange', 'M1'],
+			['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1'],
 
 			// gets
 			['r', Lang.get('getSensor'), 'getSensor', Lang.getSensor('color'), 'I1'],
