@@ -89,7 +89,7 @@ var Lang = {
 			onInput: 'If x value of %m.inputSensors %m.inputs %m.compares %n',
 			onRisingEdge:'If value of %m.inputs rising (only binary mode: 0 to 1) ',
 			onFallingEdge: 'If value of %m.inputs falling (only binary mode: 1 to 0)',
-			onMotorChangeDirection: 'If direction of %m.motors has been changed',
+			onMotorChangeDirection: 'If direction of %m.motors became Forwards',
 			onInputLimitChange: 'If limit of %m.inputs has been changed',
 
 			isClosed: 'Is %m.openCloseSensors %m.inputs closed?',
@@ -709,8 +709,15 @@ function ScratchConnection(url, ext) {
              this.oldValues.motors[idx].dir= this.currentValues.motors[idx].dir;
              this.currentValues.motors[idx].setDir(newDir);
          },
-
-         isNewDir: function (idx)
+         isDirForwards: function (idx)
+         {
+             return   this.currentValues.motors[idx].dir===1;
+         },
+        isDirBackwards: function (idx)
+    {
+        return   this.currentValues.motors[idx].dir===-1;
+        },
+        isNewDir: function (idx)
         {
             return this.oldValues.motors[idx].dir !==  this.currentValues.motors[idx].dir;
         }
@@ -1091,7 +1098,7 @@ function ScratchConnection(url, ext) {
     ext.onMotorDirectionChange = function (motorName) {
         var idx = ext._motorNameToIdx(motorName);
         var dir = ext.output.currentValues.motors[idx].dir;
-        var test = ext.output.isNewDir(idx);
+        var test = ext.output.isDirForwards(idx);
         //   if(test) {
         //       console.log("Falling index= " + idx) ;
         //    }
