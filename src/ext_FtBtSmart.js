@@ -804,10 +804,16 @@ function ScratchConnection(url, ext) {
         //  ext.output.currentValues.motors[idx].modified();
     };
 
-    // set the given Motor 'Mx' direction
+
+    // set the given Motor 'motorName' direction als name
     ext._setMotorDir = function (motorName, dirName) {
-        var idx = ext._motorNameToIdx(motorName);
-        var dirv = ext._dirNameToValue(dirName);
+
+        ext._setMotorDirVal(motorName, ext._dirNameToValue(dirName));
+
+    }; 
+    // set the given Motor 'motorName' direction as number
+    ext._setMotorDirVal = function (motorName,dirv) {
+        var idx = ext._motorNameToIdx(motorName);  
         switch (dirv) {
             case -1:
             case 0:
@@ -953,28 +959,27 @@ function ScratchConnection(url, ext) {
     };
 
 
-    /** adjust the given motor's speed and direction */
-    ext.doSetMotorPowerDir = function (motorName, value, dirName) {
+    /** adjust the given motor's power and direction */
+    ext.doSetMotorPowerDir = function (motorName, power, dirName) {
         ext._setMotorDir(motorName, dirName);
-        ext._SetMotorPower08(motorName, value);
+        ext._SetMotorPower08(motorName, power);
         ext.updateIfNeeded();
     };
 
 
 
 
-    /** stop the given motor */
+    /** stop the given motor but don't change the power */
     ext.doStopMotor = function (motorName) {
-        ext._SetMotorPower08(motorName, 0);		// set speed to 0
-        //ext._setMotorDist(motorName, 0);		// remove distance limits
-        //ext._setMotorSyncNone(motorName);		// remove sync constraints
+       // ext._SetMotorPower08(motorName, 0);		// set speed to 0
+        ext._setMotorDirVal(motorName, 0);		// remove distance limits
         ext.updateIfNeeded();
     };
 
 
 
     ext.doConfigureInput = function (inputName, inputMode) {
-        ext.doConfigureInputLimit(inputName, inputMode, 1500);
+        ext.doConfigureInputLimit(inputName, inputMode, 120);
     };
 
     //* moet een wait worden op bevestiging van aanpassing  /
@@ -983,7 +988,7 @@ function ScratchConnection(url, ext) {
         ext._setSensorMode(inputName, idx, inputLimit);
         //reset deze input
         ext.updateIfNeeded();
-        window.setTimeout(function () { var t = 'jjj'; }, 30);
+       // window.setTimeout(function () { var t = 'jjj'; }, 30);
     };
 
 
