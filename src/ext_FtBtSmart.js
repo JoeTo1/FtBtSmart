@@ -452,11 +452,12 @@ function ScratchConnection(url, ext) {
     // new websocket message. this == the websocket
     var handleMessage = function(message) {
         
-        var messageType = message.data.substring(0, 4);
-        var messageData = message.data.substring(4);
+        var messageType = message.data.substring(0, 3);
+        var messageId = message.data.substring(3, 6);
+        var messageData = message.data.substring(6);
         var data = messageData ? JSON.parse(messageData) : null;
                 
-        if (messageType === "SEVT") {
+        if (messageType === "SEV") {
             //{"inputId":0,"inputValueNew":1}
             var index = data.inputId;
             var value = data.inputValueNew;
@@ -467,18 +468,18 @@ function ScratchConnection(url, ext) {
 
             ext.onNewInputs();
 
-        } else if (messageType === "ACTI") {
+        } else if (messageType === "ACI") {
             //ext.input.oldValues = ext.input.curValues;
             //ext.input.curValues = data;
             console.log("ACTI index= " + index + " old :" + ext.input.oldValues.inputs[index] + "  new : " + ext.input.curValues.inputs[index]);
            // ext.onNewInputs();
-        } else if (messageType === "SENS") {
+        } else if (messageType === "SEN") {
             ext.input.oldValues = ext.input.curValues;//
             ext.input.curValues = data;
             ext.onNewInputs();
-        } else if (messageType === "SDON") {
+        } else if (messageType === "SDO") {
             ext.onSoundDone();
-        } else if (messageType === "PONG") {
+        } else if (messageType === "PON") {
             ext.onPong();
             var dev = data[0];
             var devChanged = dev !== _this.curDev;
@@ -509,23 +510,23 @@ function ScratchConnection(url, ext) {
     };
     
     this.playSound = function(sndIdx) {
-        this.send("PLAY", {idx: sndIdx});
+        this.send("PLY" + this.CreateGuid(), { idx: sndIdx });
     };
     
     
     this.ping = function () {
-        ws.send("PING");
+        ws.send("PIN" + this.CreateGuid());
     };
     
     this.reset = function () {
-        var s = "RSET" + this.CreateGuid();
-        ws.send("RSET");
+        var s = "RST" + this.CreateGuid();
+        ws.send("RST" + this.CreateGuid());
     };
     
     /** send CMD+json*/
     this.send = function (cmd, obj) {
         var s = cmd + this.CreateGuid()+ JSON.stringify(obj);
-        ws.send(cmd + JSON.stringify(obj));
+        ws.send(cmd + this.CreateGuid() + JSON.stringify(obj));
     };
     function getRandomIntInclusive(min, max) {
         min = Math.ceil(min);
@@ -912,7 +913,7 @@ function ScratchConnection(url, ext) {
 
     ext.updateIfNeeded = function () {
         if (ext.output.currentValues.needsUpdate()) {
-            connection.send("ACTU", ext.output.currentValues);
+            connection.send("ACT", ext.output.currentValues);
             ext.output.transmitted();
 
         }
