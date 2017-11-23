@@ -518,14 +518,33 @@ function ScratchConnection(url, ext) {
     };
     
     this.reset = function () {
+        var s = "RSET" + this.CreateGuid();
         ws.send("RSET");
     };
     
     /** send CMD+json*/
     this.send = function (cmd, obj) {
+        var s = cmd + this.CreateGuid()+ JSON.stringify(obj);
         ws.send(cmd + JSON.stringify(obj));
     };
-    
+    function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+    }
+    this. CreateGuid=function( )
+{
+     var final ="";
+    var ids = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    //Random random = new Random();
+    // Loop and get a random index in the ids and append to id 
+    for (var i = 0; i < 3; i++) {
+        final += ids[getRandomIntInclusive(0, ids.length - 1)];
+    }
+        // Return the guid without a prefix
+        // Return the guid with a prefix
+    return  final;
+    }   
 }
 
 
@@ -898,14 +917,6 @@ function ScratchConnection(url, ext) {
 
         }
     };
-    //ext.updateInputA = function (inputName) {
-    //    //Todo
-    //    connection.send("ACTI", ext.output);
-
-    //};
-
-
-
 
     ext.waitForMotor = [];
 
@@ -1016,7 +1027,7 @@ function ScratchConnection(url, ext) {
         var idx = ext._inputNameToIdx(inputName);
         var modeIdx = ext.output.currentValues.inputs[idx].mode;
         var mode = descriptor.menus.inputModes[modeIdx]; var dig = descriptor.menus.inputModesA;
-        if (!dig.includes(mode)) { console.log('onRisingEdge: Works only in analogue sensor modes'); return false; }
+        if (!dig.includes(mode)) { alert('onRisingEdge: Works only in analogue sensor modes'); return false; }
          return ext.input.curValues.inputs[idx];
     };
     /** get the current value for the a binary sensor-type, result is true or false (boolean) */
@@ -1025,7 +1036,7 @@ function ScratchConnection(url, ext) {
         var modeIdx = ext.output.currentValues.inputs[idx].mode;
         var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesB;
-        if (!dig.includes(mode)) { console.log('onRisingEdge: Works only in binary sensor modes'); return false; }
+        if (!dig.includes(mode)) { alert('onRisingEdge: Works only in binary sensor modes'); return false; }
         return ext.input.curValues.inputs[idx]===0?false:true;
     };
 
@@ -1034,20 +1045,17 @@ function ScratchConnection(url, ext) {
     ext.getMotorPower = function (motorName) {
         ext.updateIfNeeded();
         var idx = ext._motorNameToIdx(motorName);
-        return ext.output.currentValues.motors[idx].speed / 100 * 8;
+        return Math .round( ext.output.currentValues.motors[idx].speed / 100 * 8);
     };
     /** get the current power for the given motor connected  */
     ext.getMotorSpeed = function (motorName) {
-
         ext.updateIfNeeded();
-        // get value
         var idx = ext._motorNameToIdx(motorName);
-        return ext.output.currentValues.motors[idx].speed / 100 * 8 * ext.output.currentValues.motors[idx].dir;
+        return Math .round(ext.output.currentValues.motors[idx].speed / 100 * 8 * ext.output.currentValues.motors[idx].dir);
     };
     /** get the current power for the given motor connected  */
     ext.getMotorDir = function (motorName) {
         ext.updateIfNeeded();
-        // get value
         var idx = ext._motorNameToIdx(motorName);
         return ext.output.currentValues.motors[idx].dir;
     };
