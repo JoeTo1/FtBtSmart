@@ -120,7 +120,7 @@ var Lang = {
             doSetMotorPowerDirDistSync: 'Move motor %m.motors %m.motorDirections and %m.motors %m.motorDirections with %n by %n steps',
             doStopMotor: 'Stop motor %m.motors',
             doStopMotorAdv: 'Stop move %m.motors',
-            doStopMotorAll: 'Stop all %m.motors',
+            doStopMotorAll: 'Stop all',
             doConfigureInput: 'Set input %m.inputs to %m.inputModes',
             doConfigureInputA: 'Set input analogue %m.inputs to %m.inputModesA',
             doConfigureInputD: 'Set input binary %m.inputs to %m.inputModesB with limit %n',
@@ -810,9 +810,7 @@ function ScratchConnection(url, ext) {
 
     // set the given Motor 'motorName' direction als name
     ext._setMotorDir = function (motorName, dirName) {
-
         ext._setMotorDirVal(motorName, ext._dirNameToValue(dirName));
-
     }; 
     // set the given Motor 'motorName' direction as number
     ext._setMotorDirVal = function (motorName,dirv) {
@@ -979,6 +977,13 @@ function ScratchConnection(url, ext) {
         ext.updateIfNeeded();
     };
 
+    /** stop the given motor but don't change the power */
+    ext.doStopMotorAll = function () {
+        // ext._SetMotorPower08(motorName, 0);		// set speed to 0
+        ext._setMotorDirVal('M1', 0);		
+        ext._setMotorDirVal('M2', 0);		
+        ext.updateIfNeeded();
+    };
 
 
     ext.doConfigureInput = function (inputName, inputMode) {
@@ -1251,7 +1256,7 @@ function ScratchConnection(url, ext) {
             ['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
             ['r', Lang.get('getMotorPower'), 'getMotorPower', 'M1'],
             ['r', Lang.get('getSensorA'), 'getSensorA', 'I1'],
-             ['r', Lang.get('getSensorB'), 'getSensorB', 'I1'],
+             ['b', Lang.get('getSensorB'), 'getSensorB', 'I1'],
              ['r', Lang.get('getSensorX'), 'getSensorX', 'I1'],
    //          ['r', Lang.get('getSensor'), 'getSensor', Lang.getSensor('color'), 'I1'],
   //		['b', Lang.get('isClosed'), 'isClosed', Lang.getSensor('button'), 'I1'],
@@ -1265,7 +1270,7 @@ function ScratchConnection(url, ext) {
             [' ', Lang.get('doSetMotorPowerDir'), 'doSetMotorPowerDir', 'M1', 8, Lang.getMotorDir('forward')],
             [' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
             [' ', Lang.get('doStopMotor'), 'doStopMotor', 'M1'],
-            [' ', Lang.get('doStopMotorAll'), 'doStopMotorAll', 'M1'],
+            [' ', Lang.get('doStopMotorAll'), 'doStopMotorAll'],
 
             [' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
             [' ', Lang.get('doConfigureInputA'), 'doConfigureInput', 'I1', Lang.getMode('a10v')],
