@@ -1000,55 +1000,39 @@ function ScratchConnection(url, ext) {
     };
 
 
-    /** get the current value for the given sensor-type connected to the provided input 
-     * 
-     */
+    /** get the current value for the given sensor-type connected to the provided input */
     ext.getSensor = function (sensorType, inputName) {
-
-        // ensure correct (analog) working mode
-        // ext._adjustInputModeAnalog(inputName, sensorType);
         ext.updateIfNeeded();
-
-        // get value
         var idx = ext._inputNameToIdx(inputName);
         return ext.input.curValues.inputs[idx];
     };
     /** get the current value for the given  sensor, result is numeral, 0..65535 [mV]/[Ohm]) or 0..1 (binary). */
     ext.getSensorX = function (inputName) {
-        //Todo send message for get new value
-        var idx = ext._inputNameToIdx(inputName);//Todo: warning sensor familie
-        //        ext.updateInput(inputName);
-        //        ext.updateIfNeeded();
-        return ext.input.curValues.inputs[idx];
+        var idx = ext._inputNameToIdx(inputName);
+         return ext.input.curValues.inputs[idx];
     };
     /** get the current value for the given analogue sensor-type, result is numeral */
     ext.getSensorA = function (inputName) {
-        //Todo send message for get new value
-        var idx = ext._inputNameToIdx(inputName);//Todo: warning sensor familie
-        var dig = descriptor.menus.inputModesA;
+        var idx = ext._inputNameToIdx(inputName);
+        var modeIdx = ext.output.currentValues.inputs[idx].mode;
+        var mode = descriptor.menus.inputModes[modeIdx]; var dig = descriptor.menus.inputModesA;
         if (!dig.includes(mode)) { console.log('onRisingEdge: Works only in analogue sensor modes'); return false; }
-        //        ext.updateInput(inputName);
-        //        ext.updateIfNeeded();
-        return ext.input.curValues.inputs[idx];
+         return ext.input.curValues.inputs[idx];
     };
     /** get the current value for the a binary sensor-type, result is true or false (boolean) */
     ext.getSensorB = function (inputName) {
-        //Todo send message for get new value
-        var idx = ext._inputNameToIdx(inputName);//Todo: warning sensor familie
+        var idx = ext._inputNameToIdx(inputName);
+        var modeIdx = ext.output.currentValues.inputs[idx].mode;
+        var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesB;
         if (!dig.includes(mode)) { console.log('onRisingEdge: Works only in binary sensor modes'); return false; }
-        //        ext.updateIfNeeded();
         return ext.input.curValues.inputs[idx]===0?false:true;
     };
 
 
     /** get the current power for the given motor connected  */
     ext.getMotorPower = function (motorName) {
-
-        // ensure correct (analog) working mode
-        //        ext._adjustInputModeAnalog(inputName, sensorType);
         ext.updateIfNeeded();
-        // get value
         var idx = ext._motorNameToIdx(motorName);
         return ext.output.currentValues.motors[idx].speed / 100 * 8;
     };
