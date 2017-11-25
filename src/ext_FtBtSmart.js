@@ -73,10 +73,10 @@ var Lang = {
             mode_d5k: 'Widerstand digital',
             mode_a10v: 'Spannung analog',
             mode_d10v: 'Spannung digital',
-            mode_d10vg: 'Digital voltage greater',
-            mode_d10vs: 'Digital voltage smaller or equal',
-            mode_d5kg: 'Digital resistance greater',
-            mode_d5ks: 'Digital resistance smaller or equal',
+            mode_d10vg: 'Binary voltage greater',
+            mode_d10vs: 'Binary voltage smaller or equal',
+            mode_d5kg: 'Binary resistance greater',
+            mode_d5ks: 'Binary resistance smaller or equal',
             mode_ultrasonic: 'Ultraschall',
             reset: 'zurücksetzen',
             doConnect: 'Connect BT Smart',
@@ -446,12 +446,12 @@ function ScratchConnection(url, ext) {
     };
 
     handleOnError = function (error) {
-        console.log('Error detected: ' + error + ' ' + ws.error);
+        console.log('Error detected: ');
         //ws.error;
     }
     // websocket connected. this == the websocket
     var handleOnOpen = function (event) {
-        console.log('onopen message received: ' + event);
+        console.log('onopen message received: ');
         ext.onConnect();
         _this.connected = true;
   };
@@ -537,7 +537,7 @@ function ScratchConnection(url, ext) {
 
         // var s = cmd + this.CreateGuid()+ JSON.stringify(obj);
         var cmdId = this.CreateGuid();
-        if (unfifined === obj) { ws.send(cmd + cmdId); }
+        if (undefined === obj) { ws.send(cmd + cmdId); }
         else {
             var js = JSON.stringify(obj);
             ws.send(cmd + cmdId + JSON.stringify(obj));
