@@ -429,9 +429,10 @@ function ScratchConnection(url, ext) {
             _this.connected = false;
             return false;
         }
-        ws.onmessage = handleMessage;
+        ws.onmessage = handleOnMessage;
         ws.onclose = handleClose;
-        ws.onopen = handleOpen;
+        ws.onopen = handleOnOpen;
+        ws.onerror=handleOnError; 
         return true;
     };
     
@@ -440,20 +441,26 @@ function ScratchConnection(url, ext) {
         ws.onmessage = null;//2017-11-02
         ws.onclose = null;//2017-11-02
         ws.onopen = null;//2017-11-02
+        ws.onerror = null;//2017-11-02
         ws = null;//2017-11-02
     };
-    
+
+    handleOnError = function (error) {
+        console.log('Error detected: ' + error + ' ' + ws.error);
+        //ws.error;
+    }
     // websocket connected. this == the websocket
-    var handleOpen = function () {
-        _this.connected = true;
+    var handleOnOpen = function (event) {
+        console.log('onopen message received: ' + event);
         ext.onConnect();
-    };
+        _this.connected = true;
+  };
     
     // new websocket message. this == the websocket
-    var handleMessage = function(message) {
+    var handleOnMessage = function(message) {
         
         var messageType = message.data.substring(0, 3);
-        var messageId = message.data.substring(3, 6);
+        var messageId = message.data.substring(3, 3);
         var messageData = message.data.substring(6);
         var data = messageData ? JSON.parse(messageData) : null;
                 
@@ -464,9 +471,9 @@ function ScratchConnection(url, ext) {
             ext.input.setValue(index,value);
             //   oldValues.inputs[index] = ext.input.curValues.inputs[index];
            // ext.input.curValues.inputs[index] = value;
-            if (index === 0 || index === 1) { console.log("SEVT index= " + index + " old :" + ext.input.oldValues.inputs[index] + "  new : " + ext.input.curValues.inputs[index]); }
+            if (index === 0 ) { console.log("SEV index= " + index + " old :" + ext.input.oldValues.inputs[index] + "  new : " + ext.input.curValues.inputs[index]); }
 
-            ext.onNewInputs();
+            //ext.onNewInputs();
 
         } else if (messageType === "ACI") {
             //ext.input.oldValues = ext.input.curValues;
@@ -476,11 +483,11 @@ function ScratchConnection(url, ext) {
         } else if (messageType === "SEN") {
             ext.input.oldValues = ext.input.curValues;//
             ext.input.curValues = data;
-            ext.onNewInputs();
+            //ext.onNewInputs();
         } else if (messageType === "SDO") {
-            ext.onSoundDone();
+            //ext.onSoundDone();
         } else if (messageType === "PON") {
-            ext.onPong();
+            //ext.onPong();
             var dev = data[0];
             var devChanged = dev !== _this.curDev;
             _this.curDev = dev;
@@ -510,23 +517,33 @@ function ScratchConnection(url, ext) {
     };
     
     this.playSound = function(sndIdx) {
-        this.send("PLY" + this.CreateGuid(), { idx: sndIdx });
+        var s = this.send("PLY", { idx: sndIdx });
     };
     
     
     this.ping = function () {
-        ws.send("PIN" + this.CreateGuid());
+       // ws.send("PIN" + this.CreateGuid());
+        var s = this.send("PIN");
+
     };
     
     this.reset = function () {
-        var s = "RST" + this.CreateGuid();
-        ws.send("RST" + this.CreateGuid());
+        var s =    this.send("RST");
     };
     
-    /** send CMD+json*/
-    this.send = function (cmd, obj) {
-        var s = cmd + this.CreateGuid()+ JSON.stringify(obj);
-        ws.send(cmd + this.CreateGuid() + JSON.stringify(obj));
+    /** send command (3 char)=cmd and json=obj and return if succesful the unique commend identifier=cmdId otherwise undifined*/
+    this.send = function (cmd,obj) {
+        if (ws.readyState != WebSocket.OPEN) return ;
+
+        // var s = cmd + this.CreateGuid()+ JSON.stringify(obj);
+        var cmdId = this.CreateGuid();
+        if (unfifined === obj) { ws.send(cmd + cmdId); }
+        else {
+            var js = JSON.stringify(obj);
+            ws.send(cmd + cmdId + JSON.stringify(obj));
+        }
+        return cmdId;
+       
     };
     function getRandomIntInclusive(min, max) {
         min = Math.ceil(min);
@@ -910,10 +927,10 @@ function ScratchConnection(url, ext) {
     };
 
 
-
+//was ACTU
     ext.updateIfNeeded = function () {
         if (ext.output.currentValues.needsUpdate()) {
-            connection.send("ACT", ext.output.currentValues);
+           var cmdId= connection.send("ACT", ext.output.currentValues);
             ext.output.transmitted();
 
         }
@@ -922,14 +939,14 @@ function ScratchConnection(url, ext) {
     ext.waitForMotor = [];
 
     /** input values have changed */
-    ext.onNewInputs = function () {
-        ext.checkCallbacks();
-    };
+    //ext.onNewInputs = function () {
+    //    //ext.checkCallbacks();
+    //};
 
     /** ping/pong between scratch and app */
-    ext.onPong = function () {
-        ext.checkCallbacks();
-    };
+    //ext.onPong = function () {
+    //   // ext.checkCallbacks();
+    //};
 
     /** check callbacks for some blocks whether they are hit */
     ext.checkCallbacks = function () {
