@@ -672,7 +672,6 @@ function ScratchConnection(url, ext) {
             if (changed) { this.mod = true; }
             //console.log(this.mode + ":" + newMode + ":" + changed + " - " + this.mod);
         };
-
         this.transmitted = function () { this.mod = false; };
         this.init = function () { this.setMode(0); this.setLimit(0); };
     }
@@ -916,7 +915,7 @@ function ScratchConnection(url, ext) {
     ext._setSensorMode = function (inputName, mode, limit) {
         limit = (typeof limit !== 'undefined') ? limit : 1500;
         var idx = ext._inputNameToIdx(inputName);
-        ext.output.currentValues.inputs[idx].setMode(mode); ext.output.currentValues.inputs[idx].setLimit(limit);
+        ext.output.currentValues.inputs[idx].setMode(mode); ext.output.setLimit(idx,limit);
         //console.log("set input " + inputName + " to " + mode);
     };
 
@@ -1198,7 +1197,7 @@ function ScratchConnection(url, ext) {
         return test;
     };
     /** On Input limit change */
-    ext.onOutputPowerChange = function (motorName) {
+    ext.onOuputPowerChange = function (motorName) {
         var idx = ext._motorNameToIdx(motorName);
        // var limit = ext.output.currentValues.inputs[idx].limit;
         var test = ext.output.isNewPower(idx);
