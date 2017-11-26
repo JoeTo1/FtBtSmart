@@ -94,6 +94,7 @@ var Lang = {
             onMotorDirectionBackward: 'If direction of %m.motors became Backwards (CCW)',
             onMotorDirectionStop: 'If direction of %m.motors became non (stop)',
             onInputLimitChange: 'If limit of %m.inputs has been changed',
+            onOuputPowerChange: 'If power on %m.motors has been changed',
 
             isClosed: 'Is %m.openCloseSensors %m.inputs closed?',
             getCounter: 'Read value of counter %m.counters',
@@ -533,7 +534,7 @@ function ScratchConnection(url, ext) {
     
     /** send command (3 char)=cmd and json=obj and return if succesful the unique commend identifier=cmdId otherwise undifined*/
     this.send = function (cmd,obj) {
-        if (ws.readyState != WebSocket.OPEN) return ;
+        if (ws.readyState !== WebSocket.OPEN) return ;
 
         // var s = cmd + this.CreateGuid()+ JSON.stringify(obj);
         var cmdId = this.CreateGuid();
@@ -695,32 +696,31 @@ function ScratchConnection(url, ext) {
 
 
     ext.output = {
+        dirty: {
+            limit: [false, false, false, false],
+            dir: [false, false, false, false],
+            power: [false, false],
+        },
         oldValues: {
             motors: [new Motor(), new Motor()],
             inputs: [new Input(), new Input(), new Input(), new Input()],
         },
-
-
         currentValues: {
-
             // outgoing state
             motors: [new Motor(), new Motor()],
             inputs: [new Input(), new Input(), new Input(), new Input()],
-
             // mark the outgoing state as "transmitted"
             transmitted: function () {
                 var i;
                 for (i = 0; i < 2; ++i) { this.motors[i].transmitted(); }
                 for (i = 0; i < 4; ++i) { this.inputs[i].transmitted(); }
             },
-
             needsUpdate: function () {
                 var needsUpdate = false; var i;
                 for (i = 0; i < 2; ++i) { needsUpdate |= this.motors[i].mod; }
                 for (i = 0; i < 4; ++i) { needsUpdate |= this.inputs[i].mod; }
                 return needsUpdate;
             },
-
             // reset to initial state
             init: function () {
                 var i;
@@ -744,16 +744,25 @@ function ScratchConnection(url, ext) {
             };
             this.currentValues.transmitted();
         },
+        setLimit: function (idx, newLimit) {
+            this.oldValues.inputs[idx].limit = this.currentValues.inputs[idx].limit;
+            this.currentValues.inputs[idx].setLimit(newLimit);
+            if(this.oldValues.inputs[idx].limit !== this.currentValues.inputs[idx].limit) this.dirty.limit[idx] = true;
+        },
+
         setPower: function (idx, newPower) {
             this.oldValues.motors[idx].speed = this.currentValues.motors[idx].speed;
             this.currentValues.motors[idx].setPower(newPower);
+            if (this.oldValues.motors[idx].speed !== this.currentValues.motors[idx].speed) this.dirty.power[idx] = true;
         },
         setDir: function (idx, newDir) {
             this.oldValues.motors[idx].dir = this.currentValues.motors[idx].dir;
             this.currentValues.motors[idx].setDir(newDir);
+            if (this.oldValues.motors[idx].dir !== this.currentValues.motors[idx].dir) this.dirty.dir[idx] = true;
+
         },
         isDirForward: function (idx) {
-            return this.currentValues.motors[idx].dir === 1||this.currentValues.motors[idx].dir === 2;
+            return this.currentValues.motors[idx].dir === 1 || this.currentValues.motors[idx].dir === 2;
         },
         isDirBackward: function (idx) {
             return this.currentValues.motors[idx].dir === -1 || this.currentValues.motors[idx].dir === -2;
@@ -762,8 +771,14 @@ function ScratchConnection(url, ext) {
             return this.currentValues.motors[idx].dir === 0;
         },
         isNewDir: function (idx) {
-            return this.oldValues.motors[idx].dir !== this.currentValues.motors[idx].dir;
-        }
+            if (this.dirty.dir[idx]) { this.dirty.dir[idx] = false; return true; } else { return false; }
+        },
+        isNewLimit: function (idx) {
+            if (this.dirty.limit[idx]) { this.dirty.limit[idx] = false; return true; } else { return false; }
+        },
+        isNewPower: function (idx) {
+            if (this.dirty.power[idx]) { this.dirty.power[idx] = false; return true; } else { return false; }
+        },
     };
     // received state
     ext.input = {
@@ -848,10 +863,10 @@ function ScratchConnection(url, ext) {
     // set the given Motor 'motorName' direction als name
     ext._setMotorDir = function (motorName, dirName) {
         ext._setMotorDirVal(motorName, ext._dirNameToValue(dirName));
-    }; 
+    };
     // set the given Motor 'motorName' direction as number
-    ext._setMotorDirVal = function (motorName,dirv) {
-        var idx = ext._motorNameToIdx(motorName);  
+    ext._setMotorDirVal = function (motorName, dirv) {
+        var idx = ext._motorNameToIdx(motorName);
         switch (dirv) {
             case -1:
             case 0:
@@ -927,10 +942,10 @@ function ScratchConnection(url, ext) {
     };
 
 
-//was ACTU
+    //was ACTU
     ext.updateIfNeeded = function () {
         if (ext.output.currentValues.needsUpdate()) {
-           var cmdId= connection.send("ACT", ext.output.currentValues);
+            var cmdId = connection.send("ACT", ext.output.currentValues);
             ext.output.transmitted();
 
         }
@@ -1001,7 +1016,7 @@ function ScratchConnection(url, ext) {
 
     /** stop the given motor but don't change the power */
     ext.doStopMotor = function (motorName) {
-       // ext._SetMotorPower08(motorName, 0);		// set speed to 0
+        // ext._SetMotorPower08(motorName, 0);		// set speed to 0
         ext._setMotorDirVal(motorName, 0);		// remove distance limits
         ext.updateIfNeeded();
     };
@@ -1009,8 +1024,8 @@ function ScratchConnection(url, ext) {
     /** stop the given motor but don't change the power */
     ext.doStopMotorAll = function () {
         // ext._SetMotorPower08(motorName, 0);		// set speed to 0
-        ext._setMotorDirVal('M1', 0);		
-        ext._setMotorDirVal('M2', 0);		
+        ext._setMotorDirVal('M1', 0);
+        ext._setMotorDirVal('M2', 0);
         ext.updateIfNeeded();
     };
 
@@ -1025,7 +1040,7 @@ function ScratchConnection(url, ext) {
         ext._setSensorMode(inputName, idx, inputLimit);
         //reset deze input
         ext.updateIfNeeded();
-       // window.setTimeout(function () { var t = 'jjj'; }, 30);
+        // window.setTimeout(function () { var t = 'jjj'; }, 30);
     };
 
 
@@ -1038,7 +1053,7 @@ function ScratchConnection(url, ext) {
     /** get the current value for the given  sensor, result is numeral, 0..65535 [mV]/[Ohm]) or 0..1 (binary). */
     ext.getSensorX = function (inputName) {
         var idx = ext._inputNameToIdx(inputName);
-         return ext.input.curValues.inputs[idx];
+        return ext.input.curValues.inputs[idx];
     };
     /** get the current value for the given analogue sensor-type, result is numeral */
     ext.getSensorA = function (inputName) {
@@ -1046,7 +1061,7 @@ function ScratchConnection(url, ext) {
         var modeIdx = ext.output.currentValues.inputs[idx].mode;
         var mode = descriptor.menus.inputModes[modeIdx]; var dig = descriptor.menus.inputModesA;
         if (!dig.includes(mode)) { alert('onRisingEdge: Works only in analogue sensor modes'); return false; }
-         return ext.input.curValues.inputs[idx];
+        return ext.input.curValues.inputs[idx];
     };
     /** get the current value for the a binary sensor-type, result is true or false (boolean) */
     ext.getSensorB = function (inputName) {
@@ -1055,7 +1070,7 @@ function ScratchConnection(url, ext) {
         var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesB;
         if (!dig.includes(mode)) { alert('onRisingEdge: Works only in binary sensor modes'); return false; }
-        return ext.input.curValues.inputs[idx]===0?false:true;
+        return ext.input.curValues.inputs[idx] === 0 ? false : true;
     };
 
 
@@ -1063,13 +1078,13 @@ function ScratchConnection(url, ext) {
     ext.getMotorPower = function (motorName) {
         ext.updateIfNeeded();
         var idx = ext._motorNameToIdx(motorName);
-        return Math .round( ext.output.currentValues.motors[idx].speed / 100 * 8);
+        return Math.round(ext.output.currentValues.motors[idx].speed / 100 * 8);
     };
     /** get the current power for the given motor connected  */
     ext.getMotorSpeed = function (motorName) {
         ext.updateIfNeeded();
         var idx = ext._motorNameToIdx(motorName);
-        return Math .round(ext.output.currentValues.motors[idx].speed / 100 * 8 * ext.output.currentValues.motors[idx].dir);
+        return Math.round(ext.output.currentValues.motors[idx].speed / 100 * 8 * ext.output.currentValues.motors[idx].dir);
     };
     /** get the current power for the given motor connected  */
     ext.getMotorDir = function (motorName) {
@@ -1141,16 +1156,6 @@ function ScratchConnection(url, ext) {
         //    }
         return test;
     };
-    /** On Motor direction change */
-    ext.onMotorDirectionChange = function (motorName) {
-        var idx = ext._motorNameToIdx(motorName);
-        var dir = ext.output.currentValues.motors[idx].dir;
-        var test = ext.output.isDirForward(idx);
-        //   if(test) {
-        //       console.log("Falling index= " + idx) ;
-        //    }
-        return test;
-    };
     /** On Motor direction change to Forward*/
     ext.onMotorDirectionForward = function (motorName) {
         var idx = ext._motorNameToIdx(motorName);
@@ -1184,8 +1189,30 @@ function ScratchConnection(url, ext) {
     /** On Input limit change */
     ext.onInputLimitChange = function (inputName) {
         var idx = ext._inputNameToIdx(inputName);
-        var limit = ext.output.currentValues.inputs[idx].limit;
-        var test = true;
+       // var limit = ext.output.currentValues.inputs[idx].limit;
+        var test = ext.output.isNewLimit(idx);
+        //idee test op verandering en reset dirty
+        //   if(test) {
+        //       console.log("Falling index= " + idx) ;
+        //    }
+        return test;
+    };
+    /** On Input limit change */
+    ext.onOutputPowerChange = function (motorName) {
+        var idx = ext._motorNameToIdx(motorName);
+       // var limit = ext.output.currentValues.inputs[idx].limit;
+        var test = ext.output.isNewPower(idx);
+        //idee test op verandering en reset dirty
+        //   if(test) {
+        //       console.log("Falling index= " + idx) ;
+        //    }
+        return test;
+    };
+    /** On Motor direction change */
+    ext.onMotorDirectionChange = function (motorName) {
+        var idx = ext._motorNameToIdx(motorName);
+        var dir = ext.output.currentValues.motors[idx].dir;
+        var test = ext.output.isDirForward(idx);
         //   if(test) {
         //       console.log("Falling index= " + idx) ;
         //    }
@@ -1259,7 +1286,6 @@ function ScratchConnection(url, ext) {
             ['h', Lang.get('onMotorDirectionBackward'), 'onMotorDirectionBackward', 'M1'],
             ['h', Lang.get('onMotorDirectionForward'), 'onMotorDirectionForward', 'M1'],
             ['h', Lang.get('onMotorDirectionStop'), 'onMotorDirectionStop', 'M1'],
-//            ['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1'],
 
             // gets
             ['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
@@ -1288,7 +1314,9 @@ function ScratchConnection(url, ext) {
             [' ', Lang.get('doConnect'), 'doConnect'],
             [' ', Lang.get('doDisconnect'), 'doDisconnect'],
         //    [' ', 'test01', 'test01'],
-            [' ', Lang.get('reset'), 'reset']
+            [' ', Lang.get('reset'), 'reset'],
+            ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1'],
+            ['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1']
         ],
 
         menus: {
