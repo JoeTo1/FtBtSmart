@@ -1,4 +1,4 @@
-html {
+﻿html {
 	font-family: "arial";
 	color: #222;
 }
@@ -33,6 +33,8 @@ section {
 	display: block;
 	margin: 0 auto;
 	text-align: justify;
+		font-size: 12px;
+
 }
 
 .product {

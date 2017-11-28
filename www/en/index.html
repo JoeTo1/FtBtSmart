@@ -10,6 +10,15 @@
 		.auto-style1 {
 			text-decoration: line-through;
 		}
+		.auto-style2 {
+			color: #008080;
+		}
+		.auto-style3 {
+			color: #808000;
+		}
+		.auto-style4 {
+			margin-left: 80px;
+		}
 		</style>
 	</head>
 	
@@ -63,12 +72,54 @@
 				</ol>
 			</div>
 			
-		</section>
+		</section>		<section>
 		
+			<h1>Introduction to ROBOTICS BT-Smart controller </h1>
+			
+			<div class="content">
+				<h2>&nbsp;</h2>
+			</div>
+			
+			<div class="auto-style4">
+				<ol>
+					<li>The controller can be connected to your laptop or pc (computer) 
+				by USB or BlueTooth.<br>For the moment the Scratch interface 
+				works only with the USB connection.<br>Connect your BT-smart controller to 
+				your computer and power supply.<br>Start the
+						FtCvLScratchBtSmart&nbsp;server.<br></li>
+					<li>The controller has 4 inputs. These inputs can work in 6 different modes.<br>2 modes are 
+					<span class="auto-style2">analoque </span>and can be use to measure resistance or voltage. 
+						The output is a number betweem 0 and 65535, these 2 
+						modes are:.<br><span class="auto-style2">'Analogue voltage',<br>'Analogue resistance',</span>
+					<br>4 mode are <span class="auto-style3">binary</span> and can be use if the input value (resistance or voltage) is above or equal/below a reference value, named limit. 
+						The output is a number 0 or 1, false or true.<br>The 
+						value for the limit for each input can be changed, 
+						default is 1500.These modes are:<br>
+					<span class="auto-style3">'Binary voltage greater' ('Binary voltage'),<br>'Binary voltage smaller or equal',<br>'Binary resistance greater' ('Binary resistance'),<br>'Binary resistance smaller or equal'</span></li>
+					<li>As first action in your project, you will need to set 
+						the modes of the inputs.<br>Some fischertechnik 
+						sensor ask for a special setting of the input 
+						configuration.<br>Color sensor: <br>Switch:&nbsp; 
+					<span class="auto-style3">Binary resistance</span> <br>Transistor:<br>
+					</li>
+					<li>The use of the motor outputs:<br>The M1 and M2 are 
+					bridged outputs, this means that the polarity can be 
+					switched.<br>The motor function knows a power part&nbsp; and 
+					a direction (polarity) part.<br>The power can be betweem 
+					0..8<br>The direction can be:<br><ol><li>forward 
+					(cw=clockwise), </li><li>backwards (ccw=.counterclockwise)</li> 
+					<li> non (motor does not run).</li></ol></li>
+					<li></li>
+				</ol>
+			</div>
+			
+		</section>
 		<section id="blockDescs">
 			<h1>Block description</h1>
-			
-			<div class="blockDesc">
+			<p> The Scratch blocks can be placed in different groups.</p>
+			<h2>Blocks to deal with the connection.</h2>
+			<p>These blocks can be use to reconnect with the controller inside your project. </p>
+						<div class="blockDesc">
 				<div class="image"><img alt="Connect image" src="onConnect.png" height="31" width="144"/></div>
 				<div class="text">
 					Open a new connection with the web server. (The existing connection needs to be closed first.)
@@ -80,6 +131,133 @@
 					Close (Disconnect) an existing connecting with the web server.
 				</div>
 			</div>
+			<h2>Blocks for general purpose.</h2>
+			<p> </p>
+			<div class="blockDesc">
+				<div class="image"><img src="reset.png"/></div>
+				<div class="text">
+					This block resets the BT-Smart controller. All outputs are set to 0. 
+				</div>
+			</div>
+
+
+			<h2>Blocks to deal with the inputs.</h2>
+			<p> </p>
+			<div class="blockDesc">
+				<div class="image"><img src="doConfigureInput.png"/></div>
+				<div class="text">
+					Set the mode for an universal input I1 - I4. 
+				</div>
+			</div>
+			<div class="blockDesc">
+				<div class="image"><img src="doConfigureInput.png" alt="Set Input Cfg general"/></div>
+				<div class="text">
+					Set the mode for an universal input I1 - I4. 
+				</div>
+			</div>
+			<div class="blockDesc">
+				<div class="image"><img src="" alt="Set Input Cfg analogue"/></div>
+				<div class="text">
+					Set the mode for an universal input I1 - I4 for analogue use; only the analogue mode are offered.<br> 
+ 
+				</div>
+			</div>
+			<div class="blockDesc">
+				<div class="image"><img src="" alt="Set Input Cfg binary"/></div>
+				<div class="text">
+					Set the mode for an universal input I1 - I4 for binary use; only the binary modes are offered.<br>
+					And it sets also the value for the 'limit'; default is 1500. 
+				</div>
+			</div>
+			<div class="blockDesc">
+				<div class="image"><img src="" alt="Set Input Cfg binary"/></div>
+				<div class="text">
+					Set the mode for an universal input I1 - I4 for binary use; only the binary modes are offered.<br>
+					And it sets also the value for the 'limit'; default is 1500. 
+				</div>
+			</div>
+
+			<h2>Blocks to deal with the outputs.</h2>
+			<p> </p>
+	
+			<div class="blockDesc">
+				<div class="image"><img src="doSetMotorSpeedDir.png"/></div>
+				<div class="text">
+					Output M1 - M2 can be set to forward or backward, and also give this moter a power between the 0...8 using this block.<br>
+					 Values lower than 0 or higher than 8 will not have an effect.
+				</div>
+			</div>
+			
+			<div class="blockDesc">
+				<div class="image"><img src="doSetMotorDir.png"/></div>
+				<div class="text">
+					Output M1 - M2 can be changed, for a motor, to forward (CW), to backward (CCW), non (stop) or reverse using this block.<br> 
+					The reverse command wil only work when the motor is already running backward or forward.<br>
+					Reversing a motor that does not have a direction makes no sens. 
+				</div>
+			</div>
+						<div class="blockDesc">
+				<div class="image"><img src="doSetMotorSpeed.png"/></div>
+				<div class="text">
+					Output M1 - M2 can be set, e.g. for a motor, to a value of 0...8 using this block.<br>  Values lower than 0 or higher than 8 will not have an effect.<br>
+					Be aware that a motor with a direction 'non' will not run.
+
+				</div>
+			</div>
+				
+			<div class="blockDesc">
+				<div class="image"><img src="doStopMotor.png"/></div>
+				<div class="text">
+					A motor on output M1 - M2 can be stopped using this block. <br> It will set the direction on 'non'.<br>
+					The last power will preserved. The motor can be reactivated with a Set direction to forward or backward.
+				</div>
+			</div>
+			<div class="blockDesc">
+				<div class="image"><img src="doStopAllMotors.png"/></div>
+				<div class="text">
+					Stops all the motors. 
+				</div>
+			</div>
+			<div class="blockDesc">
+				<div class="image"><img src="doStopAllMotors.png"/></div>
+				<div class="text">
+					Reads the actual power on a motor. The result is a integer value. 
+				</div>
+			</div>
+			<div class="blockDesc">
+				<div class="image"><img src="doStopAllMotors.png"/></div>
+				<div class="text">
+					Reads the atual direction of a motor. The result is a integer value.
+					-1 or -2 means backwards,
+				 	 1 or  2 means forwards,
+					 0 means non/no direction/stopped. 
+				</div>
+			</div>
+			<div class="blockDesc">
+				<div class="image"><img src="doStopAllMotors.png"/></div>
+				<div class="text">
+					Reads the actual speed of a motor; the speed is a combination of power and direction. The result is a integer value.
+					 1...8 means forwards,
+					 0 means stopped or no direction,
+					-1...-8 means backwards. 
+				</div>
+			</div>
+
+			
+			<h2>Notification blocks.</h2>
+			<p>Notification block (known inside Schratch as HAT-blocks are used in a project as starting point for a group of actions.<br>
+			The system notified the project that a something in the system wil start to change or has been changed.<br>
+			These blocks will give you as project developer the change to react on these changes.</p>
+			<p>Working with these blocks is also known as event-driven programming. An event (notification) is the triger for a set of actions.</p>
+			<h3>Notification blocks (static).</h3>
+			<p> </p>
+			<h3>Notification blocks</h3>
+			<p> These HAT-blocks can only be used ones for each Input or Motor (output). Htis because of some limitation inside Scratch.   </p>
+
+
+
+
+
 			<div class="blockDesc">
 				<div class="image"><img src="onOpenClose.png"/></div>
 				<div class="text">
@@ -108,52 +286,12 @@
 				</div>
 			</div>
 			
-			<div class="blockDesc">
-				<div class="image"><img src="doSetMotorSpeed.png"/></div>
-				<div class="text">
-					Output M1 - M2 can be set, e.g. for a motor, to a value of 0...8 using this block. Values lower than 0 or higher than 8 are cut off at 0 or 8. 
-				</div>
-			</div>
-		
-			<div class="blockDesc">
-				<div class="image"><img src="doSetMotorSpeedDir.png"/></div>
-				<div class="text">
-					Output M1 - M2 can be set to forward (backward), e.g. for a motor, with a value of 0...8 using this block. Values lower than 0 or higher than 8 are cut off at 0 or 8.
-				</div>
-			</div>
-			
-			<div class="blockDesc">
-				<div class="image"><img src="doSetMotorDir.png"/></div>
-				<div class="text">
-					Output M1 - M2 can be changed, e.g. for a motor, to forward (backward) using this block. 
-				</div>
-			</div>
-			
-			<div class="blockDesc">
-				<div class="image"><img src="doStopMotor.png"/></div>
-				<div class="text">
-					A motor on output M1 - M2 can be stopped using this block. 
-				</div>
-			</div>
 			
 			<div class="blockDesc">
 				<div class="image"></div>
 			</div>
 			
-			<div class="blockDesc">
-				<div class="image"><img src="doConfigureInput.png"/></div>
-				<div class="text">
-					Universal input I1 - I4 can be changed from digital to analog 
-					and from resistance to voltage using this block. 
-				</div>
-			</div>
 			
-			<div class="blockDesc">
-				<div class="image"><img src="reset.png"/></div>
-				<div class="text">
-					This block resets the BT-Smart controller. All outputs are set to 0. 
-				</div>
-			</div>
 		
 		</section>
 		
