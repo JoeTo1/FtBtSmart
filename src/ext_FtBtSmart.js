@@ -1142,57 +1142,48 @@ function ScratchConnection(url, ext) {
         blocks: [
 
             // events
-//			['h', Lang.get('onOpenClose'), 'onOpenClose', Lang.getSensor('button'), 'I1', Lang.getOpenClose('opens')],
-//            ['h', Lang.get('onInput'), 'onInput', Lang.getSensor('color'), 'I1', '>', 0],
+
+            // sets
+
+            [' ', Lang.get('doConnect'), 'doConnect'],
+            [' ', Lang.get('doDisconnect'), 'doDisconnect'],
+            // simple motor
+            [' ', Lang.get('doSetMotorPower'), 'doSetMotorPower', 'M1', 8],
+            [' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
+            [' ', Lang.get('doSetMotorPowerDir'), 'doSetMotorPowerDir', 'M1', 8, Lang.getMotorDir('forward')],
+            [' ', Lang.get('doStopMotor'), 'doStopMotor', 'M1'],
+            [' ', Lang.get('doStopMotorAll'), 'doStopMotorAll'],
+            ['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
+            ['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
+            ['r', Lang.get('getMotorPower'), 'getMotorPower', 'M1'],
+            [' ', Lang.get('doConfigureInputA'), 'doConfigureInput', 'I1', Lang.getMode('a10v')],
+            [' ', Lang.get('doConfigureInputD'), 'doConfigureInputLimit', 'I1', Lang.getMode('d10v'), 1500],
+            [' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
+            ['r', Lang.get('getSensorA'), 'getSensorA', 'I1'],
+             ['b', Lang.get('getSensorB'), 'getSensorB', 'I1'],
+             ['r', Lang.get('getSensorX'), 'getSensorX', 'I1'],
+        //    [' ', 'test01', 'test01'],
+            [' ', Lang.get('reset'), 'reset'],
             ['h', Lang.get('onRisingEdge'), 'onRisingEdge', 'I1'],
             ['h', Lang.get('onFallingEdge'), 'onFallingEdge', 'I1'],
             ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1'],
             ['h', Lang.get('onMotorDirectionBackward'), 'onMotorDirectionBackward', 'M1'],
             ['h', Lang.get('onMotorDirectionForward'), 'onMotorDirectionForward', 'M1'],
             ['h', Lang.get('onMotorDirectionStop'), 'onMotorDirectionStop', 'M1'],
-
-            // gets
-            ['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
-            ['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
-            ['r', Lang.get('getMotorPower'), 'getMotorPower', 'M1'],
-            ['r', Lang.get('getSensorA'), 'getSensorA', 'I1'],
-             ['b', Lang.get('getSensorB'), 'getSensorB', 'I1'],
-             ['r', Lang.get('getSensorX'), 'getSensorX', 'I1'],
-   //          ['r', Lang.get('getSensor'), 'getSensor', Lang.getSensor('color'), 'I1'],
-  //		['b', Lang.get('isClosed'), 'isClosed', Lang.getSensor('button'), 'I1'],
-
-            // sets
-//			[' ', Lang.get('doSetLamp'), 'doSetLamp', 'O1', 0],
-//			[' ', Lang.get('doSetOutput'), 'doSetOutput', 'O1', 0],
-
-            // simple motor
-            [' ', Lang.get('doSetMotorPower'), 'doSetMotorPower', 'M1', 8],
-            [' ', Lang.get('doSetMotorPowerDir'), 'doSetMotorPowerDir', 'M1', 8, Lang.getMotorDir('forward')],
-            [' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
-            [' ', Lang.get('doStopMotor'), 'doStopMotor', 'M1'],
-            [' ', Lang.get('doStopMotorAll'), 'doStopMotorAll'],
-
-            [' ', Lang.get('doConfigureInput'), 'doConfigureInput', 'I1', Lang.getMode('d10v')],
-            [' ', Lang.get('doConfigureInputA'), 'doConfigureInput', 'I1', Lang.getMode('a10v')],
-            [' ', Lang.get('doConfigureInputD'), 'doConfigureInputLimit', 'I1', Lang.getMode('d10v'), 1500],
-            [' ', Lang.get('doConnect'), 'doConnect'],
-            [' ', Lang.get('doDisconnect'), 'doDisconnect'],
-        //    [' ', 'test01', 'test01'],
-            [' ', Lang.get('reset'), 'reset'],
             ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1'],
             ['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1']
         ],
 
         menus: {
             compares: ['>', '<', '<='],
-            inputSensors: [Lang.getSensor('color'), Lang.getSensor('distance'), Lang.getSensor('ntc'), Lang.getSensor('photo')],
+            inputSensors: [Lang.getSensor('color'),  Lang.getSensor('ntc'), Lang.getSensor('photo')],
             openCloseSensors: [Lang.getSensor('button'), Lang.getSensor('reed'), Lang.getSensor('lightBarrier')],
             openClose: [Lang.getOpenClose('opens'), Lang.getOpenClose('closes')],
             inputs: ['I1', 'I2', 'I3', 'I4'],
             motors: ['M1', 'M2'],
             motorDirections: [Lang.getMotorDir('forward'), Lang.getMotorDir('backward')],
             motorDirections2: [Lang.getMotorDir('forward'), Lang.getMotorDir('revers'), Lang.getMotorDir('backward'), Lang.getMotorDir('non')],
-            counters: ['C1', 'C2', 'C3', 'C4'],
+            counters: [],
             outputs: ['O1', 'O2', 'O3', 'O4'],
             outputValues: [0, 1, 2, 3, 4, 5, 6, 7, 8],
             edges: ['rising', 'falling'],
