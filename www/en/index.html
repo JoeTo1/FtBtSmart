@@ -104,10 +104,22 @@
 						default is 1500.These modes are:<br>
 					<span class="binary">
 						<ol>
-					<li>'Binary voltage greater' ('Binary voltage'),</li>
-					<li>'Binary voltage smaller or equal',</li>
-					<li>'Binary resistance greater' ('Binary resistance'),</li>
-					<li>'Binary resistance smaller or equal'</li>
+					<li>'Binary voltage greater' ('Binary voltage'),<br>When the 
+					voltage on the input is greater then the limit, the result 
+					is true, otherwise false.</li>
+					<li>'Binary voltage smaller or equal',<br>
+					<span class="binary">
+						When the voltage on the input is smaller or equal&nbsp; 
+					then the limit, the result is true, otherwise false.</span></li>
+					<li>'Binary resistance greater' ('Binary resistance'),<br>
+					<span class="binary">
+						When the resistance between the input&nbsp; is greater 
+					then the limit, the result is true, otherwise false.</span></li>
+					<li>'Binary resistance smaller or equal'<br>
+					<span class="binary">
+						When the risistance betweem the input is smaller or 
+					equal&nbsp; then the limit, the result is true, otherwise 
+					false</span></li>
 					</ol>
 					</span>
 					</li></ul>
@@ -124,10 +136,10 @@
 					</ul>
 					</li>
 					<li>The use of the motor outputs:<br>The M1 and M2 are 
-					bridged outputs, this means that the polarity can be 
+					full H-bridged outputs, this means that the polarity can be 
 					switched.<br>The motor function knows a power part&nbsp; and 
 					a direction (polarity) part.<br>The power can be betweem 
-					0..8<br>The direction can be:<br>
+					0...8<br>The direction can be:<br>
 					<ol>
 						<li>forward 
 					(cw=clockwise), </li>
@@ -135,7 +147,6 @@
 						<li>non (motor does not run).</li>
 					</ol>
 					</li>
-					<li></li>
 				</ol>
 			</div>
 			
@@ -180,16 +191,19 @@
 			</div>
 			<div class="blockDesc">
 				<div class="image" style="width: 445px; height: 37px">
-					<img src="OnSetInputBinary.PNG" alt="Set Input Cfg binary" height="24" width="379"/></div>
+					<img src="OnSetInputBinary.PNG" alt="Set Input Cfg binary" height="42" width="379"/></div>
 				<div class="text">
 					Set the configuration for an  input I1 - I4 for binary use; only the binary modes are offered.<br>
-					And it sets also the value for the 'limit'; default is 1500. 
+					And it sets also the value for the 'limit'; default is 1500.<br>
+					The 'limit" indicates the point were the hardware decided if 
+					the result is:<br>0 or 1,<br>false or true,<br>Switch closed 
+					or open,<br>etc. 
 				</div>
 			</div>
 			<div class="blockDesc">
 				<div class="image"><img src="doConfigureInput.png" alt="Set Input Cfg general"/></div>
 				<div class="text"> 
-					Set the configuratio for an input I1 - I4; all modes are offer.<br>
+					Set the configuration for an input I1 - I4; all modes are offer.<br>
 					The 'limit'  will be set to the default value 1500 mV or 1500 Ohm. 
 				</div>
 			</div>
@@ -290,8 +304,8 @@
 				<div class="image"><img src=" " alt="Read actual motor speed as integer" /></div>
 				<div class="text">
 					Reads the actual speed of a motor; the speed is a combination of power and direction. The result is a integer value. <br/>
-					 1...8 means forwards, <br/>
-					 0 means stopped or no direction, <br/>
+					 1... 8  means forwards, <br/>
+					 0      means stopped or no direction, <br/>
 					-1...-8 means backwards. 
 				</div>
 			</div>
@@ -378,7 +392,7 @@
 			<div class="blockDesc">
 				<div class="image"><img src="OnSensorLimitChange.PNG" alt="Notification input changed limit"/></div>
 				<div class="text">
-				(event driven programming)<br>
+				(event driven programming)<br><span class="binary"> Input, in binary mode only.</span><br>
 				This block gives you the possibility to react on an change of an input change his limit.
 				</div>
 			</div>
