@@ -10,10 +10,10 @@
 		.auto-style1 {
 			text-decoration: line-through;
 		}
-		.auto-style2 {
+		.analogue {
 			color: #008080;
 		}
-		.auto-style3 {
+		.binary {
 			color: #808000;
 		}
 		.auto-style4 {
@@ -89,20 +89,20 @@
 						FtCvLScratchBtSmart&nbsp;server.<br></li>
 					<li>The controller has 4 inputs. These inputs can work in 6 different modes.<br>2 modes are 
 				<ul>
-						<li>	<span class="auto-style2">analoque </span>and can be use to measure resistance or voltage. 
+						<li>	<span class="analogue">analoque </span>and can be use to measure resistance or voltage. 
 						The output is a integer betweem 0 and 65535, these 2 
-						modes are:<span class="auto-style2"><ol>
+						modes are:<span class="analogue"><ol>
 					<li>'Analogue voltage',</li>
 					<li>'Analogue resistance'.</li>
 					</ol>
 </span>
 </li>
 					<li>
-					<br>4 mode are <span class="auto-style3">binary</span> and can be use if the input value (resistance or voltage) is above or equal/below a reference value, named limit. 
+					<br>4 mode are <span class="binary">binary</span> and can be use if the input value (resistance or voltage) is above or equal/below a reference value, named limit. 
 						The output is a number 0 or 1, false or true.<br>The 
 						value for the limit for each input can be changed, 
 						default is 1500.These modes are:<br>
-					<span class="auto-style3">
+					<span class="binary">
 						<ol>
 					<li>'Binary voltage greater' ('Binary voltage'),</li>
 					<li>'Binary voltage smaller or equal',</li>
@@ -309,54 +309,57 @@
 			The system notified the project that a something in the system wil start to change or has been changed.<br>
 			These blocks will give you as project developer the change to react on these changes.</p>
 			<p>Working with these blocks is also known as event-driven programming. An event (notification) is the triger for a set of actions.</p>
-			<h3>Notification blocks (static).</h3>
+			<h3>Hat-blocks (notification)&nbsp; (static).</h3>
 			
 			<div class="blockDesc">
 				<div class="image">
 					<img src="onRisingEdge.PNG" alt="Notification sensor rising edge"/></div>
 				<div class="text">
-				(event driven programming)<br>
+				(event driven programming)<br><span class="binary"> Input in binary mode only.</span><br>
 				This block gives you the possibility to react on an change from 0 to 1 of  an input in the binary mode.
 				</div>
 			</div>
 			<div class="blockDesc">
 				<div class="image"><img src="onFallingEdge.PNG" alt="Notification sensor falling edge"/></div>
-				<div class="text">			(event driven programming)<br>
+				<div class="text">
+				(event driven programming)<br><span class="binary"> Input, in binary mode only.</span><br>
 				This block gives you the possibility to react on an change from 1 to 0 of an input in the binary mode.
 				</div>
 			</div>
 			<div class="blockDesc">
 				<div class="image"><img src="OnMotorForward.PNG" alt="Notification motor to forward"/></div>
 				<div class="text">
-				(event driven programming)<br>
+				(event driven programming)<br> Motor<br>
 				This block gives you the possibility to react on an change of a motor into the forward direction.
 				</div>
 			</div>
 			<div class="blockDesc">
 				<div class="image"><img src="OnMotorBackward.PNG" alt="Notification motor to backward"/></div>
 				<div class="text">
-				(event driven programming)<br>
+				(event driven programming)<br>Motor<br>
 				This block gives you the possibility to react on an change of a motor into the backward direction.
 				</div>
 			</div>
 			<div class="blockDesc">
 				<div class="image"><img src="OnMotorStop.PNG" alt="Notification motor to non(stop)"/></div>
 				<div class="text">
-				(event driven programming)<br>
-				This block gives you the possibility to react on an change of a motor that stops.
+				(event driven programming)<br>Motor<br>
+
+				This block gives you the possibility to react on an change of a motor 
+					which is&nbsp; stopping.
 				</div>
 			</div>
 			<div class="blockDesc">
 				<div class="image"><img src=" " alt="Notification connection desconnected"/></div>
 				<div class="text">
-				(event driven programming)<br>
+				(event driven programming)<br>Connection<br>
 				This block gives you the possibility to react on an change of the connection state into disconnected.
 				</div>
 			</div>
 			<div class="blockDesc">
 				<div class="image"><img src=" " alt="Notification connection connected"/></div>
 				<div class="text">
-				(event driven programming)<br>
+				(event driven programming)<br>Connection<br>
 				This block gives you the possibility to react on an change of the connection state into connected.
 				</div>
 			</div>
@@ -366,23 +369,23 @@
 			<p> These HAT-blocks can only be used ones for each Input or Motor (output). This because of some limitation inside Scratch.   </p>
 			</div>
 				<div class="blockDesc">
-				<div class="image"><img src=" " alt="Notification analogue sensor changed value"/></div>
+				<div class="image"><img src=" " alt="Notification analogue input changed value"/></div>
 				<div class="text">
-				(event driven programming)<br>
+				(event driven programming)<br><span class="analogue"> Input, in analogue mode only.</span><br>
 				This block gives you the possibility to react on an change of an input in analogue mode change his value.
 				</div>
 			</div>
 			<div class="blockDesc">
-				<div class="image"><img src="OnSensorLimitChange.PNG" alt="Notification sensor changed limit"/></div>
+				<div class="image"><img src="OnSensorLimitChange.PNG" alt="Notification input changed limit"/></div>
 				<div class="text">
 				(event driven programming)<br>
 				This block gives you the possibility to react on an change of an input change his limit.
 				</div>
 			</div>
 				<div class="blockDesc">
-				<div class="image"><img src=" " alt="Notification analogue sensor changed mode"/></div>
+				<div class="image"><img src=" " alt="Notification input changed mode"/></div>
 				<div class="text">
-				(event driven programming)<br>
+				(event driven programming)<br> Input<br>
 				This block gives you the possibility to react on an change of an input change his mode.
 				</div>
 			</div>
@@ -390,16 +393,16 @@
 			<div class="blockDesc">
 				<div class="image"><img src="OnMotorPowerChange.png" alt="Notification motor changed power"/></div>
 				<div class="text">
-				(event driven programming)<br>
-				This block gives you the possibility to react on an change of a mtor his power.
+				(event driven programming)<br>Motor<br>
+				This block gives you the possibility to react on an change of a motor his power.
 
 				</div>
 			</div>
 			<div class="blockDesc">
 				<div class="image"><img src=" " alt="Notification motor changed direction"/></div>
 				<div class="text">
-				(event driven programming)<br>
-				This block gives you the possibility to react on an change of an input change his direction.
+				(event driven programming)<br>Motor<br>
+				This block gives you the possibility to react on an change of a motor his direction.
 				</div>
 			</div>
 
