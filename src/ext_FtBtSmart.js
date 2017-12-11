@@ -1062,8 +1062,8 @@ function ScratchConnection(url, ext) {
     /** On Faling Edge of an Input in the binary mode */
     ext.onInputCfgChange = function (inputName) {
         var idx = ext._inputNameToIdx(inputName);
-        var modeIdx = ext.output.currentValues.inputs[idx].mode;
-        var mode = descriptor.menus.inputModes[modeIdx];
+       // var modeIdx = ext.output.currentValues.inputs[idx].mode;
+       // var mode = descriptor.menus.inputModes[modeIdx];
         var test = false;
         //   if(test) {
         //       console.log("Falling index= " + idx) ;
@@ -1243,10 +1243,10 @@ function ScratchConnection(url, ext) {
           //dynamic eevents
              ['h', Lang.get('onInputAnalogueValueChange'), 'onInputAnalogueValueChange', 'I1'],
              ['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1'],
-             ['h', Lang.get('onInputCfgChange'), 'onInputCfgChange', 'I1'],
              ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1'],
-             ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1']
-        ],
+             ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1'],
+              ['h', Lang.get('onInputCfgChange'), 'onInputCfgChange', 'I1']
+       ],
 
         menus: {
             compares: ['>', '<', '<='],
