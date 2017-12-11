@@ -1192,7 +1192,7 @@ function ScratchConnection(url, ext) {
             ['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
             ['r', Lang.get('getMotorPower'), 'getMotorPower', 'M1'],
             ['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
-            ['r', Lang.get('getMotorInfoText'), 'getMotorInfoText', 'M1'],
+           ['r', Lang.get('getMotorInfoText'), 'getMotorInfoText', 'M1'],
 
            //input
             [' ', Lang.get('doConfigureInputA'), 'doConfigureInput', 'I1', Lang.getMode('a10v')],
@@ -1216,8 +1216,8 @@ function ScratchConnection(url, ext) {
             ['h', Lang.get('onDisconnected'), 'onDisconnected'],
           //dynamic eevents
              ['h', Lang.get('onInputAnlogueValueChange'), 'onInputAnlogueValueChange', 'I1'],
-             ['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1']
-             ['h', Lang.get('onInputCfgChange'), 'onInputCfgChange', 'I1']
+             ['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1'],
+             ['h', Lang.get('onInputCfgChange'), 'onInputCfgChange', 'I1'],
            //  ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1'],
              ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1'],
              ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1']
