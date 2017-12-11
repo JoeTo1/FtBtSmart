@@ -1243,7 +1243,7 @@ function ScratchConnection(url, ext) {
           //dynamic eevents
              ['h', Lang.get('onInputAnalogueValueChange'), 'onInputAnalogueValueChange', 'I1'],
              ['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1'],
-             ['h', Lang.get('onInputCfgChange'), 'onInputCfgChange', 'I1']
+             ['h', Lang.get('onInputCfgChange'), 'onInputCfgChange', 'I1'],
              ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1'],
              ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1']
         ],
