@@ -1192,7 +1192,7 @@ function ScratchConnection(url, ext) {
             ['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
             ['r', Lang.get('getMotorPower'), 'getMotorPower', 'M1'],
             ['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
-           ['r', Lang.get('getMotorInfoText'), 'getMotorInfoText', 'M1'],
+            ['r', Lang.get('getMotorInfoText'), 'getMotorInfoText', 'M1'],
 
            //input
             [' ', Lang.get('doConfigureInputA'), 'doConfigureInput', 'I1', Lang.getMode('a10v')],
@@ -1201,7 +1201,7 @@ function ScratchConnection(url, ext) {
             ['r', Lang.get('getSensorA'), 'getSensorA', 'I1'],
             ['b', Lang.get('getSensorB'), 'getSensorB', 'I1'],
             ['r', Lang.get('getSensorX'), 'getSensorX', 'I1'],
-            ['r', Lang.get('getInputInfoText'), 'getInputInfoText', 'I1'],
+        //    ['r', Lang.get('getInputInfoText'), 'getInputInfoText', 'I1'],
        //    ['r', Lang.get('getBatteryPower'), 'getBatteryPower', 'I1'],
        //    ['r', Lang.get('IsBatteryPowerBelow'), 'IsBatteryPowerBelow', 8500],
        //    [' ', 'test01', 'test01'],
@@ -1217,10 +1217,10 @@ function ScratchConnection(url, ext) {
           //dynamic eevents
              ['h', Lang.get('onInputAnlogueValueChange'), 'onInputAnlogueValueChange', 'I1'],
              ['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1'],
-             ['h', Lang.get('onInputCfgChange'), 'onInputCfgChange', 'I1'],
+             ['h', Lang.get('onInputCfgChange'), 'onInputCfgChange', 'I1']
            //  ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1'],
-             ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1'],
-             ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1']
+ //            ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1'],
+ //            ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1']
         ],
 
         menus: {
