@@ -1103,17 +1103,7 @@ function ScratchConnection(url, ext) {
         //    }
         return test;
     };
-    /** On Input limit change */
-    ext.onInputLimitChange = function (inputName) {
-        var idx = ext._inputNameToIdx(inputName);
-       // var limit = ext.output.currentValues.inputs[idx].limit;
-        var test = ext.output.isNewLimit(idx);
-        //idee test op verandering en reset dirty
-        //   if(test) {
-        //       console.log("Falling index= " + idx) ;
-        //    }
-        return test;
-    };
+
     /** On output power change */
     ext.onOuputPowerChange = function (motorName) {
         var idx = ext._motorNameToIdx(motorName);
