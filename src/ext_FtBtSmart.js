@@ -93,8 +93,15 @@ var Lang = {
             onMotorDirectionForward: 'If direction of %m.motors became Forwards (CW)',
             onMotorDirectionBackward: 'If direction of %m.motors became Backwards (CCW)',
             onMotorDirectionStop: 'If direction of %m.motors became non (stop)',
-            onInputLimitChange: 'If limit of %m.inputs has been changed',
             onOuputPowerChange: 'If power on %m.motors has been changed',
+            onMotorDirectionChange: 'If direction on %m.motors has been changed',
+            onConnected:'If connected',
+            onDisconnected: 'If disconnected',
+             onInputAnalogueValueChange: 'If value of %m.inputs has been changed',
+            onInputLimitChange: 'If limit of %m.inputs has been changed',
+            onInputCfgChange: 'If Cfg of %m.inputs has been changed',
+          
+
 
             isClosed: 'Is %m.openCloseSensors %m.inputs closed?',
             getCounter: 'Read value of counter %m.counters',
@@ -125,6 +132,7 @@ var Lang = {
             doDisconnect: 'Disconnect from Server (BT Smart)',
             doConnect: 'Connect to Server (BT Smart)',
             reset: 'Reset',
+
             dir_reverse: 'reverse',
             dir_non: 'non',
             dir_forward: 'forward',
@@ -1201,7 +1209,7 @@ function ScratchConnection(url, ext) {
             ['r', Lang.get('getSensorA'), 'getSensorA', 'I1'],
             ['b', Lang.get('getSensorB'), 'getSensorB', 'I1'],
             ['r', Lang.get('getSensorX'), 'getSensorX', 'I1'],
-        //    ['r', Lang.get('getInputInfoText'), 'getInputInfoText', 'I1'],
+            ['r', Lang.get('getInputInfoText'), 'getInputInfoText', 'I1'],
        //    ['r', Lang.get('getBatteryPower'), 'getBatteryPower', 'I1'],
        //    ['r', Lang.get('IsBatteryPowerBelow'), 'IsBatteryPowerBelow', 8500],
        //    [' ', 'test01', 'test01'],
@@ -1215,12 +1223,11 @@ function ScratchConnection(url, ext) {
             ['h', Lang.get('onConnected'), 'onConnected'],
             ['h', Lang.get('onDisconnected'), 'onDisconnected'],
           //dynamic eevents
-             ['h', Lang.get('onInputAnlogueValueChange'), 'onInputAnlogueValueChange', 'I1'],
+             ['h', Lang.get('onInputAnalogueValueChange'), 'onInputAnalogueValueChange', 'I1'],
              ['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1'],
              ['h', Lang.get('onInputCfgChange'), 'onInputCfgChange', 'I1']
-           //  ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1'],
- //            ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1'],
- //            ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1']
+             ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1'],
+             ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1']
         ],
 
         menus: {
