@@ -1118,7 +1118,8 @@ function ScratchConnection(url, ext) {
         //       console.log("Falling index= " + idx) ;
         //    }
         return test;
-    };    /** Notification when the connection has been lost */
+    };
+    /** Notification when the connection has been lost */
     ext.onDisConnected = function () {
         var test = false; //
         //   if(test) {
@@ -1215,13 +1216,16 @@ function ScratchConnection(url, ext) {
        //    [' ', 'test01', 'test01'],
             [' ', Lang.get('reset'), 'reset'],
             //static events
+            ['h', Lang.get('onConnected'), 'onConnected'],
+            ['h', Lang.get('onDisconnected'), 'onDisconnected'],
             ['h', Lang.get('onRisingEdge'), 'onRisingEdge', 'I1'],
             ['h', Lang.get('onFallingEdge'), 'onFallingEdge', 'I1'],
             ['h', Lang.get('onMotorDirectionBackward'), 'onMotorDirectionBackward', 'M1'],
             ['h', Lang.get('onMotorDirectionForward'), 'onMotorDirectionForward', 'M1'],
             ['h', Lang.get('onMotorDirectionStop'), 'onMotorDirectionStop', 'M1'],
-            ['h', Lang.get('onConnected'), 'onConnected'],
-            ['h', Lang.get('onDisconnected'), 'onDisconnected'],
+
+
+
           //dynamic eevents
              ['h', Lang.get('onInputAnalogueValueChange'), 'onInputAnalogueValueChange', 'I1'],
              ['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1'],
