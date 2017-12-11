@@ -5,7 +5,7 @@
 		<title>Scratch interface for the fischertechnik BT-Smart controller</title>
 		<meta charset="utf-8">
 		<meta name="keywords" content="Fischertechnik ROBOTICS BT Smart controller, ROBOTICS, Scratch, Fischertechnik, BT Smart, BT Smart API">
-		<link rel="stylesheet" href="../style.css" type="text/css" media="screen" />	
+		<link rel="stylesheet" href="../style.css" type="text/css" media="screen" >	
 		<style type="text/css">
 		.auto-style1 {
 			text-decoration: line-through;
@@ -18,6 +18,9 @@
 		}
 		.auto-style4 {
 			margin-left: 80px;
+		}
+		.auto-style5 {
+			font-size: medium;
 		}
 		</style>
 	</head>
@@ -87,19 +90,19 @@
 				works only with the USB connection.<br>Connect your BT-smart controller to 
 				your computer and power supply.<br>Start the
 						FtCvLScratchBtSmart&nbsp;server.<br></li>
-					<li>The controller has 4 inputs. These inputs can work in 6 different modes.<br>2 modes are 
+				<li>The controller has 4 inputs. The hardware is offering for these inputs 6 different modes.<br>2 modes are 
 				<ul>
 						<li>	<span class="analogue">analoque </span>and can be use to measure resistance or voltage. 
 						The output is a integer betweem 0 and 65535, these 2 
 						modes are:<span class="analogue"><ol>
-					<li>'Analogue voltage',</li>
-					<li>'Analogue resistance'.</li>
+					<li>'Analogue voltage' : 0...10000 mV,</li>
+					<li>'Analogue resistance' : 0...5000 Ohm.</li>
 					</ol>
-</span>
-</li>
+						</span>
+					</li>
 					<li>
-					<br>4 mode are <span class="binary">binary</span> and can be use if the input value (resistance or voltage) is above or equal/below a reference value, named limit. 
-						The output is a number 0 or 1, false or true.<br>The 
+					<br>4 mode are <span class="binary">binary</span> and indicates if the input value (resistance or voltage) is above or equal/below to a reference value, named 'limit'. 
+						The output is a number 0 or 1 (false or true).<br>The 
 						value for the limit for each input can be changed, 
 						default is 1500.These modes are:<br>
 					<span class="binary">
@@ -131,7 +134,7 @@
 					<ul>
 					<li>Color sensor: </li>
 					<li>Switch:&nbsp; 
-					<span class="auto-style3">Binary resistance</span> </li>
+					<span class="binary">Binary resistance</span> </li>
 					<li>Transistor:</li>
 					</ul>
 					</li>
@@ -319,11 +322,12 @@
 
 			
 			<h2>Notification blocks.</h2>
-			<p>Notification block (known inside Schratch as HAT-blocks are used in a project as starting point for a group of actions.<br>
+			<p>Notification block (known inside Schratch as HAT-blocks) are used in a project as starting point for a group of actions 
+			(script).<br>
 			The system notified the project that a something in the system wil start to change or has been changed.<br>
 			These blocks will give you as project developer the change to react on these changes.</p>
 			<p>Working with these blocks is also known as event-driven programming. An event (notification) is the triger for a set of actions.</p>
-			<h3>Hat-blocks (notification)&nbsp; (static).</h3>
+			<h3>Hat-b<span class="auto-style5">l</span>ocks (notification)&nbsp; (static).</h3>
 			
 			<div class="blockDesc">
 				<div class="image">
