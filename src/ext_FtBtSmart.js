@@ -89,7 +89,6 @@ var Lang = {
             onInput: 'If x value of %m.inputSensors %m.inputs %m.compares %n',
             onRisingEdge: 'If value of %m.inputs rising (only binary mode: 0 to 1) ',
             onFallingEdge: 'If value of %m.inputs falling (only binary mode: 1 to 0)',
-            onMotorDirectionChange: 'If direction of %m.motors has changed',
             onMotorDirectionForward: 'If direction of %m.motors became Forwards (CW)',
             onMotorDirectionBackward: 'If direction of %m.motors became Backwards (CCW)',
             onMotorDirectionStop: 'If direction of %m.motors became non (stop)',
@@ -1049,6 +1048,31 @@ function ScratchConnection(url, ext) {
         //    }
         return test;
     };
+    /** On Faling Edge of an Input in the binary mode */
+    ext.onInputLimitChange = function (inputName) {
+        var idx = ext._inputNameToIdx(inputName);
+        var modeIdx = ext.output.currentValues.inputs[idx].mode;
+        var mode = descriptor.menus.inputModes[modeIdx];
+        var test = false;
+        //   if(test) {
+        //       console.log("Falling index= " + idx) ;
+        //    }
+        return test;
+    };
+    /** On Faling Edge of an Input in the binary mode */
+    ext.onInputCfgChange = function (inputName) {
+        var idx = ext._inputNameToIdx(inputName);
+        var modeIdx = ext.output.currentValues.inputs[idx].mode;
+        var mode = descriptor.menus.inputModes[modeIdx];
+        var test = false;
+        //   if(test) {
+        //       console.log("Falling index= " + idx) ;
+        //    }
+        return test;
+    };
+
+
+
     /** On Motor direction change to Forward*/
     ext.onMotorDirectionForward = function (motorName) {
         var idx = ext._motorNameToIdx(motorName);
