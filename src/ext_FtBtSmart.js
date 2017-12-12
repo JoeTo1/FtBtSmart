@@ -1232,13 +1232,13 @@ function ScratchConnection(url, ext) {
             ['r', Lang.get('getSensorA'), 'getSensorA', 'I1'],
             ['b', Lang.get('getSensorB'), 'getSensorB', 'I1'],
             ['r', Lang.get('getSensorX'), 'getSensorX', 'I1'],
-             ['r', Lang.get('getInputInfoText'), 'getInputInfoText', , 'I1', ],
-           ['r', Lang.get('getInput1InfoText'), 'getInputInfo1Text',  ],
-       //    ['r', Lang.get('getBatteryPower'), 'getBatteryPower', 'I1'],
+        //    ['r', Lang.get('getBatteryPower'), 'getBatteryPower', 'I1'],
        //    ['r', Lang.get('IsBatteryPowerBelow'), 'IsBatteryPowerBelow', 8500],
        //    [' ', 'test01', 'test01'],
             [' ', Lang.get('reset'), 'reset'],
-            //static events
+             ['r', Lang.get('getInputInfoText'), 'getInputInfoText', , 'I1', ],
+           ['r', Lang.get('getInput1InfoText'), 'getInputInfo1Text',  ],
+           //static events
             ['h', Lang.get('onConnected'), 'onConnected'],
             ['h', Lang.get('onDisconnected'), 'onDisconnected'],
             ['h', Lang.get('onRisingEdge'), 'onRisingEdge', 'I1'],
