@@ -961,8 +961,8 @@ function ScratchConnection(url, ext) {
     /** get the current power for the given motor connected  */
     ext.getInput1InfoText = function () {
         //todo, index to text for mode
-        var idx = 0;
-        return 'Input 1'  + ' mode = ' + ext.output.currentValues.inputs[idx].mode
+        var idx = 1;
+        return 'Input 2'  + ' mode = ' + ext.output.currentValues.inputs[idx].mode
             +     ', limit = ' + ext.output.currentValues.inputs[idx].limit
             + ', value =' + ext.input.curValues.inputs[idx];
     };
@@ -1212,8 +1212,6 @@ function ScratchConnection(url, ext) {
 
             // connection
 
-            [' ', Lang.get('doConnect'), 'doConnect'],
-            [' ', Lang.get('doDisconnect'), 'doDisconnect', ],
             // output
             [' ', Lang.get('doSetMotorPower'), 'doSetMotorPower', 'M1', 8],
             [' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
@@ -1226,6 +1224,8 @@ function ScratchConnection(url, ext) {
             ['r', Lang.get('getMotorInfoText'), 'getMotorInfoText', 'M1',],
              ['r', Lang.get('getInputInfoText'), 'getInputInfoText','I1', ],
             ['r', Lang.get('getInput1InfoText'), 'getInput1InfoText', ],
+            [' ', Lang.get('doConnect'), 'doConnect'],
+            [' ', Lang.get('doDisconnect'), 'doDisconnect', ],
 
            //input
             [' ', Lang.get('doConfigureInputA'), 'doConfigureInput', 'I1', Lang.getMode('a10v')],
