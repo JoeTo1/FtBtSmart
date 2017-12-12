@@ -1234,9 +1234,9 @@ function ScratchConnection(url, ext) {
             ['r', Lang.get('getSensorX'), 'getSensorX', 'I1'],
          //    ['r', Lang.get('getInputInfoText'), 'getInputInfoText',,'I1' ],
              ['r', Lang.get('getInputInfoText'), 'getInputInfoText','I1', ],
-           ['r', Lang.get('getInput1InfoText'), 'getInput1InfoText', ],
+            ['r', Lang.get('getInput1InfoText'), 'getInput1InfoText', ],
              [' ', Lang.get('reset'), 'reset'],
-      //    ['r', Lang.get('getBatteryPower'), 'getBatteryPower', 'I1'],
+       //    ['r', Lang.get('getBatteryPower'), 'getBatteryPower', 'I1'],
        //    ['r', Lang.get('IsBatteryPowerBelow'), 'IsBatteryPowerBelow', 8500],
        //    [' ', 'test01', 'test01'],
            //static events
