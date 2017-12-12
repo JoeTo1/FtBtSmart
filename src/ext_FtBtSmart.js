@@ -109,6 +109,7 @@ var Lang = {
             getSensorB: 'Read value of %m.inputs (only binary mode true/false))',
             getSensorX: 'Read value of %m.inputs 0..65535 or 0..1)',
             getInputInfoText:'Read of %m.inputs info as text',
+            getInput1InfoText: 'Read of I1 info as text',
 
 
             getMotorDir: 'Read direction of %m.motors',
@@ -950,14 +951,21 @@ function ScratchConnection(url, ext) {
         if (!dig.includes(mode)) { alert('onRisingEdge: Works only in binary sensor modes'); return false; }
         return ext.input.curValues.inputs[idx] === 0 ? false : true;
     };
-    /** get the current power for the given motor connected  */
+    /**   */
     ext.getInputInfoText = function (inputName) {
         //todo, index to text for mode
         var idx = ext._inputNameToIdx(inputName);
         return 'Input ' + inputName + ' mode = ' + ext.output.currentValues.inputs[idx].mode + ', limit = ' + ext.output.currentValues.inputs[idx].limit
         + ', value =' + ext.input.curValues.inputs[idx];
     };
-
+    /** get the current power for the given motor connected  */
+    ext.getInput1InfoText = function () {
+        //todo, index to text for mode
+        var idx = 0;
+        return 'Input ' + inputName + ' mode = ' + ext.output.currentValues.inputs[idx].mode
+            +     ', limit = ' + ext.output.currentValues.inputs[idx].limit
+            + ', value =' + ext.input.curValues.inputs[idx];
+    };
     /** get the current power for the given motor connected  */
     ext.getMotorPower = function (motorName) {
         ext.updateIfNeeded();
@@ -1224,7 +1232,8 @@ function ScratchConnection(url, ext) {
             ['r', Lang.get('getSensorA'), 'getSensorA', 'I1'],
             ['b', Lang.get('getSensorB'), 'getSensorB', 'I1'],
             ['r', Lang.get('getSensorX'), 'getSensorX', 'I1'],
-            ['r', Lang.get('getInputInfoText'), 'getInputInfoText', 'I1',],
+             ['r', Lang.get('getInputInfoText'), 'getInputInfoText', , 'I1', ],
+           ['r', Lang.get('getInput1InfoText'), 'getInputInfo1Text',  ],
        //    ['r', Lang.get('getBatteryPower'), 'getBatteryPower', 'I1'],
        //    ['r', Lang.get('IsBatteryPowerBelow'), 'IsBatteryPowerBelow', 8500],
        //    [' ', 'test01', 'test01'],
@@ -1241,9 +1250,9 @@ function ScratchConnection(url, ext) {
 
 
           //dynamic eevents
-             ['h', Lang.get('onInputAnalogueValueChange'), 'onInputAnalogueValueChange', 'I1'],
-             ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1'],
+              ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1'],
              ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1'],
+            ['h', Lang.get('onInputAnalogueValueChange'), 'onInputAnalogueValueChange', 'I1'],
              ['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1'],
              ['h', Lang.get('onInputCfgChange'), 'onInputCfgChange', 'I1']
        ],
