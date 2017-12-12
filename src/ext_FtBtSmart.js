@@ -1224,6 +1224,8 @@ function ScratchConnection(url, ext) {
             ['r', Lang.get('getMotorPower'), 'getMotorPower', 'M1'],
             ['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
             ['r', Lang.get('getMotorInfoText'), 'getMotorInfoText', 'M1',],
+             ['r', Lang.get('getInputInfoText'), 'getInputInfoText','I1', ],
+            ['r', Lang.get('getInput1InfoText'), 'getInput1InfoText', ],
 
            //input
             [' ', Lang.get('doConfigureInputA'), 'doConfigureInput', 'I1', Lang.getMode('a10v')],
@@ -1233,8 +1235,6 @@ function ScratchConnection(url, ext) {
             ['b', Lang.get('getSensorB'), 'getSensorB', 'I1'],
             ['r', Lang.get('getSensorX'), 'getSensorX', 'I1'],
          //    ['r', Lang.get('getInputInfoText'), 'getInputInfoText',,'I1' ],
-             ['r', Lang.get('getInputInfoText'), 'getInputInfoText','I1', ],
-            ['r', Lang.get('getInput1InfoText'), 'getInput1InfoText', ],
              [' ', Lang.get('reset'), 'reset'],
        //    ['r', Lang.get('getBatteryPower'), 'getBatteryPower', 'I1'],
        //    ['r', Lang.get('IsBatteryPowerBelow'), 'IsBatteryPowerBelow', 8500],
