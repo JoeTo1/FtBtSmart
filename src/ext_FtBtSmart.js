@@ -962,7 +962,7 @@ function ScratchConnection(url, ext) {
     ext.getInput1InfoText = function () {
         //todo, index to text for mode
         var idx = 0;
-        return 'Input ' + inputName + ' mode = ' + ext.output.currentValues.inputs[idx].mode
+        return 'Input 1'  + ' mode = ' + ext.output.currentValues.inputs[idx].mode
             +     ', limit = ' + ext.output.currentValues.inputs[idx].limit
             + ', value =' + ext.input.curValues.inputs[idx];
     };
