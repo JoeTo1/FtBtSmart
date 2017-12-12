@@ -1213,7 +1213,7 @@ function ScratchConnection(url, ext) {
             // connection
 
             [' ', Lang.get('doConnect'), 'doConnect'],
-            [' ', Lang.get('doDisconnect'), 'doDisconnect'],
+            [' ', Lang.get('doDisconnect'), 'doDisconnect', ],
             // output
             [' ', Lang.get('doSetMotorPower'), 'doSetMotorPower', 'M1', 8],
             [' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
@@ -1233,10 +1233,10 @@ function ScratchConnection(url, ext) {
             ['b', Lang.get('getSensorB'), 'getSensorB', 'I1'],
             ['r', Lang.get('getSensorX'), 'getSensorX', 'I1'],
          //    ['r', Lang.get('getInputInfoText'), 'getInputInfoText',,'I1' ],
-            [' ', Lang.get('reset'), 'reset'],
-             ['r', Lang.get('getInputInfoText'), 'getInputInfoText', 'I1',],
+             ['r', Lang.get('getInputInfoText'), 'getInputInfoText','I1', ],
            ['r', Lang.get('getInput1InfoText'), 'getInput1InfoText', ],
-       //    ['r', Lang.get('getBatteryPower'), 'getBatteryPower', 'I1'],
+             [' ', Lang.get('reset'), 'reset'],
+      //    ['r', Lang.get('getBatteryPower'), 'getBatteryPower', 'I1'],
        //    ['r', Lang.get('IsBatteryPowerBelow'), 'IsBatteryPowerBelow', 8500],
        //    [' ', 'test01', 'test01'],
            //static events
