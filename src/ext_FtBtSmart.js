@@ -1213,11 +1213,11 @@ function ScratchConnection(url, ext) {
             // connection
 
             // output
-             [' ', Lang.get('doConnect'), 'doConnect'],
-            [' ', Lang.get('doDisconnect'), 'doDisconnect' ],
            [' ', Lang.get('doSetMotorPower'), 'doSetMotorPower', 'M1', 8],
             [' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
-            [' ', Lang.get('doSetMotorPowerDir'), 'doSetMotorPowerDir', 'M1', 8, Lang.getMotorDir('forward')],
+               [' ', Lang.get('doConnect'), 'doConnect'],
+            [' ', Lang.get('doDisconnect'), 'doDisconnect' ],
+          [' ', Lang.get('doSetMotorPowerDir'), 'doSetMotorPowerDir', 'M1', 8, Lang.getMotorDir('forward')],
             [' ', Lang.get('doStopMotor'), 'doStopMotor', 'M1'],
             [' ', Lang.get('doStopMotorAll'), 'doStopMotorAll'],
             ['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
