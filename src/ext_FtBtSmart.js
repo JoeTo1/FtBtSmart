@@ -1223,9 +1223,9 @@ function ScratchConnection(url, ext) {
             ['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
             ['r', Lang.get('getMotorPower'), 'getMotorPower', 'M1'],
             ['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
-            ['r', Lang.get('getMotorInfoText'), 'getMotorInfoText', 'M1',],
-            ['r', Lang.get('getInputInfoText'), 'getInputInfoText','I1',[] , ],
-            ['r', Lang.get('getInput1InfoText'), 'getInput1InfoText', , ],
+            ['r', Lang.get('getMotorInfoText'), 'getMotorInfoText', ],
+            ['r', Lang.get('getInputInfoText'), 'getInputInfoText', ],
+            ['r', Lang.get('getInput1InfoText'), 'getInput1InfoText',  ],
 
            //input
             [' ', Lang.get('doConfigureInputA'), 'doConfigureInput', 'I1', Lang.getMode('a10v')],
