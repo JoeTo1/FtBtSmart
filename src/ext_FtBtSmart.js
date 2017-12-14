@@ -1213,19 +1213,19 @@ function ScratchConnection(url, ext) {
             // connection
                [' ', Lang.get('doConnect'), 'doConnect'],
             [' ', Lang.get('doDisconnect'), 'doDisconnect' ],
+             [' ', Lang.get('reset'), 'reset'],
 
             // output
            [' ', Lang.get('doSetMotorPower'), 'doSetMotorPower', 'M1', 8],
-            [' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
-          [' ', Lang.get('doSetMotorPowerDir'), 'doSetMotorPowerDir', 'M1', 8, Lang.getMotorDir('forward')],
-            [' ', Lang.get('doStopMotor'), 'doStopMotor', 'M1'],
-            [' ', Lang.get('doStopMotorAll'), 'doStopMotorAll'],
+           [' ', Lang.get('doSetMotorDir'), 'doSetMotorDir', 'M1', Lang.getMotorDir('forward')],
+           [' ', Lang.get('doSetMotorPowerDir'), 'doSetMotorPowerDir', 'M1', 8, Lang.getMotorDir('forward')],
             ['r', Lang.get('getMotorDir'), 'getMotorDir', 'M1'],
             ['r', Lang.get('getMotorPower'), 'getMotorPower', 'M1'],
             ['r', Lang.get('getMotorSpeed'), 'getMotorSpeed', 'M1'],
-            ['r', Lang.get('getMotorInfoText'), 'getMotorInfoText', ],
-            ['r', Lang.get('getInputInfoText'), 'getInputInfoText', ],
-            ['r', Lang.get('getInput1InfoText'), 'getInput1InfoText',  ],
+            ['r', Lang.get('getMotorInfoText'), 'getMotorInfoText', 'M1'],
+             [' ', Lang.get('doStopMotor'), 'doStopMotor', 'M1'],
+            [' ', Lang.get('doStopMotorAll'), 'doStopMotorAll'],
+    //       ['r', Lang.get('getInput1InfoText'), 'getInput1InfoText',  ],//does not work well in a JS extension
 
            //input
             [' ', Lang.get('doConfigureInputA'), 'doConfigureInput', 'I1', Lang.getMode('a10v')],
@@ -1234,8 +1234,7 @@ function ScratchConnection(url, ext) {
             ['r', Lang.get('getSensorA'), 'getSensorA', 'I1'],
             ['b', Lang.get('getSensorB'), 'getSensorB', 'I1'],
             ['r', Lang.get('getSensorX'), 'getSensorX', 'I1'],
-         //    ['r', Lang.get('getInputInfoText'), 'getInputInfoText',,'I1' ],
-             [' ', Lang.get('reset'), 'reset'],
+             ['r', Lang.get('getInputInfoText'), 'getInputInfoText', 'I1'],
        //    ['r', Lang.get('getBatteryPower'), 'getBatteryPower', 'I1'],
        //    ['r', Lang.get('IsBatteryPowerBelow'), 'IsBatteryPowerBelow', 8500],
        //    [' ', 'test01', 'test01'],
@@ -1248,15 +1247,13 @@ function ScratchConnection(url, ext) {
             ['h', Lang.get('onMotorDirectionForward'), 'onMotorDirectionForward', 'M1'],
             ['h', Lang.get('onMotorDirectionStop'), 'onMotorDirectionStop', 'M1'],
 
-
-
-          //dynamic eevents
-              ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1'],
-             ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1'],
+          //dynamic events
             ['h', Lang.get('onInputAnalogueValueChange'), 'onInputAnalogueValueChange', 'I1'],
              ['h', Lang.get('onInputLimitChange'), 'onInputLimitChange', 'I1'],
-             ['h', Lang.get('onInputCfgChange'), 'onInputCfgChange', 'I1']
-       ],
+             ['h', Lang.get('onInputCfgChange'), 'onInputCfgChange', 'I1'],
+             ['h', Lang.get('onMotorDirectionChange'), 'onMotorDirectionChange', 'M1'],
+             ['h', Lang.get('onOuputPowerChange'), 'onOuputPowerChange', 'M1']
+        ],
 
         menus: {
             compares: ['>', '<', '<='],
