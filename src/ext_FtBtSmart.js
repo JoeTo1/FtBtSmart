@@ -577,7 +577,8 @@ function ScratchConnection(url, ext) {
     ext.output = {
         dirty: {
             limit: [false, false, false, false],
-            dir: [false, false, false, false],
+            mode: [false, false, false, false],
+            dir: [false, false],
             power: [false, false],
         },
         oldValues: {
@@ -607,6 +608,7 @@ function ScratchConnection(url, ext) {
                 for (i = 0; i < 4; ++i) { this.inputs[i].init(); }
             }
         },
+        //Todo: deze functie is niet goed werkkend meer, verbeterpunt
         transmitted: function () {
             var i;
             for (i = 0; i < 2; ++i) {
@@ -626,9 +628,13 @@ function ScratchConnection(url, ext) {
         setLimit: function (idx, newLimit) {
             this.oldValues.inputs[idx].limit = this.currentValues.inputs[idx].limit;
             this.currentValues.inputs[idx].setLimit(newLimit);
-            if(this.oldValues.inputs[idx].limit !== this.currentValues.inputs[idx].limit) this.dirty.limit[idx] = true;
+            if (this.oldValues.inputs[idx].limit !== this.currentValues.inputs[idx].limit) this.dirty.limit[idx] = true;
         },
-
+        setMode: function (idx, newMode) {
+            this.oldValues.inputs[idx].mode = this.currentValues.inputs[idx].mode;
+            this.currentValues.inputs[idx].setMode(newMode);
+            if (this.oldValues.inputs[idx].mode !== this.currentValues.inputs[idx].mode) this.dirty.mode[idx] = true;
+        },
         setPower: function (idx, newPower) {
             this.oldValues.motors[idx].speed = this.currentValues.motors[idx].speed;
             this.currentValues.motors[idx].setPower(newPower);
@@ -640,42 +646,80 @@ function ScratchConnection(url, ext) {
             if (this.oldValues.motors[idx].dir !== this.currentValues.motors[idx].dir) this.dirty.dir[idx] = true;
 
         },
+        //*check one time if the limit of an input has been changed    */
+        isNewLimit: function (idx) {
+            if (this.dirty.limit[idx])
+            {
+                this.dirty.limit[idx] = false;
+                return this.currentValues.inputs[idx].limit !== this.oldValues.inputs[idx].limit;
+            }
+            else { return false; }
+        },
+        //*check one time if the mode of an input has been changed    */
+        isNewMode: function (idx) {
+            if (this.dirty.mode[idx])
+            {
+                this.dirty.mode[idx] = false;
+                return  this.currentValues.inputs[idx].mode !== this.oldValues.inputs[idx].mode;
+            }
+            else { return false; }
+        },
+        //*check if the dir of a motor is Forward    */
         isDirForward: function (idx) {
             return this.currentValues.motors[idx].dir === 1 || this.currentValues.motors[idx].dir === 2;
         },
+        //*check if the dir of a motor is Backward    */
         isDirBackward: function (idx) {
             return this.currentValues.motors[idx].dir === -1 || this.currentValues.motors[idx].dir === -2;
         },
+        //*check if the dir is stopped of a motor is Non    */
         isDirStop: function (idx) {
             return this.currentValues.motors[idx].dir === 0;
         },
+        //*check one time if the dir of a motor has been changed    */
         isNewDir: function (idx) {
-            if (this.dirty.dir[idx]) { this.dirty.dir[idx] = false; return true; } else { return false; }
+            if (this.dirty.dir[idx])
+            {
+                this.dirty.dir[idx] = false;
+                return this.currentValues.motors[idx].dir !== this.oldValues.motors[idx].dir;
+            }
+            else { return false; }
         },
-        isNewLimit: function (idx) {
-            if (this.dirty.limit[idx]) { this.dirty.limit[idx] = false; return true; } else { return false; }
-        },
+        //*check one time if the power of a motor has been changed    */
         isNewPower: function (idx) {
-            if (this.dirty.power[idx]) { this.dirty.power[idx] = false; return true; } else { return false; }
+            if (this.dirty.power[idx]) {
+                this.dirty.power[idx] = false;
+                return this.currentValues.motors[idx].speed !== this.oldValues.motors[idx].speed;
+            }
+            else { return false; }
         },
     };
+    //==========================================================================
     // received state
     ext.input = {
         curValues: {},
         oldValues: {},
+        dirty: { value: [false, false, false, false] },
         initInputs: function () {
             this.curValues.inputs = [0, 0, 0, 0];
             this.oldValues.inputs = [0, 0, 0, 0];
         },
+        initInput: function (index) {
+            this.curValues.inputs[index] = 0; this.oldValues.inputs[index] = 0;
+        },
         setValue: function (index, value) {
             this.oldValues.inputs[index] = this.curValues.inputs[index];
             this.curValues.inputs[index] = value;
+            this.dirty.value[index] = true;
         },
         isRising: function (index) { return ext.input.oldValues.inputs[index] === 0 && ext.input.curValues.inputs[index] === 1; },
         isFalling: function (index) { return ext.input.oldValues.inputs[index] === 1 && ext.input.curValues.inputs[index] === 0; },
-        initInput: function (index) {
-            this.curValues.inputs[index] = 0; this.oldValues.inputs[index] = 0;
-        }
+        isValueChanged: function (index) {
+            if (this.dirty.value[index]) {
+                this.dirty.value[index] = false; return ext.input.oldValues.inputs[index] !== ext.input.curValues.inputs[index];
+            } else { return false; }
+    },
+
     };
 
     // convert Output name to array index: '04' -> 3
@@ -795,7 +839,7 @@ function ScratchConnection(url, ext) {
     ext._setSensorMode = function (inputName, mode, limit) {
         limit = (typeof limit !== 'undefined') ? limit : 1500;
         var idx = ext._inputNameToIdx(inputName);
-        ext.output.currentValues.inputs[idx].setMode(mode); ext.output.setLimit(idx,limit);
+        ext.output.currentValues.inputs[idx].setMode(mode); ext.output.setLimit(idx, limit);
         //console.log("set input " + inputName + " to " + mode);
     };
 
@@ -962,8 +1006,8 @@ function ScratchConnection(url, ext) {
     ext.getInput1InfoText = function () {
         //todo, index to text for mode
         var idx = 1;
-        return 'Input 2'  + ' mode = ' + ext.output.currentValues.inputs[idx].mode
-            +     ', limit = ' + ext.output.currentValues.inputs[idx].limit
+        return 'Input 2' + ' mode = ' + ext.output.currentValues.inputs[idx].mode
+            + ', limit = ' + ext.output.currentValues.inputs[idx].limit
             + ', value =' + ext.input.curValues.inputs[idx];
     };
     /** get the current power for the given motor connected  */
@@ -1029,7 +1073,7 @@ function ScratchConnection(url, ext) {
         //}
         return false;
     };
-//HAT-blocks notification
+    //HAT-blocks notification
     /** On Rising Edge of an Input in the binary mode */
     ext.onRisingEdge = function (inputName) {
         var idx = ext._inputNameToIdx(inputName);
@@ -1056,23 +1100,36 @@ function ScratchConnection(url, ext) {
         //    }
         return test;
     };
-    /** On Faling Edge of an Input in the binary mode */
-    ext.onInputLimitChange = function (inputName) {
+    /** On Value of an Input changed (only analoque mode) */
+    ext.onInputAnalogueValueChange = function (inputName) {
         var idx = ext._inputNameToIdx(inputName);
         var modeIdx = ext.output.currentValues.inputs[idx].mode;
         var mode = descriptor.menus.inputModes[modeIdx];
-        var test = false;
+        var dig = descriptor.menus.inputModesA;
+        if (!dig.includes(mode)) { console.log('onInputAnalogueValueChange: Works only in analogue sensor modes'); return false; }
+        var test = ext.input.isValueChanged(idx)
         //   if(test) {
         //       console.log("Falling index= " + idx) ;
         //    }
         return test;
     };
-    /** On Faling Edge of an Input in the binary mode */
+    /** On Limit of an Input changed */
+    ext.onInputLimitChange = function (inputName) {
+        var idx = ext._inputNameToIdx(inputName);
+        var modeIdx = ext.output.currentValues.inputs[idx].mode;
+        var mode = descriptor.menus.inputModes[modeIdx];
+        var test = false;//ext.output.isInputLimitChanged(idx)
+        //   if(test) {
+        //       console.log("Falling index= " + idx) ;
+        //    }
+        return test;
+    };
+    /** On Cfg of an Input changed */
     ext.onInputCfgChange = function (inputName) {
         var idx = ext._inputNameToIdx(inputName);
-       // var modeIdx = ext.output.currentValues.inputs[idx].mode;
-       // var mode = descriptor.menus.inputModes[modeIdx];
-        var test = false;
+        // var modeIdx = ext.output.currentValues.inputs[idx].mode;
+        // var mode = descriptor.menus.inputModes[modeIdx];
+        var test = false; //ext.output.isInputCfgChanged(idx)
         //   if(test) {
         //       console.log("Falling index= " + idx) ;
         //    }
@@ -1115,7 +1172,7 @@ function ScratchConnection(url, ext) {
     /** On output power change */
     ext.onOuputPowerChange = function (motorName) {
         var idx = ext._motorNameToIdx(motorName);
-       // var limit = ext.output.currentValues.inputs[idx].limit;
+        // var limit = ext.output.currentValues.inputs[idx].limit;
         var test = ext.output.isNewPower(idx);
         //idee test op verandering en reset dirty
         //   if(test) {
@@ -1212,7 +1269,7 @@ function ScratchConnection(url, ext) {
 
             // connection
                [' ', Lang.get('doConnect'), 'doConnect'],
-            [' ', Lang.get('doDisconnect'), 'doDisconnect' ],
+            [' ', Lang.get('doDisconnect'), 'doDisconnect'],
              [' ', Lang.get('reset'), 'reset'],
 
             // output
@@ -1257,7 +1314,7 @@ function ScratchConnection(url, ext) {
 
         menus: {
             compares: ['>', '<', '<='],
-            inputSensors: [Lang.getSensor('color'),  Lang.getSensor('ntc'), Lang.getSensor('photo')],
+            inputSensors: [Lang.getSensor('color'), Lang.getSensor('ntc'), Lang.getSensor('photo')],
             openCloseSensors: [Lang.getSensor('button'), Lang.getSensor('reed'), Lang.getSensor('lightBarrier')],
             openClose: [Lang.getOpenClose('opens'), Lang.getOpenClose('closes')],
             inputs: ['I1', 'I2', 'I3', 'I4'],
