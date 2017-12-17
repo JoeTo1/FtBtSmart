@@ -1,11 +1,11 @@
 
-function getButtonState(state) {
-    return Lang.get(state);
-}
+//function getButtonState(state) {
+//    return Lang.get(state);
+//}
 
-function getLightBarrierState(state) {
-    return Lang.get(state);
-}
+//function getLightBarrierState(state) {
+//    return Lang.get(state);
+//}
 
 
 var Lang = {
@@ -333,7 +333,7 @@ function ScratchConnection(url, ext) {
     handleOnError = function (error) {
         console.log('Error detected: ');
         //ws.error;
-    }
+    };
     // websocket connected. this == the websocket
     var handleOnOpen = function (event) {
         console.log('onopen message received: ');
@@ -443,7 +443,7 @@ function ScratchConnection(url, ext) {
             final += ids[getRandomIntInclusive(0, ids.length - 1)];
         }
         return final;
-    }
+    };
 }
 
 
@@ -579,11 +579,11 @@ function ScratchConnection(url, ext) {
             limit: [false, false, false, false],
             mode: [false, false, false, false],
             dir: [false, false],
-            power: [false, false],
+            power: [false, false]
         },
         oldValues: {
             motors: [new Motor(), new Motor()],
-            inputs: [new Input(), new Input(), new Input(), new Input()],
+            inputs: [new Input(), new Input(), new Input(), new Input()]
         },
         currentValues: {
             // outgoing state
@@ -615,14 +615,14 @@ function ScratchConnection(url, ext) {
                 if (this.currentValues.motors[i].mod) {
                     // this.oldValues.motors[i].speed = this.currentValues.motors[i].speed;
                     // this.oldValues.motors[i].dir = this.currentValues.motors[i].dir;
-                };
-            };
+                }
+            }
             for (i = 0; i < 4; ++i) {
                 if (this.currentValues.inputs[i].mod) {
                     // this.oldValues.inputs[i].limit = this.currentValues.inputs[i].limit;
                     // this.oldValues.inputs[i].mode = this.currentValues.inputs[i].mode;
-                };
-            };
+                }
+            }
             this.currentValues.transmitted();
         },
         setLimit: function (idx, newLimit) {
@@ -692,7 +692,7 @@ function ScratchConnection(url, ext) {
                 return this.currentValues.motors[idx].speed !== this.oldValues.motors[idx].speed;
             }
             else { return false; }
-        },
+        }
     };
     //==========================================================================
     // received state
@@ -718,7 +718,7 @@ function ScratchConnection(url, ext) {
             if (this.dirty.value[index]) {
                 this.dirty.value[index] = false; return ext.input.oldValues.inputs[index] !== ext.input.curValues.inputs[index];
             } else { return false; }
-    },
+    }
 
     };
 
@@ -837,7 +837,7 @@ function ScratchConnection(url, ext) {
     // 5=DIGITAL_10V_Greater ,6=DIGITAL_10V_SmallerOrEqual,<br/>
     // 7=DIGITAL_5KOHM_Greater, 8=DIGITAL_5KOHM_SmallerOrEqual</param>
     ext._setSensorMode = function (inputName, mode, limit) {
-        limit = (typeof limit !== 'undefined') ? limit : 1500;
+        limit = typeof limit !== 'undefined' ? limit : 1500;
         var idx = ext._inputNameToIdx(inputName);
         ext.output.currentValues.inputs[idx].setMode(mode); ext.output.setLimit(idx, limit);
         //console.log("set input " + inputName + " to " + mode);
@@ -1051,28 +1051,7 @@ function ScratchConnection(url, ext) {
     };
 
 
-    /** sensor X on input 'Ix' >,<,= value */
-    ext.onInput = function (sensorType, inputName, operator, value) {
-        throw "Not applicable exception: doSetMotorPowerDirDistSync";
-        //// ensure correct working mode
-        //ext._adjustInputModeAnalog(inputName, sensorType);
-        //ext.updateIfNeeded();
 
-        //// get index
-        //var idx = ext._inputNameToIdx(inputName);
-
-        //// compare
-        //if (operator === '>') {
-        //    return !(ext.input.oldValues.inputs[idx] > value) && (ext.input.curValues.inputs[idx] > value);
-        //} else if (operator === '<') {
-        //    return !(ext.input.oldValues.inputs[idx] < value) && (ext.input.curValues.inputs[idx] < value);
-        //} else if (operator === '=') {
-        //    return !(ext.input.oldValues.inputs[idx] === value) && (ext.input.curValues.inputs[idx] === value);
-        //} else if (operator === '<=') {
-        //    return !(ext.input.oldValues.inputs[idx] <= value) && (ext.input.curValues.inputs[idx] <= value);
-        //}
-        return false;
-    };
     //HAT-blocks notification
     /** On Rising Edge of an Input in the binary mode */
     ext.onRisingEdge = function (inputName) {
@@ -1107,7 +1086,7 @@ function ScratchConnection(url, ext) {
         var mode = descriptor.menus.inputModes[modeIdx];
         var dig = descriptor.menus.inputModesA;
         if (!dig.includes(mode)) { console.log('onInputAnalogueValueChange: Works only in analogue sensor modes'); return false; }
-        var test = ext.input.isValueChanged(idx)
+        var test = ext.input.isValueChanged(idx);
         //   if(test) {
         //       console.log("Falling index= " + idx) ;
         //    }
@@ -1207,28 +1186,7 @@ function ScratchConnection(url, ext) {
         return test;
     };
 
-    /** button/light-barrier/reed opens/closes */
-    ext.onOpenClose = function (sensorType, inputName, direction) {
-        throw "Not applicable exception: doSetMotorPowerDirDistSync";
 
-        // TODO: if schalter/reed/lichtschranke all need DIGITAL_5KOHM and have the same direction effect
-        // then there is no need to distinguish between those three sensor types!
-
-        // ensure inputName uses the correct configuration
-        //ext._setSensorMode(inputName, 1);		// DIGITAL_5KOHM
-        ext._adjustInputModeDigital(inputName, sensorType);
-        ext.updateIfNeeded();
-
-        // check both directions
-        var idx = ext._inputNameToIdx(inputName);
-        if (direction === Lang.getOpenClose('opens')) {
-            return ext.input.isFalling(idx);	// TODO light barrier?//ext.input.oldValues.inputs bestaan niet
-        } else if (direction === Lang.getOpenClose('closes')) {
-            return ext.input.isRising(idx);	// TODO light barrier?//ext.input.oldValues.inputs bestaan niet
-        } else {
-            alert('invalid open/close mode');
-        }
-    };
 
     /** counter 'Cx' >,<,= value */
     ext.onCounter = function (counterName, operator, value) {
